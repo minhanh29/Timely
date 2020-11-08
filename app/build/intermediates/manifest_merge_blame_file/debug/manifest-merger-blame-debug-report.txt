@@ -1,0 +1,51 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.timely"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="28"
+8-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml
+10
+11    <application
+11-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml:5:5-20:19
+12        android:allowBackup="true"
+12-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml:6:9-35
+13        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
+13-->[com.android.support:support-compat:28.0.0] /Users/minhanh/.gradle/caches/transforms-2/files-2.1/ccbd3881d3e597a650ace942161206f5/support-compat-28.0.0/AndroidManifest.xml:22:18-91
+14        android:debuggable="true"
+15        android:extractNativeLibs="false"
+16        android:icon="@mipmap/ic_launcher"
+16-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml:7:9-43
+17        android:label="@string/app_name"
+17-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml:8:9-41
+18        android:roundIcon="@mipmap/ic_launcher_round"
+18-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml:9:9-54
+19        android:supportsRtl="true"
+19-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml:10:9-35
+20        android:testOnly="true"
+21        android:theme="@style/AppTheme" >
+21-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml:11:9-40
+22        <activity android:name="com.example.timely.TimetableActivity" />
+22-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml:12:9-64
+22-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml:12:19-52
+23        <activity android:name="com.example.timely.MainActivity" >
+23-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml:13:9-19:20
+23-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml:13:19-47
+24            <intent-filter>
+24-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml:14:13-18:29
+25                <action android:name="android.intent.action.MAIN" />
+25-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml:15:17-69
+25-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml:15:25-66
+26
+27                <category android:name="android.intent.category.LAUNCHER" />
+27-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml:17:17-77
+27-->/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/AndroidManifest.xml:17:27-74
+28            </intent-filter>
+29        </activity>
+30    </application>
+31
+32</manifest>
