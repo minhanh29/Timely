@@ -1,106 +1,106 @@
 [
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher.png.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/drawable-v24_ic_launcher_foreground.xml.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/drawable-v24/ic_launcher_foreground.xml"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\drawable_course5_bg.xml.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\drawable\\course5_bg.xml"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher_round.png.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\drawable_course4_bg.xml.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\drawable\\course4_bg.xml"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher_round.png.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\drawable_course1_bg.xml.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\drawable\\course1_bg.xml"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher_round.png.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_notification_settings.xml.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\layout\\activity_notification_settings.xml"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher_round.png.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/mipmap-mdpi/ic_launcher_round.png"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\drawable_course2_bg.xml.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\drawable\\course2_bg.xml"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.png"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/layout_activity_main.xml.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/layout/activity_main.xml"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\drawable_course3_bg.xml.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\drawable\\course3_bg.xml"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/drawable_timeline.png.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/drawable/timeline.png"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\drawable_dark_button.xml.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\drawable\\dark_button.xml"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/drawable_back_button.png.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/drawable/back_button.png"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\drawable_medium_button.xml.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\drawable\\medium_button.xml"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/drawable_light_button.xml.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/drawable/light_button.xml"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/drawable_dark_button.xml.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/drawable/dark_button.xml"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\layout\\activity_main.xml"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/layout_activity_timetable.xml.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/layout/activity_timetable.xml"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_timetable.xml.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\layout\\activity_timetable.xml"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\drawable\\ic_launcher_background.xml"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/drawable_medium_button.xml.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/drawable/medium_button.xml"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\drawable_back_button.png.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\drawable\\back_button.png"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/drawable_course4_bg.xml.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/drawable/course4_bg.xml"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\drawable-v24\\ic_launcher_foreground.xml"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher_round.png.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/mipmap-hdpi/ic_launcher_round.png"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/drawable_course5_bg.xml.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/drawable/course5_bg.xml"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\drawable_light_button.xml.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\drawable\\light_button.xml"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/drawable_course3_bg.xml.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/drawable/course3_bg.xml"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/drawable_course1_bg.xml.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/drawable/course1_bg.xml"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.png"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/drawable_ic_launcher_background.xml.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/drawable/ic_launcher_background.xml"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
     {
-        "merged": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/res/merged/debug/drawable_course2_bg.xml.flat",
-        "source": "/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/src/main/res/drawable/course2_bg.xml"
+        "merged": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\VUQUANG\\Desktop\\Timely\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_round.png"
     }
 ]

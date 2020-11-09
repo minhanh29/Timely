@@ -28,4 +28,31 @@
     <string name="two_pm">2 PM</string>
     <string name="three_pm">3 PM</string>
     <string name="four_pm">4 PM</string>
+
+    <!-- timeBeforeClass-->
+    <string-array name="timeBeforeClass">
+        <item>1 hour</item>
+        <item>45 minutes</item>
+        <item>30 minutes</item>
+        <item>15 minutes</item>
+    </string-array>
+
+    <!-- timeBeforeTest-->
+    <string-array name="timeBeforeTest">
+        <item>constantly</item>
+        <item>1 week prior</item>
+        <item>3 days prior</item>
+        <item>1 day prior</item>
+    </string-array>
+
+    <!-- settings-->
+    <string name="testText">Test Alarm</string>
+    <string name="studyText">Study Alarm</string>
+    <string name="wake_sleepTex">Sleep/Wake Alarm</string>
+    <string name="text">before class</string>
+    <string name="wakeTText">Wake Time</string>
+    <string name="sleepTText">Sleep Time</string>
+    <string name="sleepSelectText">Select Sleep Time</string>
+    <string name="wakeSelectText">Select Wake Time</string>
+
 </resources>
