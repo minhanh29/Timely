@@ -20,6 +20,7 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.example.timely.ItemDetailsActivity" />
         <activity android:name="com.example.timely.TimetableActivity" />
         <activity android:name="com.example.timely.MainActivity" >
             <intent-filter>

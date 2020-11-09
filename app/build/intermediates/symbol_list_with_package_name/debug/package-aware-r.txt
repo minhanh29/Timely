@@ -788,7 +788,6 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
-drawable timeline
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT
@@ -1012,6 +1011,7 @@ id text
 id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
+id textView
 id three_pm
 id thursday
 id thursday_layout
@@ -1074,6 +1074,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_item_details
 layout activity_main
 layout activity_timetable
 layout notification_action
@@ -1140,6 +1141,7 @@ string seven_am
 string six_am
 string status_bar_notification_info_overflow
 string ten_am
+string textView
 string three_pm
 string thursday
 string time_header

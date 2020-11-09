@@ -28,4 +28,7 @@
     <string name="two_pm">2 PM</string>
     <string name="three_pm">3 PM</string>
     <string name="four_pm">4 PM</string>
+
+    <!-- itemdetails-->
+    <string name="textView">hello</string>
 </resources>
