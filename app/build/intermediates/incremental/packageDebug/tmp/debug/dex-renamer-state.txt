@@ -1,7 +1,7 @@
-#Sun Nov 08 15:08:07 PST 2020
-base.0=/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
+#Tue Nov 10 02:25:30 ICT 2020
+base.0=E\:\\TRU\\COMP\\Comp 2160 (Mobile App)\\Project - Timely\\Timely\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 path.1=classes.dex
 renamed.1=classes2.dex
 path.0=classes.dex
 renamed.0=classes.dex
-base.1=/Volumes/Data/Computing Science/Year 2/COMP 2160/Project/Timely/app/build/intermediates/dex/debug/mergeProjectDexDebug/classes.dex
+base.1=E\:\\TRU\\COMP\\Comp 2160 (Mobile App)\\Project - Timely\\Timely\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes.dex
