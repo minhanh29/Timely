@@ -11,6 +11,8 @@ anim abc_slide_out_bottom
 anim abc_slide_out_top
 anim abc_tooltip_enter
 anim abc_tooltip_exit
+array timeBeforeClass
+array timeBeforeTest
 attr actionBarDivider
 attr actionBarItemBackground
 attr actionBarPopupTheme
@@ -502,6 +504,7 @@ color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
 color background_material_light
+color blue
 color bright_foreground_disabled_material_dark
 color bright_foreground_disabled_material_light
 color bright_foreground_inverse_material_dark
@@ -553,6 +556,7 @@ color primary_text_default_material_dark
 color primary_text_default_material_light
 color primary_text_disabled_material_dark
 color primary_text_disabled_material_light
+color red
 color ripple_material_dark
 color ripple_material_light
 color secondary_text_default_material_dark
@@ -567,6 +571,7 @@ color switch_thumb_normal_material_dark
 color switch_thumb_normal_material_light
 color tooltip_background_dark
 color tooltip_background_light
+color yellow
 dimen abc_action_bar_content_inset_material
 dimen abc_action_bar_content_inset_with_nav
 dimen abc_action_bar_default_height_material
@@ -788,7 +793,6 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
-drawable timeline
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT
@@ -978,6 +982,7 @@ id search_plate
 id search_src_text
 id search_voice_btn
 id select_dialog_listview
+id settings
 id seven_am
 id shortcut
 id showCustom
@@ -985,6 +990,10 @@ id showHome
 id showTitle
 id sin
 id six_am
+id sleepAwakeAText
+id sleepTime
+id sleepTimeText
+id sleepWakeASwitch
 id spacer
 id spline
 id split_action_bar
@@ -1001,6 +1010,9 @@ id startVertical
 id staticLayout
 id staticPostLayout
 id stop
+id studyASwitch
+id studyAText
+id studySpinner
 id submenuarrow
 id submit_area
 id tabMode
@@ -1008,7 +1020,11 @@ id tag_transition_group
 id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
 id ten_am
+id testASwitch
+id testAText
+id testSpinner
 id text
+id text1
 id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
@@ -1036,6 +1052,8 @@ id uniform
 id up
 id useLogo
 id visible
+id wakeTime
+id wakeTimeText
 id wednesday
 id wednesday_layout
 id withText
@@ -1075,6 +1093,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_main
+layout activity_notification_settings
 layout activity_timetable
 layout notification_action
 layout notification_action_tombstone
@@ -1138,8 +1157,13 @@ string one_pm
 string search_menu_title
 string seven_am
 string six_am
+string sleepSelectText
+string sleepTText
 string status_bar_notification_info_overflow
+string studyText
 string ten_am
+string testText
+string text
 string three_pm
 string thursday
 string time_header
@@ -1149,6 +1173,9 @@ string timetable_details_button
 string tuesday
 string twelve_am
 string two_pm
+string wakeSelectText
+string wakeTText
+string wake_sleepTex
 string wednesday
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light

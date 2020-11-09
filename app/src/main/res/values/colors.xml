@@ -15,4 +15,9 @@
     <color name="course3">#ff9900</color>
     <color name="course4">#cc3333</color>
     <color name="course5">#4075e1</color>
+
+    <!-- setting colors-->
+    <color name="yellow">#F69608</color>
+    <color name="red">#cc3333</color>
+    <color name="blue">#4075e1</color>
 </resources>
