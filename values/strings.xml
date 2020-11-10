@@ -55,4 +55,12 @@
     <string name="sleepSelectText">Select Sleep Time</string>
     <string name="wakeSelectText">Select Wake Time</string>
 
+    <!-- itemDetails-->
+    <string name="itemHeader">Add Note</string>
+    <string name="item_save_button">Save</string>
+    <string name="getDate">Get Date</string>
+    <string name="enterDate">Enter Date</string>
+    <string name="noteTitle">Note Title</string>
+    <string name="type_note_here">Type Note Here...</string>
+
 </resources>

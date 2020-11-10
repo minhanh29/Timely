@@ -20,4 +20,8 @@
     <color name="yellow">#F69608</color>
     <color name="red">#cc3333</color>
     <color name="blue">#4075e1</color>
+
+    <!-- itemDetails colors-->
+    <color name="white">#FFFFFF</color>
+    <color name="orange">#ff9900</color>
 </resources>
