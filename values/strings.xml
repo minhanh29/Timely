@@ -28,7 +28,6 @@
     <string name="two_pm">2 PM</string>
     <string name="three_pm">3 PM</string>
     <string name="four_pm">4 PM</string>
-<<<<<<< HEAD
 
     <!-- timeBeforeClass-->
     <string-array name="timeBeforeClass">
@@ -56,10 +55,4 @@
     <string name="sleepSelectText">Select Sleep Time</string>
     <string name="wakeSelectText">Select Wake Time</string>
 
-||||||| 7c7a24f
-=======
-
-    <!-- itemdetails-->
-    <string name="textView">hello</string>
->>>>>>> 93f13d1bab5add0d9e5b137022f482b9701e04f9
 </resources>
