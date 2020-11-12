@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
 
+    <!--   TIMETABLE SCREEN -->
     <!--    button colors-->
     <color name="dark_button">#2167F3</color>
     <color name="medium_button">#2191F3</color>
@@ -15,6 +16,9 @@
     <color name="course3">#ff9900</color>
     <color name="course4">#cc3333</color>
     <color name="course5">#4075e1</color>
+
+    <!--    timeline-->
+    <color name="timeline_divider">#E3E3E3</color>
 
     <!-- setting colors-->
     <color name="yellow">#F69608</color>
