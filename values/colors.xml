@@ -6,9 +6,9 @@
 
     <!--   TIMETABLE SCREEN -->
     <!--    button colors-->
-    <color name="dark_button">#2167F3</color>
-    <color name="medium_button">#2191F3</color>
-    <color name="light_button">#21B1F3</color>
+    <color name="dark_button">#858585</color>
+    <color name="medium_button">#919191</color>
+    <color name="light_button">#a1a1a1</color>
 
     <!--    course colors-->
     <color name="course1">#72c419</color>

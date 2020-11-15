@@ -3,35 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/white"
     android:backgroundTint="@color/white"
     android:orientation="vertical"
     tools:context=".ItemDetailsActivity">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="horizontal">
+        android:layout_weight="3"
+        android:background="@color/white">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintGuide_percent="0.7"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/item_back_button"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:background="@drawable/back_button"
             android:textSize="14sp"
+            android:onClick="goBack"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
+            app:layout_constraintEnd_toStartOf="@+id/guideline11"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></Button>
 
         <TextView
             android:id="@+id/item_header"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="6"
             android:gravity="center_vertical"
             android:paddingStart="10dp"
@@ -39,29 +56,29 @@
             android:textColor="@color/course3"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline8"
+            app:layout_constraintEnd_toStartOf="@+id/guideline12"
+            app:layout_constraintStart_toEndOf="@+id/item_back_button"
             app:layout_constraintTop_toTopOf="parent"></TextView>
 
         <Button
             android:id="@+id/item_save_button"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="6"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:background="@color/white"
             android:text="@string/item_save_button"
             android:textColor="@color/orange"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline12"
             app:layout_constraintTop_toTopOf="parent"></Button>
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/datePicker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="3"
         android:orientation="horizontal">
 
         <EditText
@@ -69,29 +86,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="@string/enterDate" />
+            android:hint="@string/enterDate"
+            android:paddingHorizontal="10dp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="3"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/noteTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textStyle="bold"
+            android:hint="@string/noteTitle"
+            android:paddingHorizontal="10dp"
             android:textSize="18dp"
-            android:hint="@string/noteTitle"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="7"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <EditText
@@ -100,7 +119,9 @@
             android:layout_height="match_parent"
             android:layout_gravity="top"
             android:layout_weight="1"
-            android:hint="@string/type_note_here"></EditText>
+            android:gravity="clip_vertical"
+            android:hint="@string/type_note_here"
+            android:paddingHorizontal="10dp"></EditText>
     </LinearLayout>
 
 

@@ -16,8 +16,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/back_button"
-            android:layout_width="0dp"
+            android:id="@+id/timetable_back_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:background="@drawable/back_button"
@@ -80,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.33" />
+        app:layout_constraintGuide_begin="136dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
@@ -97,6 +97,7 @@
         android:text="@string/timetable_delete_button"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
+        android:onClick="deleteCourse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +107,8 @@
         android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/medium_button"
+        android:background="@drawable/dark_button"
+        android:onClick="addCourse"
         android:text="@string/timetable_add_button"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
@@ -119,7 +121,8 @@
         android:id="@+id/details_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/light_button"
+        android:background="@drawable/dark_button"
+        android:onClick="showCourseDetail"
         android:text="@string/timetable_details_button"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
