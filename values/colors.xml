@@ -17,6 +17,13 @@
     <color name="course4">#cc3333</color>
     <color name="course5">#4075e1</color>
 
+    <!-- course selected -->
+    <color name="course1_selected">#588f1e</color>
+    <color name="course2_selected">#d6a71a</color>
+    <color name="course3_selected">#c27708</color>
+    <color name="course4_selected">#961414</color>
+    <color name="course5_selected">#1e4fb0</color>
+
     <!--    timeline-->
     <color name="timeline_divider">#E3E3E3</color>
 
