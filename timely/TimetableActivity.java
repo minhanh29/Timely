@@ -1,137 +1,150 @@
 package com.example.timely;
 
-import android.app.ActionBar;
-import android.graphics.Color;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
-import android.support.v4.content.ContextCompat;
+import android.app.Activity;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.LinkedList;
-import java.util.Queue;
+import com.example.timely.courses.Course;
+import com.example.timely.courses.StudyTime;
 
-public class TimetableActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
-    private final int HOUR = 180;   // height of a course view for 1 hour in dp
-    private final int START_HOUR = 6;  // the default earliest hour in the timetable
-    private Queue<Integer> courseColors;   // colors background for courses
-    ConstraintLayout[] daysLayout;
+public class TimetableActivity extends AppCompatActivity implements CourseView.OnCourseSelected {
+
+    public static final String COURSE_ID = "CourseId";
+    public static final String STUDY_TIME_ID = "StudyTimeId";
+    public static final int MY_REQUEST_CODE = 1;
+
+    private String mCourseId = "";
+    private int mStudyTimeId = -1;
+
+    ScheduleFragment schedule;
+    DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timetable);
 
-        // initialize day layouts
-        daysLayout = new ConstraintLayout[5];
-        daysLayout[0] = findViewById(R.id.monday_layout);
-        daysLayout[1] = findViewById(R.id.tuesday_layout);
-        daysLayout[2] = findViewById(R.id.wednesday_layout);
-        daysLayout[3] = findViewById(R.id.thursday_layout);
-        daysLayout[4] = findViewById(R.id.friday_layout);
+        schedule = (ScheduleFragment) getSupportFragmentManager().findFragmentById(R.id.schedule_fragment);
+        db = new DatabaseHelper(TimetableActivity.this);
+    }
 
-        // initialize course colors
-        courseColors = new LinkedList<Integer>();
-        courseColors.offer(R.drawable.course1_bg);
-        courseColors.offer(R.drawable.course2_bg);
-        courseColors.offer(R.drawable.course3_bg);
-        courseColors.offer(R.drawable.course4_bg);
-        courseColors.offer(R.drawable.course5_bg);
-
+    public void addCourse(View view) {
         // sample courses
-        // MATH 2110
-        addCourseUtility("MATH 2110",
-                new int[] {0, 1, 2, 4},
-                new int[] {9, 14, 12, 13},
-                new int[] {15, 0, 0, 0},
-                new int[] {60, 60, 60, 45},
-                courseColors.poll());
-        addCourseUtility("COMP 2130",
-                new int[] {0, 2, 4},
-                new int[] {10, 9, 9},
-                new int[] {15, 15, 15},
-                new int[] {75, 75, 75},
-                courseColors.poll());
-        addCourseUtility("COMP 2160",
-                new int[] {0, 2, 3},
-                new int[] {11, 10, 12},
-                new int[] {30, 30, 45},
-                new int[] {75, 75, 60},
-                courseColors.poll());
-        addCourseUtility("COMP 2920",
-                new int[] {0, 1, 3, 4},
-                new int[] {13, 9, 13, 10},
-                new int[] {30, 15, 45, 30},
-                new int[] {75, 75, 60, 75},
-                courseColors.poll());
-        addCourseUtility("ENGL 1100",
-                new int[] {0, 1, 3},
-                new int[] {14, 10, 10},
-                new int[] {45, 30, 30},
-                new int[] {60, 60, 60},
-                courseColors.poll());
+        Course course1 = new Course("MATH 2110", null,0, "Sean");
+        ArrayList<StudyTime> time = new ArrayList<>();
+        time.add(new StudyTime(0, 9, 15, 60, course1.getId()));
+        time.add(new StudyTime(1, 14, 0, 60, course1.getId()));
+        time.add(new StudyTime(2, 12, 0, 60, course1.getId()));
+        time.add(new StudyTime(4, 13, 0, 45, course1.getId()));
+        course1.setTime(time);
+
+        Course course2 = new Course("COMP 2130", null, 2, "Babinchuk");
+        time = new ArrayList<>();
+        time.add(new StudyTime(0, 10, 15, 75, course2.getId()));
+        time.add(new StudyTime(2, 9, 15, 75, course2.getId()));
+        time.add(new StudyTime(4, 9, 15, 75, course2.getId()));
+        course2.setTime(time);
+
+        Course course3 = new Course("COMP 2160", null, 1, "Aras");
+        time = new ArrayList<>();
+        time.add(new StudyTime(0, 11, 30, 75, course3.getId()));
+        time.add(new StudyTime(2, 10, 30, 75, course3.getId()));
+        time.add(new StudyTime(3, 12, 45, 60, course3.getId()));
+        course3.setTime(time);
+
+        Course course4 = new Course("COMP 2920", null, 0, "Sharma");
+        time = new ArrayList<>();
+        time.add(new StudyTime(0, 13, 30, 75, course4.getId()));
+        time.add(new StudyTime(1, 9, 15, 75, course4.getId()));
+        time.add(new StudyTime(3, 13, 45, 60, course4.getId()));
+        time.add(new StudyTime(4, 10, 30, 75, course4.getId()));
+        course4.setTime(time);
+
+        Course course5 = new Course("ENGL 1100", null, 1, "Erik");
+        time = new ArrayList<>();
+        time.add(new StudyTime(0, 14, 45, 60, course5.getId()));
+        time.add(new StudyTime(1, 10, 30, 60, course5.getId()));
+        time.add(new StudyTime(3, 10, 30, 60, course5.getId()));
+        course5.setTime(time);
+
+        // create a database
+        db.clearData();
+        db.addCourse(course1);
+        db.addCourse(course2);
+        db.addCourse(course3);
+        db.addCourse(course4);
+        db.addCourse(course5);
+        Log.i("database", "Added courses");
+
+        // show the courses
+        ArrayList<Course> courses = db.getAllCourses();
+        Log.i("database", "Get Course");
+        Log.i("database", "size: " + courses.size());
+        for (int i = 0; i < courses.size(); i++)
+        {
+            Log.i("database", courses.get(i).getName());
+        }
+
+        schedule.updateCourses(db.getAllCourses());
+        Log.i("database", "Show course");
+    }
+
+    public void deleteCourse(View view)
+    {
+        db.deleteCourse(db.getAllCourses().get(1));
+        schedule.updateCourses(db.getAllCourses());
+    }
+
+    public void showCourseDetail(View view)
+    {
+        if (mCourseId == null)
+        {
+            Toast.makeText(this, "Please select a course", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        // move to item detail screen
+        Intent intent = new Intent(this, ItemDetailsActivity.class);
+        intent.putExtra(COURSE_ID, mCourseId);
+        intent.putExtra(STUDY_TIME_ID, mStudyTimeId);
+        startActivityForResult(intent, MY_REQUEST_CODE);
+    }
+
+    @Override
+    public void onCourseSelected(String courseId, int studyTimeId) {
+        // unselect other items
+        schedule.unselectAll();
+
+        if (courseId != null && studyTimeId != -1)
+        {
+            Course course = db.getCourse(courseId);
+            StudyTime time = db.getStudyTime(studyTimeId);
+            Log.i("database", course.toString());
+            Log.i("database", time.toString());
+        }
+
+        mCourseId = courseId;
+        mStudyTimeId = studyTimeId;
     }
 
 
-    // add 1 course with fixed time for each day
-    private void addCourseUtility(String name, int[] days, int hours, int minutes, int duration, int background)
-    {
-        for (int i = 0; i < days.length; i++)
-            addCourse(name, days[i], hours, minutes, duration, background);
-    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-
-    // add 1 course with different time for different days
-    private void addCourseUtility(String name, int[] days, int[] hours, int[] minutes, int[] duration, int background)
-    {
-        for (int i = 0; i < days.length; i++)
-            addCourse(name, days[i], hours[i], minutes[i], duration[i], background);
-    }
-
-
-    /*
-     * create and add the view for the new course to timetable
-     * @param name the course name
-     * @param day the week day of the course
-     * @param hour the start hour of the course
-     * @param minute the start minute of the course
-     * @param duration the course's duration in minutes
-     */
-    public void addCourse(String name, int day, int hour, int minute, int duration, int background)
-    {
-        // create the view
-        TextView textView = new TextView(this);
-        textView.setText(name);
-        textView.setId(View.generateViewId());
-        textView.setGravity(Gravity.CENTER_HORIZONTAL);
-        textView.setTextColor(Color.WHITE);
-        textView.setBackgroundResource(background);
-
-        // compute the height based on the course's duration
-        int height = (int) (duration / 60.0 * HOUR);
-        textView.setHeight(height);
-
-        // compute the start point for the view based on
-        // hour and minute
-        int startTime = (int) ((hour - START_HOUR + (double) minute/60.0) * HOUR);
-
-        // and view to corresponding layout
-        daysLayout[day].addView(textView, 0);
-
-        ConstraintSet constraintSet = new ConstraintSet();
-        constraintSet.clone(daysLayout[day]);
-        constraintSet.connect(textView.getId(), ConstraintSet.TOP, daysLayout[day].getId(), ConstraintSet.TOP, startTime);
-        constraintSet.connect(textView.getId(), ConstraintSet.LEFT, daysLayout[day].getId(), ConstraintSet.LEFT, 0);
-        constraintSet.connect(textView.getId(), ConstraintSet.RIGHT, daysLayout[day].getId(), ConstraintSet.RIGHT, 0);
-        constraintSet.applyTo(daysLayout[day]);
-
-        // set width to match_parent
-        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) textView.getLayoutParams();
-        layoutParams.width = ConstraintLayout.LayoutParams.MATCH_PARENT;
+        if (requestCode == MY_REQUEST_CODE)
+        {
+            if (resultCode == Activity.RESULT_OK)
+            {
+                schedule.updateCourses(db.getAllCourses());
+            }
+        }
     }
 }
