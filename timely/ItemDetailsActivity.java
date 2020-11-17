@@ -1,17 +1,14 @@
 package com.example.timely;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.timely.courses.Course;
 import com.example.timely.courses.StudyTime;
+import com.example.timely.timetable.TimetableActivity;
 
 public class ItemDetailsActivity extends AppCompatActivity {
 

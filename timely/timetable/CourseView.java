@@ -1,4 +1,4 @@
-package com.example.timely;
+package com.example.timely.timetable;
 
 import android.content.Context;
 import android.graphics.Color;

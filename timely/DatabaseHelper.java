@@ -69,8 +69,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // add study time for this course
         ArrayList<StudyTime> time = course.getTime();
-        for (int i = 0; i < time.size(); i++)
-            addStudyTime(time.get(i));
+        if (time != null)
+            for (int i = 0; i < time.size(); i++)
+                addStudyTime(time.get(i));
 
         // insert course to the database
         SQLiteDatabase db = this.getWritableDatabase();

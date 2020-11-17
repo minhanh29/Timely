@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
 
+    <!-- header colors -->
+    <color name="header">#ff9900</color>
+
     <!--   TIMETABLE SCREEN -->
     <!--    button colors-->
     <color name="dark_button">#858585</color>

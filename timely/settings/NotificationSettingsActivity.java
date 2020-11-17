@@ -1,4 +1,4 @@
-package com.example.timely;
+package com.example.timely.settings;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -13,8 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
+import com.example.timely.DatabaseHelper;
+import com.example.timely.R;
 import com.example.timely.courses.StudyTime;
 
 import java.util.ArrayList;
