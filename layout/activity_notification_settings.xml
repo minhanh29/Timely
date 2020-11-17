@@ -75,14 +75,6 @@
                 android:textColor="@color/yellow"
                 android:textSize="36sp"
                 android:textStyle="bold" />
-
-            <Switch
-                android:id="@+id/studyASwitch"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_weight="3"
-                android:textAlignment="center" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -138,14 +130,6 @@
                 android:textColor="@color/red"
                 android:textSize="36sp"
                 android:textStyle="bold" />
-
-            <Switch
-                android:id="@+id/testASwitch"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_weight="3"
-                android:textAlignment="center" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -191,13 +175,6 @@
                 android:textColor="@color/blue"
                 android:textSize="36sp"
                 android:textStyle="bold" />
-
-            <Switch
-                android:id="@+id/sleepWakeASwitch"
-                android:layout_width="75dp"
-                android:layout_height="40dp"
-                android:textAlignment="center" />
-
         </LinearLayout>
 
         <LinearLayout

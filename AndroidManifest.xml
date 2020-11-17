@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NotificationSettingsActivity"></activity>
-        <activity android:name=".ItemDetailsActivity"></activity>
+        <activity android:name=".NotificationSettingsActivity" />
+        <activity android:name=".ItemDetailsActivity" />
         <activity android:name=".TimetableActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -19,6 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".AlarmReceiver" />
+        <service android:name=".Ringtone"
+            android:enabled="true"/>
     </application>
 
 </manifest>
