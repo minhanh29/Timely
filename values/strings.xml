@@ -65,4 +65,9 @@
     <string name="noteTitle">Note Title</string>
     <string name="type_note_here">Type Note Here...</string>
 
+    <!--    ADD COURSE FRAGMENT-->
+    <string name="course_name_hint">Course Name</string>
+    <string name="section_hint">Section Number</string>
+    <string name="instructor_hint">Instructor</string>
+
 </resources>

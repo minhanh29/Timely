@@ -20,7 +20,7 @@ import com.example.timely.courses.Course;
 public class AddCourseFragment extends DialogFragment {
 
     EditText nameInput, sectionInput, instructorInput;
-    Button cancelButton, addButton;
+    Button addButton;
 
     OnAddCourseListener mListener;
 
@@ -37,20 +37,12 @@ public class AddCourseFragment extends DialogFragment {
         sectionInput = view.findViewById(R.id.section_input);
         instructorInput = view.findViewById(R.id.instructor_input);
 
-        cancelButton = view.findViewById(R.id.cancel_button);
         addButton = view.findViewById(R.id.add_button);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 handleAddCourse();
-            }
-        });
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleCancel();
             }
         });
 
@@ -86,12 +78,6 @@ public class AddCourseFragment extends DialogFragment {
         }
         else
             Toast.makeText(getContext(), "Please fill out all the fields", Toast.LENGTH_LONG).show();
-    }
-
-
-    public void handleCancel()
-    {
-        getDialog().dismiss();
     }
 
 
