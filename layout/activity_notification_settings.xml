@@ -73,7 +73,7 @@
                 android:text="@string/studyText"
                 android:textAlignment="viewStart"
                 android:textColor="@color/yellow"
-                android:textSize="36sp"
+                android:textSize="34sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -128,8 +128,14 @@
                 android:text="@string/testText"
                 android:textAlignment="viewStart"
                 android:textColor="@color/red"
-                android:textSize="36sp"
+                android:textSize="34sp"
                 android:textStyle="bold" />
+
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -161,11 +167,12 @@
         <LinearLayout
             android:id="@+id/settings"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
 
             <TextView
                 android:id="@+id/sleepAwakeAText"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingStart="20sp"
@@ -173,7 +180,7 @@
                 android:text="@string/wake_sleepTex"
                 android:textAlignment="viewStart"
                 android:textColor="@color/blue"
-                android:textSize="36sp"
+                android:textSize="34sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -182,7 +189,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/wakeTimeText"
+                android:id="@+id/sleepTimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="60sp"
@@ -192,7 +199,7 @@
                 android:textStyle="bold"></TextView>
 
             <TextView
-                android:id="@+id/wakeTime"
+                android:id="@+id/sleepTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -208,7 +215,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/sleepTimeText"
+                android:id="@+id/wakeimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="60sp"
@@ -219,7 +226,7 @@
                 android:textStyle="bold"></TextView>
 
             <TextView
-                android:id="@+id/sleepTime"
+                android:id="@+id/wakeTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
