@@ -1,4 +1,4 @@
-package com.example.timely;
+package com.example.timely.settings;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

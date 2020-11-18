@@ -64,7 +64,5 @@
     <string name="enterDate">Enter Date</string>
     <string name="noteTitle">Note Title</string>
     <string name="type_note_here">Type Note Here...</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

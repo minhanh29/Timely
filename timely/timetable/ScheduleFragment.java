@@ -1,4 +1,4 @@
-package com.example.timely;
+package com.example.timely.timetable;
 
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.timely.R;
 import com.example.timely.courses.Course;
 import com.example.timely.courses.StudyTime;
 
