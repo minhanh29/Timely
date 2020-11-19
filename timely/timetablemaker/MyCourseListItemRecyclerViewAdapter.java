@@ -1,9 +1,12 @@
 package com.example.timely.timetablemaker;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.TextView;
 
 import com.example.timely.R;
@@ -47,6 +50,7 @@ public class MyCourseListItemRecyclerViewAdapter extends RecyclerView.Adapter<My
         public final TextView mIdView;
         public final TextView mContentView;
         public Course mItem;
+        private int sBgColor;
 
         public ViewHolder(View view, final OnCourseLickListener listener) {
             super(view);
@@ -57,7 +61,12 @@ public class MyCourseListItemRecyclerViewAdapter extends RecyclerView.Adapter<My
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onCourseLick(mItem);
+
+                    Animation animation = new AlphaAnimation(1F, 0.5F);
+                    animation.setDuration(100L);
+                    mView.startAnimation(animation);
+                    listener.onCourseLick(mItem.getId());
+
                 }
             });
         }
@@ -71,6 +80,6 @@ public class MyCourseListItemRecyclerViewAdapter extends RecyclerView.Adapter<My
 
     public interface OnCourseLickListener
     {
-        void onCourseLick(Course course);
+        void onCourseLick(String courseId);
     }
 }

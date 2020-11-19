@@ -101,7 +101,14 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
 
     public void deleteCourse(View view)
     {
-        db.deleteCourse(db.getAllCourses().get(1));
+        // delete the time
+        db.deleteStudyTime(mStudyTimeId);
+
+        // delete the course when there is no time
+        if (db.getAllStudyTime(mCourseId).size() == 0)
+            db.deleteCourse(db.getCourse(mCourseId));
+
+        // update the screen
         schedule.updateCourses(db.getAllCourses());
     }
 

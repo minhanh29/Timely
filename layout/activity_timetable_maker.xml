@@ -36,10 +36,11 @@ o
         android:id="@+id/header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Em ú"
+        android:gravity="center"
+        android:text="@string/maker_header"
         android:textColor="@color/header"
         android:textSize="30sp"
-        android:textStyle="bold"
+        android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/guideline16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,5 +68,14 @@ o
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline16"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline16" />
 
 </android.support.constraint.ConstraintLayout>

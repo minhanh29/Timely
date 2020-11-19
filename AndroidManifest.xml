@@ -13,6 +13,7 @@
         <activity android:name=".ItemDetailsActivity" />
         <activity android:name=".timetable.TimetableActivity" />
         <activity android:name=".timetablemaker.TimetableMakerActivity" />
+        <activity android:name=".timetablemaker.StudyTimeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,8 +23,10 @@
         </activity>
 
         <receiver android:name=".settings.AlarmReceiver" />
-        <service android:name=".settings.Ringtone"
-            android:enabled="true"/>
+
+        <service
+            android:name=".settings.Ringtone"
+            android:enabled="true" />
     </application>
 
 </manifest>
