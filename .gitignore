@@ -19,7 +19,6 @@ build
 build/
 proguard-rules.pro
 androidTest
-main
 test
 
 drawable-v24
