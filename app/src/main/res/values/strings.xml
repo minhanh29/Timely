@@ -68,6 +68,17 @@
     <string name="section_hint">Section Number</string>
     <string name="instructor_hint">Instructor</string>
     <string name="add_button">ADD</string>
+    
+    <!--    TIME ROW FRAGMENT-->
+    <string name="initial_time">00:00</string>
+    <string name="duration_hint">minutes</string>
+    <string-array name="week_days">
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+    </string-array>
 
     <!-- itemDetails-->
     <string name="itemHeader">Add Note</string>
