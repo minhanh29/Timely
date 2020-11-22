@@ -9,10 +9,8 @@ import android.view.View;
 
 import com.example.timely.DatabaseHelper;
 import com.example.timely.R;
-import com.example.timely.TimeRowFragment;
 import com.example.timely.courses.StudyTime;
 
-import java.sql.Time;
 import java.util.ArrayList;
 
 public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragment.OnDeleteStudyTimeFragmentListener {

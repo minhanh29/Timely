@@ -1,11 +1,9 @@
-package com.example.timely;
+package com.example.timely.timetablemaker;
 
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.os.CancellationSignal;
 import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +15,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.timely.R;
 import com.example.timely.courses.StudyTime;
-import com.example.timely.timetablemaker.TimetableMakerActivity;
 
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class TimeRowFragment extends Fragment implements AdapterView.OnItemSelectedListener {
