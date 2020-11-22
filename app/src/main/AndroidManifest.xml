@@ -18,6 +18,7 @@
         <activity android:name=".ItemDetailsActivity" />
         <activity android:name=".timetable.TimetableActivity" />
         <activity android:name=".timetablemaker.TimetableMakerActivity" />
+        <activity android:name=".timetablemaker.StudyTimeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
