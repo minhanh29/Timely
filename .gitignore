@@ -4,8 +4,7 @@ gradle
 .settings
 gradle.properties
 
-README.md
-gradlew
+gradle/
 
 gradlew.bat
 .gradle
@@ -17,9 +16,9 @@ settings.gradle
 
 build.gradle
 build
+build/
 proguard-rules.pro
 androidTest
-main
 test
 
 drawable-v24
