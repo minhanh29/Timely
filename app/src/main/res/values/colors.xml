@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2191F3</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <!-- header colors -->
+    <color name="header">#ff9900</color>
+
+    <!--   TIMETABLE SCREEN -->
+    <!--    button colors-->
+    <color name="dark_button">#858585</color>
+    <color name="medium_button">#919191</color>
+    <color name="light_button">#a1a1a1</color>
+
+    <!--    course colors-->
+    <color name="course1">#72c419</color>
+    <color name="course2">#ffcc33</color>
+    <color name="course3">#ff9900</color>
+    <color name="course4">#cc3333</color>
+    <color name="course5">#4075e1</color>
+
+    <!-- course selected -->
+    <color name="course1_selected">#588f1e</color>
+    <color name="course2_selected">#d6a71a</color>
+    <color name="course3_selected">#c27708</color>
+    <color name="course4_selected">#961414</color>
+    <color name="course5_selected">#1e4fb0</color>
+
+    <!--    timeline-->
+    <color name="timeline_divider">#E3E3E3</color>
+
+    <!-- setting colors-->
+    <color name="yellow">#F69608</color>
+    <color name="red">#cc3333</color>
+    <color name="blue">#4075e1</color>
+
+    <!-- itemDetails colors-->
+    <color name="white">#FFFFFF</color>
+    <color name="orange">#ff9900</color>
+</resources>
