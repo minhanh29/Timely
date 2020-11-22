@@ -13,7 +13,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="3"
+        android:layout_weight="4"
         android:background="@color/white">
 
         <android.support.constraint.Guideline
@@ -38,8 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="6"
             android:background="@drawable/back_button"
-            android:textSize="14sp"
             android:onClick="goBack"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline11"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,6 +68,7 @@
             android:text="@string/item_save_button"
             android:textColor="@color/orange"
             android:textSize="14sp"
+            android:onClick="save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline12"
@@ -78,8 +79,18 @@
         android:id="@+id/datePicker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="3"
+        android:layout_weight="4"
         android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/date_header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:text="@string/date"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:textColor="@color/black" />
 
         <EditText
             android:id="@+id/editDate"
@@ -88,13 +99,38 @@
             android:layout_weight="1"
             android:hint="@string/enterDate"
             android:paddingHorizontal="10dp" />
-
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/timePicker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="3"
+        android:layout_weight="4"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/time_header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:text="@string/time"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/editTime"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="@string/enterTime"
+            android:paddingHorizontal="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/editTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
         android:orientation="horizontal">
 
         <EditText
@@ -110,8 +146,48 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_weight="4"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/hasTest_header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:text="@string/hasTest"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:paddingHorizontal="10dp" />
+
+        <Switch
+            android:id="@+id/hasTest"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:checked="false"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/noteSpace"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:id="@+id/imageNote"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="12dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/description"
+            android:visibility="gone" />
+
 
         <EditText
             android:id="@+id/note"
@@ -124,5 +200,6 @@
             android:paddingHorizontal="10dp"></EditText>
     </LinearLayout>
 
-
+    <include layout="@layout/layout_miscellaneous"/>
 </LinearLayout>
+

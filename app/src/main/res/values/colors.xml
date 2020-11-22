@@ -38,4 +38,5 @@
     <!-- itemDetails colors-->
     <color name="white">#FFFFFF</color>
     <color name="orange">#ff9900</color>
+    <color name="black">#000000</color>
 </resources>
