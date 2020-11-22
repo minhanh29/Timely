@@ -56,6 +56,18 @@
     <string name="sleepTText">Sleep Time</string>
     <string name="sleepSelectText">00:00 AM</string>
     <string name="wakeSelectText">00:00 AM</string>
+    
+    
+
+    <!--    TIMETABLE MAKER SCREEN-->
+    <string name="maker_header">Courses</string>
+
+    <!--    ADD COURSE FRAGMENT-->
+    <string name="add_course_hear">New Course</string>
+    <string name="course_name_hint">Course Name</string>
+    <string name="section_hint">Section Number</string>
+    <string name="instructor_hint">Instructor</string>
+    <string name="add_button">ADD</string>
 
     <!-- itemDetails-->
     <string name="itemHeader">Add Note</string>
