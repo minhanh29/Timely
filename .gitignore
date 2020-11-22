@@ -21,3 +21,5 @@ proguard-rules.pro
 androidTest
 main
 test
+
+.vim
