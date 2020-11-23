@@ -14,6 +14,7 @@ import com.example.timely.ItemDetailsActivity;
 import com.example.timely.R;
 import com.example.timely.courses.Course;
 import com.example.timely.courses.StudyTime;
+import com.example.timely.timetablemaker.Generator;
 
 import java.util.ArrayList;
 
@@ -39,51 +40,16 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
     }
 
     public void addCourse(View view) {
-        // sample courses
-        Course course1 = new Course("MATH 2110", null,0, "Sean");
-        ArrayList<StudyTime> time = new ArrayList<>();
-        time.add(new StudyTime(0, 9, 15, 60, course1.getId()));
-        time.add(new StudyTime(1, 14, 0, 60, course1.getId()));
-        time.add(new StudyTime(2, 12, 0, 60, course1.getId()));
-        time.add(new StudyTime(4, 13, 0, 45, course1.getId()));
-        course1.setTime(time);
+        Generator generator = new Generator(randomCourses(), 5);
+        ArrayList<Course> list = generator.getResult();
 
-        Course course2 = new Course("COMP 2130", null, 2, "Babinchuk");
-        time = new ArrayList<>();
-        time.add(new StudyTime(0, 10, 15, 75, course2.getId()));
-        time.add(new StudyTime(2, 9, 15, 75, course2.getId()));
-        time.add(new StudyTime(4, 9, 15, 75, course2.getId()));
-        course2.setTime(time);
-
-        Course course3 = new Course("COMP 2160", null, 1, "Aras");
-        time = new ArrayList<>();
-        time.add(new StudyTime(0, 11, 30, 75, course3.getId()));
-        time.add(new StudyTime(2, 10, 30, 75, course3.getId()));
-        time.add(new StudyTime(3, 12, 45, 60, course3.getId()));
-        course3.setTime(time);
-
-        Course course4 = new Course("COMP 2920", null, 0, "Sharma");
-        time = new ArrayList<>();
-        time.add(new StudyTime(0, 13, 30, 75, course4.getId()));
-        time.add(new StudyTime(1, 9, 15, 75, course4.getId()));
-        time.add(new StudyTime(3, 13, 45, 60, course4.getId()));
-        time.add(new StudyTime(4, 10, 30, 75, course4.getId()));
-        course4.setTime(time);
-
-        Course course5 = new Course("ENGL 1100", null, 1, "Erik");
-        time = new ArrayList<>();
-        time.add(new StudyTime(0, 14, 45, 60, course5.getId()));
-        time.add(new StudyTime(1, 10, 30, 60, course5.getId()));
-        time.add(new StudyTime(3, 10, 30, 60, course5.getId()));
-        course5.setTime(time);
-
+        Log.i("database", "list: " + list);
         // create a database
         db.clearData();
-        db.addCourse(course1);
-        db.addCourse(course2);
-        db.addCourse(course3);
-        db.addCourse(course4);
-        db.addCourse(course5);
+        for (int i = 0; list != null && i < list.size(); i++)
+        {
+            db.addCourse(list.get(i));
+        }
         Log.i("database", "Added courses");
 
         // show the courses
@@ -142,6 +108,66 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
 
         mCourseId = courseId;
         mStudyTimeId = studyTimeId;
+    }
+
+
+    // create random courses
+    private ArrayList<Course> randomCourses()
+    {
+        // sample courses
+        Course course1 = new Course("MATH 2110", null,0, "Sean");
+        ArrayList<StudyTime> time = new ArrayList<>();
+        time.add(new StudyTime(0, 9, 15, 60, course1.getId()));
+        time.add(new StudyTime(1, 14, 0, 60, course1.getId()));
+        time.add(new StudyTime(2, 12, 0, 60, course1.getId()));
+        time.add(new StudyTime(4, 13, 0, 45, course1.getId()));
+        course1.setTime(time);
+
+        Course course2 = new Course("COMP 2130", null, 2, "Babinchuk");
+        time = new ArrayList<>();
+        time.add(new StudyTime(0, 10, 15, 75, course2.getId()));
+        time.add(new StudyTime(2, 9, 15, 75, course2.getId()));
+        time.add(new StudyTime(4, 9, 15, 75, course2.getId()));
+        course2.setTime(time);
+
+        Course course3 = new Course("COMP 2160", null, 1, "Aras");
+        time = new ArrayList<>();
+        time.add(new StudyTime(0, 11, 30, 75, course3.getId()));
+        time.add(new StudyTime(2, 10, 30, 75, course3.getId()));
+        time.add(new StudyTime(3, 12, 45, 60, course3.getId()));
+        course3.setTime(time);
+
+        Course course4 = new Course("COMP 2920", null, 0, "Sharma");
+        time = new ArrayList<>();
+        time.add(new StudyTime(0, 13, 30, 75, course4.getId()));
+        time.add(new StudyTime(1, 9, 15, 75, course4.getId()));
+        time.add(new StudyTime(3, 13, 45, 60, course4.getId()));
+        time.add(new StudyTime(4, 10, 30, 75, course4.getId()));
+        course4.setTime(time);
+
+        Course course5 = new Course("ENGL 1100", null, 1, "Erik");
+        time = new ArrayList<>();
+        time.add(new StudyTime(0, 14, 45, 60, course5.getId()));
+        time.add(new StudyTime(1, 10, 30, 60, course5.getId()));
+        time.add(new StudyTime(3, 10, 30, 60, course5.getId()));
+        course5.setTime(time);
+
+        Course course6 = new Course("MINH 2211", null, 1, "Erik");
+        time = new ArrayList<>();
+        time.add(new StudyTime(0, 15, 0, 60, course6.getId()));
+        time.add(new StudyTime(1, 10, 50, 60, course6.getId()));
+        time.add(new StudyTime(3, 10, 30, 60, course6.getId()));
+        course6.setTime(time);
+
+        ArrayList<Course> list = new ArrayList<>();
+        list.add(course1);
+        list.add(course2);
+        list.add(course3);
+        list.add(course4);
+        list.add(course6);
+        list.add(course5);
+
+        return list;
     }
 
 

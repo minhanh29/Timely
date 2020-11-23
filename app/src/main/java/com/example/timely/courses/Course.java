@@ -1,6 +1,7 @@
 package com.example.timely.courses;
 
 import android.os.CountDownTimer;
+import android.support.annotation.Nullable;
 import android.util.JsonWriter;
 
 import java.util.ArrayList;
@@ -13,8 +14,7 @@ public class Course {
     private String instructor;
     private String id;
 
-    public Course()
-    {
+    public Course() {
         name = "undefined";
         time = null;
         section = 0;
@@ -42,8 +42,7 @@ public class Course {
 
 
     // generate courseId
-    public void generateID()
-    {
+    public void generateID() {
         id = "CS";
         String s[] = name.split(" ");
         for (int i = 0; i < s.length; i++)
@@ -96,8 +95,32 @@ public class Course {
     }
 
 
-    public String toString()
-    {
-        return "ID: " +id + ", Name: " + name + ", Section: " + section + ", Instructor: " + instructor;
+    public String toString() {
+        return "ID: " + id + ", Name: " + name + ", Section: " + section + ", Instructor: " + instructor;
+    }
+
+    // check if two courses have conflicts
+    public boolean isConflict(Course c1) {
+        ArrayList<StudyTime> time1 = c1.getTime();
+
+        for (int i = 0; i < time1.size(); i++) {
+            for (int j = 0; j < time.size(); j++) {
+                if (time1.get(i).isOverlap(time.get(j)))
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj == null || !(obj instanceof Course))
+            return false;
+
+        Course c = (Course) obj;
+
+        return name == c.name && section == c.section && instructor == c.instructor;
     }
 }

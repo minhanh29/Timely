@@ -124,4 +124,24 @@ public class StudyTime {
                 + ", duration: " + duration + ", note: " + note + ", test: " + hasTest
                 + ", CourseId: " + courseId;
     }
+
+    // check if this time overlap with other time
+    public boolean isOverlap(StudyTime time)
+    {
+        if (day != time.day)
+            return false;
+
+        // start time
+        int mStart = hour * 60 + minute;
+        int oStart = time.hour * 60 + time.minute;
+
+        if ((mStart + duration > oStart) && (mStart < oStart))
+            return true;
+
+        if ((oStart + duration > mStart) && (oStart < mStart))
+            return true;
+
+        return false;
+    }
+
 }
