@@ -80,6 +80,9 @@
         <item>Fri</item>
     </string-array>
 
+    <!--    SAMPLE SCHEDULE-->
+    <string name="schedule_message">Cannot create conflict-free from your courses!</string>
+
     <!-- itemDetails-->
     <string name="itemHeader">Add Note</string>
     <string name="item_save_button">Save</string>

@@ -1,7 +1,9 @@
 package com.example.timely.timetablemaker.generator;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -71,7 +73,16 @@ public class SampleScheduleActivity extends AppCompatActivity implements Adapter
         }
         else
         {
-            Toast.makeText(this, "Cannot create conflict-free timetable from your courses!", Toast.LENGTH_LONG).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.schedule_message);
+            builder.setPositiveButton("Go Back", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    SampleScheduleActivity.this.finish();
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         }
     }
 
