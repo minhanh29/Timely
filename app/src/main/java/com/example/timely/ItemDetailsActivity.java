@@ -210,10 +210,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
         course = db.getCourse(courseId);
         studyTime = db.getStudyTime(studyTimeId);
 
-        // display name
-        String title = course.toStringTitle();
-        titleView.setText(title);
-
         // display note
         String note = studyTime.getNote();
         noteView.setText(note);

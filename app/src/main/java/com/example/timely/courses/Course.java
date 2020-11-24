@@ -116,11 +116,11 @@ public class Course {
 
     @Override
     public boolean equals(@Nullable Object obj) {
-        if (obj == null || !(obj instanceof Course))
+        if (!(obj instanceof Course))
             return false;
 
         Course c = (Course) obj;
 
-        return name == c.name && section == c.section && instructor == c.instructor;
+        return id.equals(c.id);
     }
 }

@@ -11,10 +11,12 @@ import android.widget.Toast;
 
 import com.example.timely.DatabaseHelper;
 import com.example.timely.ItemDetailsActivity;
+import com.example.timely.MainActivity;
 import com.example.timely.R;
 import com.example.timely.courses.Course;
 import com.example.timely.courses.StudyTime;
-import com.example.timely.timetablemaker.Generator;
+import com.example.timely.timetablemaker.generator.Generator;
+import com.example.timely.timetablemaker.generator.Schedule;
 
 import java.util.ArrayList;
 
@@ -39,19 +41,33 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
         db = new DatabaseHelper(TimetableActivity.this);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("database", "updated Course");
+        schedule.updateCourses(db.getAllCourses());
+    }
+
     public void addCourse(View view) {
-        Generator generator = new Generator(randomCourses(), 5);
-        ArrayList<Course> list = generator.getResult();
-
-        Log.i("database", "list: " + list);
-        // create a database
-        db.clearData();
-        for (int i = 0; list != null && i < list.size(); i++)
-        {
-            db.addCourse(list.get(i));
-        }
-        Log.i("database", "Added courses");
-
+//        Generator generator = new Generator(randomCourses(), 5);
+//        ArrayList<Schedule> scheduleList = generator.getResult();
+//
+//        if (scheduleList.size() == 0)
+//            return;
+//
+//        ArrayList<Course> list = scheduleList.get(1).getCourses();
+//
+//        Log.i("database", "schedule size: " + scheduleList.size());
+//
+//        Log.i("database", "list: " + list);
+//        // create a database
+//        db.clearData();
+//        for (int i = 0; list != null && i < list.size(); i++)
+//        {
+//            db.addCourse(list.get(i));
+//        }
+//        Log.i("database", "Added courses");
+//
         // show the courses
         ArrayList<Course> courses = db.getAllCourses();
         Log.i("database", "Get Course");
@@ -112,7 +128,7 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
 
 
     // create random courses
-    private ArrayList<Course> randomCourses()
+    public static ArrayList<Course> randomCourses()
     {
         // sample courses
         Course course1 = new Course("MATH 2110", null,0, "Sean");
@@ -181,5 +197,11 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
                 schedule.updateCourses(db.getAllCourses());
             }
         }
+    }
+
+    public void goBack(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -149,9 +149,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="5dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/blue_button"
             android:text="@string/add_button"
@@ -161,9 +161,37 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline31"
+            app:layout_constraintTop_toBottomOf="@+id/instructor_input"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/new_cancel_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/blue_button"
+            android:text="@string/cancel_button"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline31"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/instructor_input" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 

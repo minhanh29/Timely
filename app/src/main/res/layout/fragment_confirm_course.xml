@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context=".timetablemaker.ConfirmCourseFragment">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/confirm_dialog_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <Button
+            android:id="@+id/create_table_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline25"
+            app:layout_constraintTop_toBottomOf="@+id/input_field" />
+
+        <Button
+            android:id="@+id/cancel_table_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            app:layout_constraintEnd_toStartOf="@+id/guideline25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_field" />
+
+        <TextView
+            android:id="@+id/question_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="How many courses for 1 schedule?"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/input_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="number"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/question_view" />
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>
