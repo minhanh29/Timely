@@ -226,12 +226,9 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
     public void goBack(View view)
     {
-        // if there is something changed
-//        this.setResult(Activity.RESULT_OK);
-        // if nothing change
-//        this.setResult(Activity.RESULT_CANCELED);
-
         // go back
+        Intent intent = new Intent(this, TimetableActivity.class);
+        startActivity(intent);
         finish();
     }
 

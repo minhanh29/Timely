@@ -45,6 +45,7 @@ public class SampleScheduleActivity extends AppCompatActivity implements Adapter
         // update schedule data and generate schedules
         db = new DatabaseHelper(this, DatabaseHelper.TEMP_DATABASE);
         scheduleFragment = (ScheduleFragment) getSupportFragmentManager().findFragmentById(R.id.sample_schedule_frg);
+        version = -1;
         generateSchedule();
 
         // initialize spinner
@@ -90,6 +91,7 @@ public class SampleScheduleActivity extends AppCompatActivity implements Adapter
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         version = position;
         scheduleFragment.updateCourses(schedules.get(version).getCourses());
+        scheduleFragment.scroll();
     }
 
     @Override
@@ -116,6 +118,9 @@ public class SampleScheduleActivity extends AppCompatActivity implements Adapter
 
     // mark schedule as official
     public void applySchedule(View view) {
+        if (version < 0)
+            return;
+
         DatabaseHelper officialDb = new DatabaseHelper(SampleScheduleActivity.this);
         officialDb.clearData();
         ArrayList<Course> courses = schedules.get(version).getCourses();

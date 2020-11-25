@@ -1,12 +1,15 @@
 package com.example.timely.timetable;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.ScrollView;
 
 import com.example.timely.R;
 import com.example.timely.courses.Course;
@@ -28,35 +31,13 @@ public class ScheduleFragment extends Fragment {
     private Queue<Integer> courseColors, selectedColors;   // colors background for courses
     private ArrayList<CourseView> courseViews;
     ConstraintLayout[] daysLayout;
+    ScrollView scrollView;
+    private int startPos;
 
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ScheduleFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ScheduleFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ScheduleFragment newInstance(String param1, String param2) {
         ScheduleFragment fragment = new ScheduleFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -64,10 +45,6 @@ public class ScheduleFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -77,6 +54,8 @@ public class ScheduleFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
 
         courseViews = new ArrayList<>();
+        startPos = HOUR * 24;
+        scrollView = view.findViewById(R.id.parent_scroll_view);
 
         // initialize day layouts
         daysLayout = new ConstraintLayout[5];
@@ -122,8 +101,6 @@ public class ScheduleFragment extends Fragment {
             String name = current.getName();
             ArrayList<StudyTime> time = current.getTime();
 
-            Log.i("database", "Adding " + name);
-
             // draw the course
             int bg = courseColors.poll();
             courseColors.offer(bg);  // reuse
@@ -137,8 +114,20 @@ public class ScheduleFragment extends Fragment {
 
                 // add to the list
                 courseViews.add(courseView);
+
+                // find the start position
+                int startTime = (int) ((time.get(scan).getHour() - START_HOUR + (double) time.get(scan).getMinute()/60.0) * HOUR);
+                if (startTime < startPos)
+                    startPos = startTime;
             }
         }
+    }
+
+
+    public void scroll()
+    {
+        // update the start point
+        scrollView.setScrollY(startPos);
     }
 
 

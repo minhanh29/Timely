@@ -15,8 +15,6 @@ import com.example.timely.MainActivity;
 import com.example.timely.R;
 import com.example.timely.courses.Course;
 import com.example.timely.courses.StudyTime;
-import com.example.timely.timetablemaker.generator.Generator;
-import com.example.timely.timetablemaker.generator.Schedule;
 
 import java.util.ArrayList;
 
@@ -42,10 +40,10 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i("database", "updated Course");
+    protected void onResume() {
+        super.onResume();
         schedule.updateCourses(db.getAllCourses());
+        schedule.scroll();
     }
 
     public void addCourse(View view) {
@@ -72,17 +70,18 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
         ArrayList<Course> courses = db.getAllCourses();
         Log.i("database", "Get Course");
         Log.i("database", "size: " + courses.size());
-        for (int i = 0; i < courses.size(); i++)
-        {
-            Log.i("database", courses.get(i).getName());
-        }
 
         schedule.updateCourses(db.getAllCourses());
-        Log.i("database", "Show course");
     }
 
     public void deleteCourse(View view)
     {
+        if (mCourseId == null || mStudyTimeId == -1)
+        {
+            Toast.makeText(this, "Please select a course", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         // delete the time
         db.deleteStudyTime(mStudyTimeId);
 
@@ -96,7 +95,7 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
 
     public void showCourseDetail(View view)
     {
-        if (mCourseId == null)
+        if (mCourseId == null || mStudyTimeId == -1)
         {
             Toast.makeText(this, "Please select a course", Toast.LENGTH_LONG).show();
             return;
@@ -106,21 +105,14 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
         Intent intent = new Intent(this, ItemDetailsActivity.class);
         intent.putExtra(COURSE_ID, mCourseId);
         intent.putExtra(STUDY_TIME_ID, mStudyTimeId);
-        startActivityForResult(intent, MY_REQUEST_CODE);
+        startActivity(intent);
+        finish();
     }
 
     @Override
     public void onCourseSelected(String courseId, int studyTimeId) {
         // unselect other items
         schedule.unselectAll();
-
-        if (courseId != null && studyTimeId != -1)
-        {
-            Course course = db.getCourse(courseId);
-            StudyTime time = db.getStudyTime(studyTimeId);
-            Log.i("database", course.toString());
-            Log.i("database", time.toString());
-        }
 
         mCourseId = courseId;
         mStudyTimeId = studyTimeId;
@@ -186,18 +178,6 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
         return list;
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
-        if (requestCode == MY_REQUEST_CODE)
-        {
-            if (resultCode == Activity.RESULT_OK)
-            {
-                schedule.updateCourses(db.getAllCourses());
-            }
-        }
-    }
 
     public void goBack(View view) {
         Intent intent = new Intent(this, MainActivity.class);

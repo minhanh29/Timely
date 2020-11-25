@@ -28,6 +28,8 @@
     <string name="two_pm">2 PM</string>
     <string name="three_pm">3 PM</string>
     <string name="four_pm">4 PM</string>
+    <string name="five_pm">5 PM</string>
+    <string name="six_pm">6 PM</string>
 
     <!--    NOTIFICATION SETTINGS SCREEN-->
     <!--    header-->
@@ -80,8 +82,13 @@
         <item>Fri</item>
     </string-array>
 
+    <!--    CONFIRM COURSE-->
+    <string name="confirm_question">How many courses for 1 schedule?</string>
+    <string name="number_hint">number</string>
+    <string name="create_button">CREATE</string>
+
     <!--    SAMPLE SCHEDULE-->
-    <string name="schedule_message">Cannot create conflict-free from your courses!</string>
+    <string name="schedule_message">Cannot create conflict-free schedule from your courses!</string>
 
     <!-- itemDetails-->
     <string name="itemHeader">Add Note</string>
