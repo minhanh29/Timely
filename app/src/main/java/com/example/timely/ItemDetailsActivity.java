@@ -22,10 +22,12 @@ import java.io.InputStream;
 import java.util.Calendar;
 import android.text.InputType;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -35,12 +37,16 @@ import com.example.timely.courses.Course;
 import com.example.timely.courses.StudyTime;
 import com.example.timely.timetable.TimetableActivity;
 
+import android.widget.AdapterView;
 
-public class ItemDetailsActivity extends AppCompatActivity {
+
+
+public class ItemDetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     DatePickerDialog pickerDate;
     TimePickerDialog pickerTime;
-    EditText editDate, editTime, sectionNo, instructorName;
+    EditText editTime, sectionNo, instructorName;
     Switch hasTest;
+    Spinner dateSpinner;
     private Course course;
     private StudyTime studyTime;
     private DatabaseHelper db;
@@ -52,7 +58,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
     private String selectedImagePath;
 
     // Views
-    TextView titleView, noteView, itemHeader;
+    TextView noteView, itemHeader;
 
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
     private static final int REQUEST_CODE_SELECT_IMAGE = 2;
@@ -61,7 +67,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_details);
-        editDate = findViewById(R.id.editDate);
+        dateSpinner = findViewById(R.id.dateSpinner);
         editTime = findViewById(R.id.editTime);
         imageNote = findViewById(R.id.imageNote);
         hasTest = findViewById(R.id.hasTest);
@@ -85,23 +91,11 @@ public class ItemDetailsActivity extends AppCompatActivity {
         // get information from database
         db = new DatabaseHelper(this);
 
-
 //        Date Picker
-        editDate.setInputType(InputType.TYPE_NULL);
-        editDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // date picker dialog
-                pickerDate = new DatePickerDialog(ItemDetailsActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        editDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                    }
-                },year, month, day);
-                pickerDate.show();
-            }
-        });
-
+        ArrayAdapter<CharSequence> adapterdate = ArrayAdapter.createFromResource(this,R.array.days, android.R.layout.simple_spinner_item);
+        adapterdate.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        dateSpinner.setAdapter(adapterdate);
+        dateSpinner.setOnItemSelectedListener(this);
 //        Time Picker
         editTime.setInputType(InputType.TYPE_NULL);
         editTime.setOnClickListener(new View.OnClickListener() {
@@ -243,6 +237,8 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
 
         //get date
+        int day = studyTime.getDay();
+        dateSpinner.setSelection(day);
 
     }
 
@@ -257,6 +253,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
     public void save(View view)
     {
+        //set note
         String note = noteView.getText().toString();
         studyTime.setNote(note);
 
@@ -268,7 +265,22 @@ public class ItemDetailsActivity extends AppCompatActivity {
         studyTime.setHour(hour);
         studyTime.setMinute(minutes);
 
+        //set day
+        int position = dateSpinner.getSelectedItemPosition();
+        studyTime.setDay(position);
+
+        //modify
         db.modifyStudyTime(studyTime);
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

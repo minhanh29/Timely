@@ -92,12 +92,11 @@
             android:paddingHorizontal="10dp"
             android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/editDate"
+        <Spinner
+            android:id="@+id/dateSpinner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="@string/enterDate"
             android:paddingHorizontal="10dp" />
     </LinearLayout>
 
