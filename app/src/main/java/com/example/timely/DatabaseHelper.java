@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 
 import com.example.timely.courses.Course;
 import com.example.timely.courses.StudyTime;

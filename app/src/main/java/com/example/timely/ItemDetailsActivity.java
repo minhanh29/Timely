@@ -39,20 +39,20 @@ import com.example.timely.timetable.TimetableActivity;
 public class ItemDetailsActivity extends AppCompatActivity {
     DatePickerDialog pickerDate;
     TimePickerDialog pickerTime;
-    EditText editDate, editTime;
+    EditText editDate, editTime, sectionNo, instructorName;
     Switch hasTest;
     private Course course;
     private StudyTime studyTime;
     private DatabaseHelper db;
     private String courseId;
     private int studyTimeId;
-    private int hour, minutes;
+    private int hour, minutes, year, day, month;
 
     private ImageView imageNote;
     private String selectedImagePath;
 
     // Views
-    TextView titleView, noteView;
+    TextView titleView, noteView, itemHeader;
 
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
     private static final int REQUEST_CODE_SELECT_IMAGE = 2;
@@ -65,6 +65,9 @@ public class ItemDetailsActivity extends AppCompatActivity {
         editTime = findViewById(R.id.editTime);
         imageNote = findViewById(R.id.imageNote);
         hasTest = findViewById(R.id.hasTest);
+        itemHeader = findViewById(R.id.item_header);
+        sectionNo = findViewById(R.id.section_No);
+        instructorName = findViewById(R.id.instructor_Name);
 
         selectedImagePath = "";
 
@@ -72,7 +75,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
 
         // get views
-        titleView = findViewById(R.id.noteTitle);
         noteView = findViewById(R.id.note);
 
         // the id's are sent from TimetableActivity
@@ -89,10 +91,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
         editDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Calendar cldr = Calendar.getInstance();
-                int day = cldr.get(Calendar.DAY_OF_MONTH);
-                int month = cldr.get(Calendar.MONTH);
-                int year = cldr.get(Calendar.YEAR);
                 // date picker dialog
                 pickerDate = new DatePickerDialog(ItemDetailsActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
@@ -113,6 +111,8 @@ public class ItemDetailsActivity extends AppCompatActivity {
                 pickerTime = new TimePickerDialog(ItemDetailsActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
+                        hour = sHour;
+                        minutes = sMinute;
                         editTime.setText(String.format("%02d:%02d",sHour,sMinute));
                     }
                 }, hour, minutes,true);
@@ -211,20 +211,38 @@ public class ItemDetailsActivity extends AppCompatActivity {
         studyTime = db.getStudyTime(studyTimeId);
 
         // display name
-        String title = course.toStringTitle();
-        titleView.setText(title);
+        String header = course.getName();
+        itemHeader.setText(header);
 
         // display note
         String note = studyTime.getNote();
         noteView.setText(note);
 
         // display date, study time, test, section, instructor below
+
+        //hasTest check
         Boolean test = studyTime.isHasTest();
         hasTest.setChecked(test);
 
+
+        //get time
         hour = studyTime.getHour();
         minutes = studyTime.getMinute();
         editTime.setText(String.format("%02d:%02d", hour, minutes));
+
+
+        //get section no. and instructor's name
+        String section = course.getSection().toString();
+        sectionNo.setText(section);
+
+        String instructor = course.getInstructor();
+        instructorName.setText(instructor);
+
+        //get image
+
+
+        //get date
+
     }
 
 
@@ -244,10 +262,13 @@ public class ItemDetailsActivity extends AppCompatActivity {
         String note = noteView.getText().toString();
         studyTime.setNote(note);
 
+        //set has test
         Boolean test = hasTest.isChecked();
         studyTime.setHasTest(test);
 
-
+        //set time
+        studyTime.setHour(hour);
+        studyTime.setMinute(minutes);
 
         db.modifyStudyTime(studyTime);
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();

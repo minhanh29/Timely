@@ -1,6 +1,8 @@
 package com.example.timely.courses;
 
 
+import android.widget.ImageView;
+
 public class StudyTime {
     private int day;  // week day 0 = Monday, 1 = Tuesday, etc.
     private int hour;  //start hour (0 to 24)
@@ -20,6 +22,7 @@ public class StudyTime {
         this.note = note;
         this.courseId = courseId;
         this.id = id;
+
     }
 
     public StudyTime(int day, int hour, int minute, int duration, String note, boolean hasTest, String courseId) {
@@ -117,6 +120,7 @@ public class StudyTime {
     public void setMinute(int minute) {
         this.minute = minute;
     }
+
 
     public String toString()
     {
