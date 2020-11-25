@@ -10,22 +10,24 @@ public class StudyTime {
     private int duration;  // in minutes
     private boolean hasTest;
     private String note;
+    private String imagePath;
     private String courseId;
     private int id;
 
-    public StudyTime(int id, int day, int hour, int minute, int duration, String note, boolean hasTest, String courseId) {
+    public StudyTime(int id, int day, int hour, int minute, int duration, String note, String imagePath, boolean hasTest, String courseId) {
         this.day = day;
         this.hour = hour;
         this.minute = minute;
         this.duration = duration;
         this.hasTest = hasTest;
         this.note = note;
+        this.imagePath = imagePath;
         this.courseId = courseId;
         this.id = id;
 
     }
 
-    public StudyTime(int day, int hour, int minute, int duration, String note, boolean hasTest, String courseId) {
+    public StudyTime(int day, int hour, int minute, int duration, String note, String imagePath, boolean hasTest, String courseId) {
         id = -1;
         this.day = day;
         this.hour = hour;
@@ -33,6 +35,7 @@ public class StudyTime {
         this.duration = duration;
         this.hasTest = hasTest;
         this.note = note;
+        this.imagePath = imagePath;
         this.courseId = courseId;
     }
 
@@ -45,6 +48,7 @@ public class StudyTime {
         duration = 0;
         hasTest = false;
         note = "";
+        imagePath = "";
         courseId = "";
     }
 
@@ -55,6 +59,14 @@ public class StudyTime {
         this.minute = minute;
         this.duration = duration;
         this.courseId = courseId;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public int getId() {

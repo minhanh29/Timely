@@ -32,6 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String ITEM_MINUTE = "ITEM_MINUTE";
     public static final String ITEM_DURATION = "ITEM_DURATION";
     public static final String ITEM_NOTE = "ITEM_NOTE";
+    public static final String ITEM_IMAGE_PATH = "ITEM_IMAGE_PATH";
     public static final String ITEM_TEST = "ITEM_TEST";
     public static final String ITEM_ID = "ITEM_ID";
     public static final String ITEM_COURSE_ID = "ITEM_COURSE_ID";
@@ -53,7 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // create study time table
         String studyTimeTable = "CREATE TABLE " + ITEM_TABLE + "(" + ITEM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + ITEM_DAY + " INTEGER, " + ITEM_HOUR + " INTEGER, " + ITEM_MINUTE + " INTEGER, " + ITEM_DURATION + " INTEGER, "
-                + ITEM_NOTE + " TEXT, " + ITEM_TEST + " BOOL, " + ITEM_COURSE_ID + " INTEGER)";
+                + ITEM_NOTE + " TEXT, " + ITEM_IMAGE_PATH + " TEXT, " + ITEM_TEST + " BOOL, " + ITEM_COURSE_ID + " INTEGER)";
         db.execSQL(studyTimeTable);
     }
 
@@ -203,6 +204,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(ITEM_MINUTE, studyTime.getMinute());
         cv.put(ITEM_DURATION, studyTime.getDuration());
         cv.put(ITEM_NOTE, studyTime.getNote());
+        cv.put(ITEM_IMAGE_PATH, studyTime.getImagePath());
         cv.put(ITEM_TEST, studyTime.isHasTest());
         cv.put(ITEM_COURSE_ID, studyTime.getCourseId());
 
@@ -223,6 +225,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cv.put(ITEM_MINUTE, studyTime.getMinute());
         cv.put(ITEM_DURATION, studyTime.getDuration());
         cv.put(ITEM_NOTE, studyTime.getNote());
+        cv.put(ITEM_IMAGE_PATH, studyTime.getImagePath());
         cv.put(ITEM_TEST, studyTime.isHasTest());
 
         long success = db.update(ITEM_TABLE, cv, ITEM_ID + " = " + studyTime.getId(), null);
@@ -278,10 +281,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             int minute = cursor.getInt(3);
             int duration = cursor.getInt(4);
             String note = cursor.getString(5);
-            boolean hasTest = cursor.getInt(6) == 0 ? false : true;
-            String courseId = cursor.getString(7);
+            String imagePath = cursor.getString(6);
+            boolean hasTest = cursor.getInt(7) == 0 ? false : true;
+            String courseId = cursor.getString(8);
 
-            time = new StudyTime(id, day, hour, minute, duration, note, hasTest, courseId);
+            time = new StudyTime(id, day, hour, minute, duration, note, imagePath, hasTest, courseId);
         }
 
         cursor.close();
@@ -310,10 +314,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int minute = cursor.getInt(3);
                 int duration = cursor.getInt(4);
                 String note = cursor.getString(5);
-                boolean hasTest = cursor.getInt(6) == 0 ? false : true;
-                String courseId = cursor.getString(7);
+                String imagePath = cursor.getString(6);
+                boolean hasTest = cursor.getInt(7) == 0 ? false : true;
+                String courseId = cursor.getString(8);
 
-                StudyTime time = new StudyTime(id, day, hour, minute, duration, note, hasTest, courseId);
+                StudyTime time = new StudyTime(id, day, hour, minute, duration, note, imagePath, hasTest, courseId);
                 list.add(time);
             } while (cursor.moveToNext());
         }
@@ -343,9 +348,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 int minute = cursor.getInt(3);
                 int duration = cursor.getInt(4);
                 String note = cursor.getString(5);
-                boolean hasTest = cursor.getInt(6) == 0 ? false : true;
+                String imagePath = cursor.getString(6);
+                boolean hasTest = cursor.getInt(7) == 0 ? false : true;
 
-                StudyTime time = new StudyTime(id, day, hour, minute, duration, note, hasTest, courseId);
+                StudyTime time = new StudyTime(id, day, hour, minute, duration, note, imagePath, hasTest, courseId);
                 list.add(time);
             } while (cursor.moveToNext());
         }

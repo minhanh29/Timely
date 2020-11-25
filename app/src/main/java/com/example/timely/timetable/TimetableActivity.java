@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.timely.DatabaseHelper;
@@ -17,17 +19,18 @@ import com.example.timely.courses.Course;
 import com.example.timely.courses.StudyTime;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class TimetableActivity extends AppCompatActivity implements CourseView.OnCourseSelected {
 
     public static final String COURSE_ID = "CourseId";
     public static final String STUDY_TIME_ID = "StudyTimeId";
-    public static final int MY_REQUEST_CODE = 1;
 
     private String mCourseId = "";
     private int mStudyTimeId = -1;
 
     ScheduleFragment schedule;
+    TextView header;
     DatabaseHelper db;
 
     @Override
@@ -35,6 +38,8 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timetable);
 
+        header = findViewById(R.id.timetable_date);
+        header.setText(DateFormat.format("dd MMM yyyy", Calendar.getInstance()));
         schedule = (ScheduleFragment) getSupportFragmentManager().findFragmentById(R.id.schedule_fragment);
         db = new DatabaseHelper(TimetableActivity.this);
     }
