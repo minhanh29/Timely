@@ -25,7 +25,7 @@ public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragm
         setContentView(R.layout.activity_study_time);
 
         fragments = new ArrayList<>();
-        db = new DatabaseHelper(this);
+        db = new DatabaseHelper(this, DatabaseHelper.TEMP_DATABASE);
 
         // get the course id
         Intent intent = getIntent();

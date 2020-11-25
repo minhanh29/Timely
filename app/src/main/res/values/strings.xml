@@ -28,6 +28,8 @@
     <string name="two_pm">2 PM</string>
     <string name="three_pm">3 PM</string>
     <string name="four_pm">4 PM</string>
+    <string name="five_pm">5 PM</string>
+    <string name="six_pm">6 PM</string>
 
     <!--    NOTIFICATION SETTINGS SCREEN-->
     <!--    header-->
@@ -56,8 +58,7 @@
     <string name="sleepTText">Sleep Time</string>
     <string name="sleepSelectText">00:00 AM</string>
     <string name="wakeSelectText">00:00 AM</string>
-    
-    
+
 
     <!--    TIMETABLE MAKER SCREEN-->
     <string name="maker_header">Courses</string>
@@ -68,7 +69,8 @@
     <string name="section_hint">Section Number</string>
     <string name="instructor_hint">Instructor</string>
     <string name="add_button">ADD</string>
-    
+    <string name="cancel_button">CANCEL</string>
+
     <!--    TIME ROW FRAGMENT-->
     <string name="initial_time">00:00</string>
     <string name="duration_hint">minutes</string>
@@ -79,6 +81,14 @@
         <item>Thu</item>
         <item>Fri</item>
     </string-array>
+
+    <!--    CONFIRM COURSE-->
+    <string name="confirm_question">How many courses for 1 schedule?</string>
+    <string name="number_hint">number</string>
+    <string name="create_button">CREATE</string>
+
+    <!--    SAMPLE SCHEDULE-->
+    <string name="schedule_message">Cannot create conflict-free schedule from your courses!</string>
 
     <!-- itemDetails-->
     <string name="itemHeader">Add Note</string>
@@ -93,6 +103,7 @@
     <string name="date">Date:</string>
     <string name="time">Time:</string>
     <string name="hasTest">Has Test</string>
+
     <string name="sectionHeader">Section: </string>
     <string name="instructorHeader">Instructor: </string>
     <!-- TODO: Remove or change this placeholder text -->

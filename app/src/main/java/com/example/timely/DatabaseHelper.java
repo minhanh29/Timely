@@ -15,6 +15,9 @@ import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    public static final String MAIN_DATABASE = "courses.db";
+    public static final String TEMP_DATABASE = "tempcourses.db";
+
     // course table
     public static final String COURSE_TABLE = "COURSE_TABLE";
     public static final String COURSE_NAME = "COURSE_NAME";
@@ -34,8 +37,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String ITEM_COURSE_ID = "ITEM_COURSE_ID";
 
     public DatabaseHelper(@Nullable Context context) {
-        super(context, "courses.db", null, 1);
+        super(context, MAIN_DATABASE, null, 1);
+    }
 
+    public DatabaseHelper(@Nullable Context context, String name) {
+        super(context, name, null, 1);
     }
 
     @Override

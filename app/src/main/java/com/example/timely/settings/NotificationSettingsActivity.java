@@ -18,6 +18,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.timely.DatabaseHelper;
+import com.example.timely.MainActivity;
 import com.example.timely.R;
 import com.example.timely.courses.StudyTime;
 
@@ -254,5 +255,11 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 //        long repeatInterval = AlarmManager.INTERVAL_DAY;
 //        long triggerTime = calendar.getTimeInMillis()+repeatInterval;
 //        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),(24*60*60*1000),  pendingIntent);
+    }
+
+    public void goBack(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

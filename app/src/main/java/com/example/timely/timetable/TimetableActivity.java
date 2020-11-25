@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.timely.DatabaseHelper;
 import com.example.timely.ItemDetailsActivity;
+import com.example.timely.MainActivity;
 import com.example.timely.R;
 import com.example.timely.courses.Course;
 import com.example.timely.courses.StudyTime;
@@ -38,7 +39,89 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
         db = new DatabaseHelper(TimetableActivity.this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        schedule.updateCourses(db.getAllCourses());
+        schedule.scroll();
+    }
+
     public void addCourse(View view) {
+//        Generator generator = new Generator(randomCourses(), 5);
+//        ArrayList<Schedule> scheduleList = generator.getResult();
+//
+//        if (scheduleList.size() == 0)
+//            return;
+//
+//        ArrayList<Course> list = scheduleList.get(1).getCourses();
+//
+//        Log.i("database", "schedule size: " + scheduleList.size());
+//
+//        Log.i("database", "list: " + list);
+//        // create a database
+//        db.clearData();
+//        for (int i = 0; list != null && i < list.size(); i++)
+//        {
+//            db.addCourse(list.get(i));
+//        }
+//        Log.i("database", "Added courses");
+//
+        // show the courses
+        ArrayList<Course> courses = db.getAllCourses();
+        Log.i("database", "Get Course");
+        Log.i("database", "size: " + courses.size());
+
+        schedule.updateCourses(db.getAllCourses());
+    }
+
+    public void deleteCourse(View view)
+    {
+        if (mCourseId == null || mStudyTimeId == -1)
+        {
+            Toast.makeText(this, "Please select a course", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        // delete the time
+        db.deleteStudyTime(mStudyTimeId);
+
+        // delete the course when there is no time
+        if (db.getAllStudyTime(mCourseId).size() == 0)
+            db.deleteCourse(db.getCourse(mCourseId));
+
+        // update the screen
+        schedule.updateCourses(db.getAllCourses());
+    }
+
+    public void showCourseDetail(View view)
+    {
+        if (mCourseId == null || mStudyTimeId == -1)
+        {
+            Toast.makeText(this, "Please select a course", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        // move to item detail screen
+        Intent intent = new Intent(this, ItemDetailsActivity.class);
+        intent.putExtra(COURSE_ID, mCourseId);
+        intent.putExtra(STUDY_TIME_ID, mStudyTimeId);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onCourseSelected(String courseId, int studyTimeId) {
+        // unselect other items
+        schedule.unselectAll();
+
+        mCourseId = courseId;
+        mStudyTimeId = studyTimeId;
+    }
+
+
+    // create random courses
+    public static ArrayList<Course> randomCourses()
+    {
         // sample courses
         Course course1 = new Course("MATH 2110", null,0, "Sean");
         ArrayList<StudyTime> time = new ArrayList<>();
@@ -77,83 +160,28 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
         time.add(new StudyTime(3, 10, 30, 60, course5.getId()));
         course5.setTime(time);
 
-        // create a database
-        db.clearData();
-        db.addCourse(course1);
-        db.addCourse(course2);
-        db.addCourse(course3);
-        db.addCourse(course4);
-        db.addCourse(course5);
-        Log.i("database", "Added courses");
+        Course course6 = new Course("MINH 2211", null, 1, "Erik");
+        time = new ArrayList<>();
+        time.add(new StudyTime(0, 15, 0, 60, course6.getId()));
+        time.add(new StudyTime(1, 10, 50, 60, course6.getId()));
+        time.add(new StudyTime(3, 10, 30, 60, course6.getId()));
+        course6.setTime(time);
 
-        // show the courses
-        ArrayList<Course> courses = db.getAllCourses();
-        Log.i("database", "Get Course");
-        Log.i("database", "size: " + courses.size());
-        for (int i = 0; i < courses.size(); i++)
-        {
-            Log.i("database", courses.get(i).getName());
-        }
+        ArrayList<Course> list = new ArrayList<>();
+        list.add(course1);
+        list.add(course2);
+        list.add(course3);
+        list.add(course4);
+        list.add(course6);
+        list.add(course5);
 
-        schedule.updateCourses(db.getAllCourses());
-        Log.i("database", "Show course");
-    }
-
-    public void deleteCourse(View view)
-    {
-        // delete the time
-        db.deleteStudyTime(mStudyTimeId);
-
-        // delete the course when there is no time
-        if (db.getAllStudyTime(mCourseId).size() == 0)
-            db.deleteCourse(db.getCourse(mCourseId));
-
-        // update the screen
-        schedule.updateCourses(db.getAllCourses());
-    }
-
-    public void showCourseDetail(View view)
-    {
-        if (mCourseId == null)
-        {
-            Toast.makeText(this, "Please select a course", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        // move to item detail screen
-        Intent intent = new Intent(this, ItemDetailsActivity.class);
-        intent.putExtra(COURSE_ID, mCourseId);
-        intent.putExtra(STUDY_TIME_ID, mStudyTimeId);
-        startActivityForResult(intent, MY_REQUEST_CODE);
-    }
-
-    @Override
-    public void onCourseSelected(String courseId, int studyTimeId) {
-        // unselect other items
-        schedule.unselectAll();
-
-        if (courseId != null && studyTimeId != -1)
-        {
-            Course course = db.getCourse(courseId);
-            StudyTime time = db.getStudyTime(studyTimeId);
-            Log.i("database", course.toString());
-            Log.i("database", time.toString());
-        }
-
-        mCourseId = courseId;
-        mStudyTimeId = studyTimeId;
+        return list;
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
-        if (requestCode == MY_REQUEST_CODE)
-        {
-            if (resultCode == Activity.RESULT_OK)
-            {
-                schedule.updateCourses(db.getAllCourses());
-            }
-        }
+    public void goBack(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

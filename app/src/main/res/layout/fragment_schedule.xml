@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".timetable.ScheduleFragment">
@@ -90,6 +91,7 @@
         app:layout_constraintGuide_percent="0.1" />
 
     <ScrollView
+        android:id="@+id/parent_scroll_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -206,6 +208,22 @@
                     android:background="@drawable/timeline_divider"
                     android:paddingStart="5dp"
                     android:text="@string/four_pm" />
+
+                <TextView
+                    android:id="@+id/five_pm"
+                    android:layout_width="match_parent"
+                    android:layout_height="180px"
+                    android:background="@drawable/timeline_divider"
+                    android:paddingStart="5dp"
+                    android:text="@string/five_pm" />
+
+                <TextView
+                    android:id="@+id/six_pm"
+                    android:layout_width="match_parent"
+                    android:layout_height="180px"
+                    android:background="@drawable/timeline_divider"
+                    android:paddingStart="5dp"
+                    android:text="@string/six_pm" />
             </LinearLayout>
 
             <LinearLayout

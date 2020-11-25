@@ -78,7 +78,7 @@ public class TimeRowFragment extends Fragment implements AdapterView.OnItemSelec
 
                         timeView.setText(DateFormat.format("hh:mm", calendar));
                     }
-                }, hour, minutes, true);  // initial values
+                }, hour, minutes, false);  // initial values
 
                 timePickerDialog.updateTime(hour, minutes);
                 timePickerDialog.show();

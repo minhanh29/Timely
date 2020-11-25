@@ -7,12 +7,18 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.timely.DatabaseHelper;
 import com.example.timely.R;
+import com.example.timely.courses.Course;
+
+import java.util.ArrayList;
+
+import static com.example.timely.timetable.TimetableActivity.randomCourses;
 
 
 public class CourseItemFragment extends Fragment {
@@ -56,7 +62,8 @@ public class CourseItemFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_course_item_list, container, false);
 
-        db = new DatabaseHelper(getContext());
+        db = new DatabaseHelper(getContext(), DatabaseHelper.TEMP_DATABASE);
+        initializeCourse();
 
         listener = (MyCourseListItemRecyclerViewAdapter.OnCourseLickListener) getActivity();
 
@@ -87,5 +94,18 @@ public class CourseItemFragment extends Fragment {
     public void updateList()
     {
         recyclerView.setAdapter(new MyCourseListItemRecyclerViewAdapter(db.getAllCourses(), listener));
+    }
+
+
+    private void initializeCourse()
+    {
+        ArrayList<Course> list = randomCourses();
+
+        // create a database
+        db.clearData();
+        for (int i = 0; list != null && i < list.size(); i++)
+        {
+            db.addCourse(list.get(i));
+        }
     }
 }

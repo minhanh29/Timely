@@ -2,10 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.timely">
-    
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="q">
+        <activity android:name=".timetablemaker.generator.SampleScheduleActivity"></activity>
         <activity android:name=".settings.NotificationSettingsActivity" />
         <activity android:name=".ItemDetailsActivity" />
         <activity android:name=".timetable.TimetableActivity" />
@@ -24,13 +24,16 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <receiver android:name=".settings.AlarmReceiver" />
-        <service android:name=".settings.Ringtone"
-            android:enabled="true"/>
+
+        <service
+            android:name=".settings.Ringtone"
+            android:enabled="true" />
     </application>
 
 </manifest>
