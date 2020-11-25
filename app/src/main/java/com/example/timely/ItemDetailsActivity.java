@@ -269,6 +269,9 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
         int position = dateSpinner.getSelectedItemPosition();
         studyTime.setDay(position);
 
+        //save image
+        
+
         //modify
         db.modifyStudyTime(studyTime);
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
