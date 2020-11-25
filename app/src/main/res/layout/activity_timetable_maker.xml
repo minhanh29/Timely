@@ -74,7 +74,7 @@
         android:id="@+id/line"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="@color/header"
+        android:background="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline16" />
@@ -98,12 +98,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/dark_button"
+        android:background="@drawable/medium_button"
+        android:onClick="resetCourses"
         android:text="Reset"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:onClick="resetCourses"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

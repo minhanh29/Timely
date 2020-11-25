@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2191F3</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#fa7d09</color>
+    <color name="colorPrimaryDark">#2f2519</color>
+    <color name="colorAccent">#ff4301</color>
+    <color name="blue_theme">#2196F3</color>
 
     <!-- header colors -->
-    <color name="header">#ff9900</color>
+    <color name="header">#4a3f35</color>
 
     <!--   TIMETABLE SCREEN -->
     <!--    button colors-->
-    <color name="dark_button">#858585</color>
-    <color name="medium_button">#919191</color>
-    <color name="light_button">#a1a1a1</color>
+    <color name="dark_button">#2f2519</color>
+    <color name="medium_button">#3b2e1f</color>
+    <color name="light_button">#453523</color>
 
     <!--    course colors-->
     <color name="course1">#72c419</color>
