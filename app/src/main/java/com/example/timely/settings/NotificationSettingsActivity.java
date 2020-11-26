@@ -358,7 +358,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
             alarmIntent[i].putExtra(AlarmClock.EXTRA_MINUTES, min);
             alarmIntent[i].putExtra(AlarmClock.EXTRA_DAYS,allDays);
 
-            PendingIntent pendingIntent = PendingIntent.getActivities(NotificationSettingsActivity.this,0, Intent[] alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getActivities(NotificationSettingsActivity.this,0, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
             intentArray.add(pendingIntent);
         }

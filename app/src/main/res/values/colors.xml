@@ -8,6 +8,10 @@
     <!-- header colors -->
     <color name="header">#4a3f35</color>
 
+    <!--    DASHBOARD-->
+    <color name="start_color">#FF8400</color>
+    <color name="end_color">#f6a10f</color>
+
     <!--   TIMETABLE SCREEN -->
     <!--    button colors-->
     <color name="dark_button">#2f2519</color>
