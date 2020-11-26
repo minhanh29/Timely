@@ -44,7 +44,6 @@
 
     <!-- timeBeforeTest-->
     <string-array name="timeBeforeTest">
-        <item>1 week prior</item>
         <item>3 days prior</item>
         <item>1 day prior</item>
     </string-array>
