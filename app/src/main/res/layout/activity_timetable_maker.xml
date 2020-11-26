@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".timetablemaker.TimetableMakerActivity">
 
     <android.support.constraint.Guideline
@@ -20,6 +21,16 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.1" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/guideline16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/maker_back_button"
         android:layout_width="30dp"
@@ -32,7 +43,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <TextView
         android:id="@+id/header"
         android:layout_width="wrap_content"
@@ -41,10 +51,10 @@
         android:text="@string/maker_header"
         android:textColor="@color/header"
         android:textSize="30sp"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/create_button"
+        app:layout_constraintStart_toStartOf="@+id/guideline15"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -70,26 +80,17 @@
         app:layout_constraintTop_toTopOf="@+id/guideline16"
         app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/line"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline16" />
-
     <Button
         android:id="@+id/create_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
         android:background="@android:color/transparent"
-        android:text="CREATE"
         android:onClick="startCreating"
+        android:text="@string/generate_button"
         android:textColor="@color/header"
         app:layout_constraintBottom_toTopOf="@+id/guideline16"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/header"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -100,7 +101,7 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/medium_button"
         android:onClick="resetCourses"
-        android:text="Reset"
+        android:text="@string/reset_button"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"

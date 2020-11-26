@@ -61,6 +61,8 @@
 
     <!--    TIMETABLE MAKER SCREEN-->
     <string name="maker_header">Courses</string>
+    <string name="generate_button">GENERATE</string>
+    <string name="reset_button">RESET</string>
 
     <!--    ADD COURSE FRAGMENT-->
     <string name="add_course_hear">New Course</string>
