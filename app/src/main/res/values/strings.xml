@@ -44,7 +44,6 @@
 
     <!-- timeBeforeTest-->
     <string-array name="timeBeforeTest">
-        <item>1 week prior</item>
         <item>3 days prior</item>
         <item>1 day prior</item>
     </string-array>
@@ -95,7 +94,6 @@
     <string name="item_save_button">Save</string>
     <string name="getDate">Get Date</string>
     <string name="enterDate">Enter Date</string>
-    <string name="noteTitle">Note Title</string>
     <string name="type_note_here">Type Note Here...</string>
     <string name="enterTime">Enter Time</string>
     <string name="bottom_sheet_miscellaneuos">Miscellaneuos</string>
@@ -104,5 +102,17 @@
     <string name="date">Date:</string>
     <string name="time">Time:</string>
     <string name="hasTest">Has Test</string>
+    <string name="sectionHeader">Section: </string>
+    <string name="instructorHeader">Instructor: </string>
+
+    <string-array name="days">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

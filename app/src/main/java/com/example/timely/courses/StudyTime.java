@@ -22,6 +22,7 @@ public class StudyTime {
         this.imagePath = imagePath;
         this.courseId = courseId;
         this.id = id;
+
     }
 
     public StudyTime(int day, int hour, int minute, int duration, String note, String imagePath, boolean hasTest, String courseId) {
@@ -129,6 +130,7 @@ public class StudyTime {
     public void setMinute(int minute) {
         this.minute = minute;
     }
+
 
     public String toString()
     {
