@@ -1,8 +1,6 @@
 package com.example.timely.courses;
 
 
-import android.widget.ImageView;
-
 public class StudyTime {
     private int day;  // week day 0 = Monday, 1 = Tuesday, etc.
     private int hour;  //start hour (0 to 24)
