@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.timely.DatabaseHelper;
@@ -15,21 +17,20 @@ import com.example.timely.MainActivity;
 import com.example.timely.R;
 import com.example.timely.courses.Course;
 import com.example.timely.courses.StudyTime;
-import com.example.timely.timetablemaker.generator.Generator;
-import com.example.timely.timetablemaker.generator.Schedule;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class TimetableActivity extends AppCompatActivity implements CourseView.OnCourseSelected {
 
     public static final String COURSE_ID = "CourseId";
     public static final String STUDY_TIME_ID = "StudyTimeId";
-    public static final int MY_REQUEST_CODE = 1;
 
     private String mCourseId = "";
     private int mStudyTimeId = -1;
 
     ScheduleFragment schedule;
+    TextView header;
     DatabaseHelper db;
 
     @Override
@@ -37,15 +38,17 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timetable);
 
+        header = findViewById(R.id.timetable_date);
+        header.setText(DateFormat.format("dd MMM yyyy", Calendar.getInstance()));
         schedule = (ScheduleFragment) getSupportFragmentManager().findFragmentById(R.id.schedule_fragment);
         db = new DatabaseHelper(TimetableActivity.this);
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i("database", "updated Course");
+    protected void onResume() {
+        super.onResume();
         schedule.updateCourses(db.getAllCourses());
+        schedule.scroll();
     }
 
     public void addCourse(View view) {
@@ -72,17 +75,18 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
         ArrayList<Course> courses = db.getAllCourses();
         Log.i("database", "Get Course");
         Log.i("database", "size: " + courses.size());
-        for (int i = 0; i < courses.size(); i++)
-        {
-            Log.i("database", courses.get(i).getName());
-        }
 
         schedule.updateCourses(db.getAllCourses());
-        Log.i("database", "Show course");
     }
 
     public void deleteCourse(View view)
     {
+        if (mCourseId == null || mStudyTimeId == -1)
+        {
+            Toast.makeText(this, "Please select a course", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         // delete the time
         db.deleteStudyTime(mStudyTimeId);
 
@@ -96,7 +100,7 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
 
     public void showCourseDetail(View view)
     {
-        if (mCourseId == null)
+        if (mCourseId == null || mStudyTimeId == -1)
         {
             Toast.makeText(this, "Please select a course", Toast.LENGTH_LONG).show();
             return;
@@ -106,21 +110,14 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
         Intent intent = new Intent(this, ItemDetailsActivity.class);
         intent.putExtra(COURSE_ID, mCourseId);
         intent.putExtra(STUDY_TIME_ID, mStudyTimeId);
-        startActivityForResult(intent, MY_REQUEST_CODE);
+        startActivity(intent);
+        finish();
     }
 
     @Override
     public void onCourseSelected(String courseId, int studyTimeId) {
         // unselect other items
         schedule.unselectAll();
-
-        if (courseId != null && studyTimeId != -1)
-        {
-            Course course = db.getCourse(courseId);
-            StudyTime time = db.getStudyTime(studyTimeId);
-            Log.i("database", course.toString());
-            Log.i("database", time.toString());
-        }
 
         mCourseId = courseId;
         mStudyTimeId = studyTimeId;
@@ -186,18 +183,6 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
         return list;
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
-        if (requestCode == MY_REQUEST_CODE)
-        {
-            if (resultCode == Activity.RESULT_OK)
-            {
-                schedule.updateCourses(db.getAllCourses());
-            }
-        }
-    }
 
     public void goBack(View view) {
         Intent intent = new Intent(this, MainActivity.class);
