@@ -20,6 +20,7 @@
             android:id="@+id/daySpinner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
             android:layout_weight="1" />
 
         <TextView
@@ -35,7 +36,7 @@
             android:id="@+id/durationInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginHorizontal="15dp"
             android:layout_weight="1"
             android:ems="10"
             android:hint="@string/duration_hint"

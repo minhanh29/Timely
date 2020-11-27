@@ -10,8 +10,8 @@
     <color name="header">#ffffff</color>
 
     <!--    DASHBOARD-->
-    <color name="start_color">#00334e</color>
-    <color name="end_color">#145374</color>
+    <color name="start_color">#ff4301</color>
+    <color name="end_color">#ee6f57</color>
 
     <!--   TIMETABLE SCREEN -->
     <!--    button colors-->

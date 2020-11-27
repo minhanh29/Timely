@@ -23,7 +23,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/antic"
-            android:shadowColor="#041827"
+            android:shadowColor="#A12405"
             android:shadowDx="5"
             android:shadowDy="5"
             android:shadowRadius="7"
@@ -53,7 +53,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline34"
         app:layout_constraintEnd_toStartOf="@+id/guideline36"
         app:layout_constraintStart_toStartOf="@+id/gridLayout"
         app:layout_constraintTop_toTopOf="@+id/guideline33">
@@ -62,7 +62,7 @@
             android:id="@+id/timetable_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="30dp"
+            android:layout_margin="20dp"
             android:layout_weight="1"
             app:cardCornerRadius="30dp"
             app:cardElevation="6dp"
@@ -95,7 +95,7 @@
             android:id="@+id/generator_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="30dp"
+            android:layout_margin="20dp"
             android:layout_weight="1"
             app:cardCornerRadius="30dp"
             app:cardElevation="6dp"
@@ -128,7 +128,7 @@
             android:id="@+id/settings_card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="30dp"
+            android:layout_margin="20dp"
             android:layout_weight="1"
             app:cardCornerRadius="30dp"
             app:cardElevation="6dp"
@@ -185,7 +185,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.66" />
+        app:layout_constraintGuide_percent="0.95" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline36"

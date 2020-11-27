@@ -41,6 +41,7 @@ public class MyCourseListItemRecyclerViewAdapter extends RecyclerView.Adapter<My
         holder.mItem = mValues.get(position);
         holder.mIdView.setText("" + (position + 1));
         holder.mContentView.setText(mValues.get(position).getName() + " - " + mValues.get(position).getSection());
+        holder.mInstructorView.setText(mValues.get(position).getInstructor());
     }
 
     @Override
@@ -52,6 +53,7 @@ public class MyCourseListItemRecyclerViewAdapter extends RecyclerView.Adapter<My
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
+        public final TextView mInstructorView;
         public Course mItem;
         public Button deleteButton;
         Animation animation;
@@ -61,12 +63,13 @@ public class MyCourseListItemRecyclerViewAdapter extends RecyclerView.Adapter<My
             mView = view;
             mIdView = (TextView) view.findViewById(R.id.item_number);
             mContentView = (TextView) view.findViewById(R.id.content);
+            mInstructorView = (TextView) view.findViewById(R.id.instructor_view);
             deleteButton = view.findViewById(R.id.course_delete_button);
 
-            animation = new ScaleAnimation(1f, 1.3f, 1f, 1.3f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            animation = new ScaleAnimation(1f, 1.2f, 1f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             animation.setDuration(100L);
 
-            mContentView.setOnClickListener(new View.OnClickListener() {
+            mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mView.startAnimation(animation);
