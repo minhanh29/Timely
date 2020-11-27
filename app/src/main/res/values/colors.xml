@@ -45,4 +45,10 @@
     <color name="white">#FFFFFF</color>
     <color name="orange">#ff9900</color>
     <color name="black">#000000</color>
+
+    <!--    Settings Screen colors-->
+    <color name="superDarkBrown">#2f2519</color>
+    <color name="darkBrown">#4a3f35</color>
+    <color name="orangeSettings">#fa7d09</color>
+    <color name="redOrange">#ff4301</color>
 </resources>

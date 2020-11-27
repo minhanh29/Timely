@@ -27,6 +27,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/ic_back"
+            android:textColor="@color/redOrange"
             android:onClick="goBack"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline14"
@@ -40,6 +41,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="@string/notification_settings"
+            android:textColor="@color/orangeSettings"
             android:textSize="30sp"
             android:textStyle="bold|italic"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -73,7 +75,7 @@
                 android:paddingEnd="20sp"
                 android:text="@string/studyText"
                 android:textAlignment="viewStart"
-                android:textColor="@color/yellow"
+                android:textColor="@color/superDarkBrown"
                 android:textSize="34sp"
                 android:textStyle="bold" />
 
@@ -94,15 +96,18 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="60sp"
-                android:entries="@array/timeBeforeClass"></Spinner>
+                android:entries="@array/timeBeforeClass"
+
+                ></Spinner>
 
             <TextView
                 android:id="@+id/text1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:text="@string/text"
-                android:textSize="24sp"
+                android:textColor="@color/orangeSettings"
+                android:textSize="22sp"
                 android:textStyle="bold"></TextView>
         </LinearLayout>
     </LinearLayout>
@@ -134,7 +139,7 @@
                 android:paddingEnd="20sp"
                 android:text="@string/testText"
                 android:textAlignment="viewStart"
-                android:textColor="@color/red"
+                android:textColor="@color/superDarkBrown"
                 android:textSize="34sp"
                 android:textStyle="bold" />
 
@@ -186,7 +191,7 @@
                 android:paddingEnd="20sp"
                 android:text="@string/wake_sleepTex"
                 android:textAlignment="viewStart"
-                android:textColor="@color/blue"
+                android:textColor="@color/superDarkBrown"
                 android:textSize="34sp"
                 android:textStyle="bold" />
 
@@ -208,6 +213,7 @@
                 android:paddingStart="60sp"
                 android:paddingEnd="20sp"
                 android:text="@string/sleepTText"
+                android:textColor="@color/orangeSettings"
                 android:textSize="24sp"
                 android:textStyle="bold"></TextView>
 
@@ -217,6 +223,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:hint="@string/sleepSelectText"
+                android:textColorHint="@color/darkBrown"
                 android:paddingStart="20sp"
                 android:paddingEnd="20sp"
                 android:textSize="18sp"
@@ -234,6 +241,7 @@
                 android:paddingStart="60sp"
                 android:paddingEnd="20sp"
                 android:text="@string/wakeTText"
+                android:textColor="@color/orangeSettings"
                 android:textAlignment="viewStart"
                 android:textSize="24sp"
                 android:textStyle="bold"></TextView>
@@ -244,6 +252,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:hint="@string/wakeSelectText"
+                android:textColorHint="@color/darkBrown"
                 android:paddingStart="20sp"
                 android:paddingEnd="20sp"
                 android:textSize="18sp"

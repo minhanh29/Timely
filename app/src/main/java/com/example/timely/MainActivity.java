@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         timetable = findViewById(R.id.timetable_card);
         generator = findViewById(R.id.generator_card);
         settings = findViewById(R.id.settings_card);

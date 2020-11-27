@@ -1,5 +1,6 @@
 package com.example.timely.settings;
 
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
@@ -37,6 +38,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
     Switch sleepWakeSwitch, studyTimSwitch, testTimeSwitch;
     DatabaseHelper db;
     Spinner spinner1,spinner2;
+    ArrayList<PendingIntent> intentSWArray, intentSArray, intentTArray;
     ArrayList<StudyTime> studyTimes;
     ArrayList<Calendar> globalStudyTime, globalTestTime;
     Calendar[] globalSleepWakeCalendar = new Calendar[2];
@@ -75,7 +77,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked == true){
                     Toast.makeText(getBaseContext(),"Sleep/Wake Alarm: ON", Toast.LENGTH_SHORT).show();
-                    startSleepWakeAlarm(globalSleepWakeCalendar);
+                    startSleepWakeAlarm();
                 }
                 else
                 {
@@ -274,95 +276,173 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 
 
     private void cancelTestAlarm() {
-        studyTimes = db.getAllStudyTime();
-        for(int i=0;i<studyTimes.size();i++) {
-            Intent [] cancelIntent=new Intent[studyTimes.size()];
-            cancelIntent[i].putExtra(CalendarContract.Events.DELETED, 1);
+        System.out.println("It cancels the alarm");
+        AlarmManager[] alarmManager=new AlarmManager[globalTestTime.size()];
+        if(intentTArray.size()>0){
+            for(int i=0; i<intentTArray.size(); i++){
+                alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
+                alarmManager[i].cancel(intentTArray.get(i));
+            }
+            intentTArray.clear();
         }
     }
 
     private void startTestAlarm() {
-        studyTimes = db.getAllStudyTime();
-        for(int i=0;i<studyTimes.size();i++) {
-            StudyTime studyTime=studyTimes.get(i);
-            Intent[] testIntent = new Intent[studyTimes.size()];
-            testIntent[i] = new Intent(Intent.ACTION_INSERT);
+//        studyTimes = db.getAllStudyTime();
+//        for(int i=0;i<studyTimes.size();i++) {
+//            StudyTime studyTime=studyTimes.get(i);
+//            Intent[] testIntent = new Intent[studyTimes.size()];
+//            testIntent[i] = new Intent(Intent.ACTION_INSERT);
+//
+//            testIntent[i].setData(CalendarContract.Events.CONTENT_URI);
+//            testIntent[i].putExtra(CalendarContract.EventDays.STARTDAY,globalTestTime.get(i).get(Calendar.DATE));
+//            testIntent[i].putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,globalTestTime.get(i).getTimeInMillis());
+//            testIntent[i].putExtra(CalendarContract.Events.STATUS, 1);
+//            testIntent[i].putExtra(CalendarContract.Events.HAS_ALARM, 1);
+//            testIntent[i].putExtra(CalendarContract.Events.EVENT_TIMEZONE, globalTestTime.get(i).getTimeZone());
+//            testIntent[i].putExtra(CalendarContract.Events.DURATION,studyTime.getDuration());
+//
+//            if(testIntent[i].resolveActivity(getPackageManager()) != null){
+//                startActivity(testIntent[i]);
+//            }else{
+//                Toast.makeText(NotificationSettingsActivity.this, "There is no app that support this action", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+        AlarmManager[] alarmManager=new AlarmManager[globalTestTime.size()];
+        intentTArray = new ArrayList<PendingIntent>();
+        for(int f=0;f<globalTestTime.size();f++){
+            Intent intent = new Intent(this, AlarmReceiver.class);
+            PendingIntent pi=PendingIntent.getBroadcast(this, f,intent, 0);
 
-            testIntent[i].setData(CalendarContract.Events.CONTENT_URI);
-            testIntent[i].putExtra(CalendarContract.EventDays.STARTDAY,globalTestTime.get(i).get(Calendar.DATE));
-            testIntent[i].putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,globalTestTime.get(i).getTimeInMillis());
-            testIntent[i].putExtra(CalendarContract.Events.STATUS, 1);
-            testIntent[i].putExtra(CalendarContract.Events.HAS_ALARM, 1);
-            testIntent[i].putExtra(CalendarContract.Events.EVENT_TIMEZONE, globalTestTime.get(i).getTimeZone());
-            testIntent[i].putExtra(CalendarContract.Events.DURATION,studyTime.getDuration());
+            alarmManager[f] = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager[f].setExact(AlarmManager.RTC_WAKEUP, globalTestTime.get(f).getTimeInMillis(), pi);
 
-            if(testIntent[i].resolveActivity(getPackageManager()) != null){
-                startActivity(testIntent[i]);
-            }else{
-                Toast.makeText(NotificationSettingsActivity.this, "There is no app that support this action", Toast.LENGTH_SHORT).show();
-            }
+            intentTArray.add(pi);
         }
     }
 
     private void cancelStudyAlarm() {
-        studyTimes = db.getAllStudyTime();
-        for(int i=0;i<studyTimes.size();i++)
-        {
-            Intent[] cancelSWAlarm = new Intent[studyTimes.size()];
-            cancelSWAlarm[i] = new Intent(AlarmClock.ACTION_DISMISS_ALARM);
-            startActivity(cancelSWAlarm[i]);
+//        studyTimes = db.getAllStudyTime();
+//        for(int i=0;i<studyTimes.size();i++)
+//        {
+//            Intent[] cancelSWAlarm = new Intent[studyTimes.size()];
+//            cancelSWAlarm[i] = new Intent(AlarmClock.ACTION_DISMISS_ALARM);
+//            startActivity(cancelSWAlarm[i]);
+//        }
+        System.out.println("It cancels the alarm");
+        AlarmManager[] alarmManager=new AlarmManager[globalStudyTime.size()];
+        if(intentSArray.size()>0){
+            for(int i=0; i<intentSArray.size(); i++){
+                alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
+                alarmManager[i].cancel(intentSArray.get(i));
+            }
+            intentSArray.clear();
         }
     }
 
     private void startStudyAlarm() {
-        studyTimes = db.getAllStudyTime();
-        for(int i=0;i<studyTimes.size();i++) {
-            int hour = globalStudyTime.get(i).get(Calendar.HOUR_OF_DAY);
-            int min = globalStudyTime.get(i).get(Calendar.MINUTE);
-            int dayOfWeek=globalStudyTime.get(i).get(Calendar.DAY_OF_WEEK);
+//        studyTimes = db.getAllStudyTime();
+//        for(int i=0;i<studyTimes.size();i++) {
+//            int hour = globalStudyTime.get(i).get(Calendar.HOUR_OF_DAY);
+//            int min = globalStudyTime.get(i).get(Calendar.MINUTE);
+//            int dayOfWeek=globalStudyTime.get(i).get(Calendar.DAY_OF_WEEK);
+//
+//            Intent[] alarmIntent = new Intent[studyTimes.size()];
+//            alarmIntent[i] = new Intent(AlarmClock.ACTION_SET_ALARM);
+//            alarmIntent[i].putExtra(AlarmClock.EXTRA_HOUR, hour);
+//            alarmIntent[i].putExtra(AlarmClock.EXTRA_MINUTES, min);
+//            alarmIntent[i].putExtra(AlarmClock.EXTRA_DAYS,dayOfWeek);
+//
+//            startActivity(alarmIntent[i]);
+//        }
 
-            Intent[] alarmIntent = new Intent[studyTimes.size()];
-            alarmIntent[i] = new Intent(AlarmClock.ACTION_SET_ALARM);
-            alarmIntent[i].putExtra(AlarmClock.EXTRA_HOUR, hour);
-            alarmIntent[i].putExtra(AlarmClock.EXTRA_MINUTES, min);
-            alarmIntent[i].putExtra(AlarmClock.EXTRA_DAYS,dayOfWeek);
+        AlarmManager[] alarmManager=new AlarmManager[globalStudyTime.size()];
+        intentSArray = new ArrayList<PendingIntent>();
+        for(int f=0;f<globalStudyTime.size();f++){
+            Intent intent = new Intent(this, AlarmReceiver.class);
+            PendingIntent pi=PendingIntent.getBroadcast(this, f,intent, 0);
 
-            startActivity(alarmIntent[i]);
+            alarmManager[f] = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager[f].setExact(AlarmManager.RTC_WAKEUP, globalStudyTime.get(f).getTimeInMillis(), pi);
+
+            intentSArray.add(pi);
         }
     }
 
     private void cancelSleepWakeAlarm() {
-        for(int i=0;i<globalSleepWakeCalendar.length;i++)
-        {
-            Intent[] cancelSWAlarm = new Intent[globalSleepWakeCalendar.length];
-            cancelSWAlarm[i] = new Intent(AlarmClock.ACTION_DISMISS_ALARM);
-            startActivity(cancelSWAlarm[i]);
+//        for(int i=0;i<globalSleepWakeCalendar.length;i++)
+//        {
+//            Intent[] cancelSWAlarm = new Intent[globalSleepWakeCalendar.length];
+//            cancelSWAlarm[i] = new Intent(AlarmClock.ACTION_DISMISS_ALARM);
+//            startActivity(cancelSWAlarm[i]);
+//        }
+        System.out.println("It cancels the alarm");
+        AlarmManager[] alarmManager=new AlarmManager[globalSleepWakeCalendar.length];
+        if(intentSWArray.size()>0){
+            for(int i=0; i<intentSWArray.size(); i++){
+                alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
+                alarmManager[i].cancel(intentSWArray.get(i));
+            }
+            intentSWArray.clear();
         }
     }
 
 
-    private void startSleepWakeAlarm(Calendar[] c) {
-        ArrayList<PendingIntent>intentArray = new ArrayList<>();
-        for(int i=0;i<c.length;i++) {
-            ArrayList<Integer> allDays = new ArrayList<>();
-            allDays.add(2);
-            allDays.add(3);
-            allDays.add(4);
-            allDays.add(5);
-            allDays.add(6);
-            int hour = c[i].get(Calendar.HOUR_OF_DAY);
-            int min = c[i].get(Calendar.MINUTE);
-            Intent[] alarmIntent = new Intent[c.length];
-            alarmIntent[i] = new Intent(AlarmClock.ACTION_SET_ALARM);
-            alarmIntent[i].putExtra(AlarmClock.EXTRA_HOUR, hour);
-            alarmIntent[i].putExtra(AlarmClock.EXTRA_MINUTES, min);
-            alarmIntent[i].putExtra(AlarmClock.EXTRA_DAYS,allDays);
 
-            PendingIntent pendingIntent = PendingIntent.getActivities(NotificationSettingsActivity.this,0, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+    private void startSleepWakeAlarm() {
+//        ArrayList<PendingIntent>intentArray = new ArrayList<>();
+//        for(int i=0;i<c.length;i++) {
+//            ArrayList<Integer> allDays = new ArrayList<>();
+//            allDays.add(2);
+//            allDays.add(3);
+//            allDays.add(4);
+//            allDays.add(5);
+//            allDays.add(6);
+//            int hour = c[i].get(Calendar.HOUR_OF_DAY);
+//            int min = c[i].get(Calendar.MINUTE);
+//            Intent[] alarmIntent = new Intent[c.length];
+//            alarmIntent[i] = new Intent(AlarmClock.ACTION_SET_ALARM);
+//            alarmIntent[i].putExtra(AlarmClock.EXTRA_HOUR, hour);
+//            alarmIntent[i].putExtra(AlarmClock.EXTRA_MINUTES, min);
+//            alarmIntent[i].putExtra(AlarmClock.EXTRA_DAYS,allDays);
+//
+//            PendingIntent pendingIntent = PendingIntent.getBroadcast(NotificationSettingsActivity.this,0,alarmIntent[i],PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//            intentArray.add(pendingIntent);
+//        }
+        AlarmManager[] alarmManager=new AlarmManager[globalSleepWakeCalendar.length];
+        intentSWArray = new ArrayList<PendingIntent>();
+        for(int f=0;f<globalSleepWakeCalendar.length;f++){
+            Intent intent = new Intent(this, AlarmReceiver.class);
+            PendingIntent pi=PendingIntent.getBroadcast(this, f,intent, 0);
 
-            intentArray.add(pendingIntent);
-        }
-    }
+            alarmManager[f] = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager[f].setInexactRepeating(AlarmManager.RTC_WAKEUP, globalSleepWakeCalendar[f].getTimeInMillis(), AlarmManager.INTERVAL_DAY, pi);
+
+            intentSWArray.add(pi);
+
+//     private void startSleepWakeAlarm(Calendar[] c) {
+//         ArrayList<PendingIntent>intentArray = new ArrayList<>();
+//         for(int i=0;i<c.length;i++) {
+//             ArrayList<Integer> allDays = new ArrayList<>();
+//             allDays.add(2);
+//             allDays.add(3);
+//             allDays.add(4);
+//             allDays.add(5);
+//             allDays.add(6);
+//             int hour = c[i].get(Calendar.HOUR_OF_DAY);
+//             int min = c[i].get(Calendar.MINUTE);
+//             Intent[] alarmIntent = new Intent[c.length];
+//             alarmIntent[i] = new Intent(AlarmClock.ACTION_SET_ALARM);
+//             alarmIntent[i].putExtra(AlarmClock.EXTRA_HOUR, hour);
+//             alarmIntent[i].putExtra(AlarmClock.EXTRA_MINUTES, min);
+//             alarmIntent[i].putExtra(AlarmClock.EXTRA_DAYS,allDays);
+
+//             PendingIntent pendingIntent = PendingIntent.getActivities(NotificationSettingsActivity.this,0, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+//             intentArray.add(pendingIntent);
+//         }
+//     }
 
     public void goBack(View view) {
         Intent intent = new Intent(this, MainActivity.class);
