@@ -64,7 +64,7 @@
             android:layout_height="match_parent"
             android:layout_margin="30dp"
             android:layout_weight="1"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="30dp"
             app:cardElevation="6dp"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1">
@@ -97,7 +97,7 @@
             android:layout_height="match_parent"
             android:layout_margin="30dp"
             android:layout_weight="1"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="30dp"
             app:cardElevation="6dp"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1">
@@ -130,7 +130,7 @@
             android:layout_height="match_parent"
             android:layout_margin="30dp"
             android:layout_weight="1"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="30dp"
             app:cardElevation="6dp"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1">

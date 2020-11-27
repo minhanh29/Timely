@@ -55,8 +55,8 @@
         android:textStyle="bold"
         android:typeface="normal"
         app:layout_constraintBottom_toTopOf="@+id/guideline16"
-        app:layout_constraintEnd_toStartOf="@+id/create_button"
-        app:layout_constraintStart_toStartOf="@+id/guideline15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -65,7 +65,7 @@
         android:layout_height="50dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/ic_add"
+        android:background="@drawable/ic_edit"
         android:backgroundTint="@color/light_button"
         android:onClick="addCourse"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -87,20 +87,19 @@
         android:id="@+id/create_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:background="@android:color/transparent"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/medium_button"
+        android:drawableStart="@drawable/ic_generate"
+        android:drawableTint="@color/white"
         android:fontFamily="@font/antic"
         android:onClick="startCreating"
-        android:shadowColor="#CF3226"
-        android:shadowDx="3"
-        android:shadowDy="3"
-        android:shadowRadius="5"
+        android:paddingHorizontal="10dp"
         android:text="@string/generate_button"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/reset_button" />
 
     <Button
         android:id="@+id/reset_button"
