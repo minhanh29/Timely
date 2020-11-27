@@ -2,6 +2,7 @@ package com.example.timely.timetable;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.example.timely.MainActivity;
 import com.example.timely.R;
 import com.example.timely.courses.Course;
 import com.example.timely.courses.StudyTime;
+import com.example.timely.timetablemaker.TimetableMakerActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,6 +27,7 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
 
     public static final String COURSE_ID = "CourseId";
     public static final String STUDY_TIME_ID = "StudyTimeId";
+    public static final String ADD_COURSE = "ADD_COURSE";
 
     private String mCourseId = "";
     private int mStudyTimeId = -1;
@@ -48,35 +51,21 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
     protected void onResume() {
         super.onResume();
         schedule.updateCourses(db.getAllCourses());
-        schedule.scroll();
+        Handler h = new Handler();
+
+        h.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                schedule.scroll();
+            }
+        }, 250); // 250 ms delay
     }
 
     public void addCourse(View view) {
-//        Generator generator = new Generator(randomCourses(), 5);
-//        ArrayList<Schedule> scheduleList = generator.getResult();
-//
-//        if (scheduleList.size() == 0)
-//            return;
-//
-//        ArrayList<Course> list = scheduleList.get(1).getCourses();
-//
-//        Log.i("database", "schedule size: " + scheduleList.size());
-//
-//        Log.i("database", "list: " + list);
-//        // create a database
-//        db.clearData();
-//        for (int i = 0; list != null && i < list.size(); i++)
-//        {
-//            db.addCourse(list.get(i));
-//        }
-//        Log.i("database", "Added courses");
-//
-        // show the courses
-        ArrayList<Course> courses = db.getAllCourses();
-        Log.i("database", "Get Course");
-        Log.i("database", "size: " + courses.size());
-
-        schedule.updateCourses(db.getAllCourses());
+        Intent intent = new Intent(this, TimetableMakerActivity.class);
+        intent.putExtra(ADD_COURSE, true);
+        startActivity(intent);
     }
 
     public void deleteCourse(View view)
