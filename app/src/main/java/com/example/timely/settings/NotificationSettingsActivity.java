@@ -388,6 +388,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
     }
 
 
+
     private void startSleepWakeAlarm() {
 //        ArrayList<PendingIntent>intentArray = new ArrayList<>();
 //        for(int i=0;i<c.length;i++) {
@@ -419,8 +420,29 @@ public class NotificationSettingsActivity extends AppCompatActivity {
             alarmManager[f].setInexactRepeating(AlarmManager.RTC_WAKEUP, globalSleepWakeCalendar[f].getTimeInMillis(), AlarmManager.INTERVAL_DAY, pi);
 
             intentSWArray.add(pi);
-        }
-    }
+
+//     private void startSleepWakeAlarm(Calendar[] c) {
+//         ArrayList<PendingIntent>intentArray = new ArrayList<>();
+//         for(int i=0;i<c.length;i++) {
+//             ArrayList<Integer> allDays = new ArrayList<>();
+//             allDays.add(2);
+//             allDays.add(3);
+//             allDays.add(4);
+//             allDays.add(5);
+//             allDays.add(6);
+//             int hour = c[i].get(Calendar.HOUR_OF_DAY);
+//             int min = c[i].get(Calendar.MINUTE);
+//             Intent[] alarmIntent = new Intent[c.length];
+//             alarmIntent[i] = new Intent(AlarmClock.ACTION_SET_ALARM);
+//             alarmIntent[i].putExtra(AlarmClock.EXTRA_HOUR, hour);
+//             alarmIntent[i].putExtra(AlarmClock.EXTRA_MINUTES, min);
+//             alarmIntent[i].putExtra(AlarmClock.EXTRA_DAYS,allDays);
+
+//             PendingIntent pendingIntent = PendingIntent.getActivities(NotificationSettingsActivity.this,0, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+//             intentArray.add(pendingIntent);
+//         }
+//     }
 
     public void goBack(View view) {
         Intent intent = new Intent(this, MainActivity.class);
