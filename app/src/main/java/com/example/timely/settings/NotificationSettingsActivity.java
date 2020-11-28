@@ -422,6 +422,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
     }
 
 
+
     private void startSleepWakeAlarm() {
         ArrayList<PendingIntent>intentArray = new ArrayList<>();
         alarmIntent = new Intent[ globalSleepWakeCalendar.length];
@@ -432,8 +433,8 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 //            allDays.add(4);
 //            allDays.add(5);
 //            allDays.add(6);
-            int hour =  globalSleepWakeCalendar[i].get(Calendar.HOUR_OF_DAY);
-            int min =  globalSleepWakeCalendar[i].get(Calendar.MINUTE);
+//            int hour =  globalSleepWakeCalendar[i].get(Calendar.HOUR_OF_DAY);
+//            int min =  globalSleepWakeCalendar[i].get(Calendar.MINUTE);
 //            alarmIntent[i] = new Intent(AlarmClock.ACTION_SET_ALARM);
 //            alarmIntent[i].putExtra(AlarmClock.EXTRA_HOUR, hour);
 //            alarmIntent[i].putExtra(AlarmClock.EXTRA_MINUTES, min);
@@ -443,22 +444,29 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 
 //            setAlarm(6, hour, min, i);
 //
+//            intentArray.add(pendingIntent);
+//        }
+        AlarmManager[] alarmManager = new AlarmManager[globalSleepWakeCalendar.length];
+        intentSWArray = new ArrayList<PendingIntent>();
+        for (int f = 0; f < globalSleepWakeCalendar.length; f++) {
+            Intent intent = new Intent(this, AlarmReceiver.class);
+            PendingIntent pi = PendingIntent.getBroadcast(this, f, intent, 0);
             //PendingIntent pendingIntent = PendingIntent.getActivities(NotificationSettingsActivity.this,i, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
             //intentArray.add(pendingIntent);
         }
 //        PendingIntent pendingIntent = PendingIntent.getActivities(NotificationSettingsActivity.this,0, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 //        intentArray.add(pendingIntent);
-        alarmManager=new AlarmManager[24];
-        intentArray = new ArrayList<PendingIntent>();
-        for(int i = 0; i < globalSleepWakeCalendar.length; i++){
-            Intent intent = new Intent(this, AlarmReceiver.class);
-            PendingIntent pi =PendingIntent.getBroadcast(this, i,intent, 0);
+//        alarmManager=new AlarmManager[24];
+//        intentArray = new ArrayList<PendingIntent>();
+//        for(int i = 0; i < globalSleepWakeCalendar.length; i++){
+//            Intent intent = new Intent(this, AlarmReceiver.class);
+//            PendingIntent pi =PendingIntent.getBroadcast(this, i,intent, 0);
 
             alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
             alarmManager[i].setExact(AlarmManager.RTC_WAKEUP, globalSleepWakeCalendar[i].getTimeInMillis(), pi);
 
-            intentArray.add(pi);
+            intentSWArray.add(pi);
         }
     }
 

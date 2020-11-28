@@ -36,10 +36,10 @@
     <string name="notification_settings">SETTINGS</string>
     <!-- timeBeforeClass-->
     <string-array name="timeBeforeClass">
-        <item>1 hour</item>
-        <item>45 minutes</item>
-        <item>30 minutes</item>
-        <item>15 minutes</item>
+        <item>1 hour before class</item>
+        <item>45 minutes before class</item>
+        <item>30 minutes before class</item>
+        <item>15 minutes before class</item>
     </string-array>
 
     <!-- timeBeforeTest-->
