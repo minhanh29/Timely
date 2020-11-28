@@ -388,6 +388,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
     }
 
 
+
     private void startSleepWakeAlarm() {
 //        ArrayList<PendingIntent>intentArray = new ArrayList<>();
 //        for(int i=0;i<c.length;i++) {
@@ -409,11 +410,11 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 //
 //            intentArray.add(pendingIntent);
 //        }
-        AlarmManager[] alarmManager=new AlarmManager[globalSleepWakeCalendar.length];
+        AlarmManager[] alarmManager = new AlarmManager[globalSleepWakeCalendar.length];
         intentSWArray = new ArrayList<PendingIntent>();
-        for(int f=0;f<globalSleepWakeCalendar.length;f++){
+        for (int f = 0; f < globalSleepWakeCalendar.length; f++) {
             Intent intent = new Intent(this, AlarmReceiver.class);
-            PendingIntent pi=PendingIntent.getBroadcast(this, f,intent, 0);
+            PendingIntent pi = PendingIntent.getBroadcast(this, f, intent, 0);
 
             alarmManager[f] = (AlarmManager) getSystemService(ALARM_SERVICE);
             alarmManager[f].setInexactRepeating(AlarmManager.RTC_WAKEUP, globalSleepWakeCalendar[f].getTimeInMillis(), AlarmManager.INTERVAL_DAY, pi);

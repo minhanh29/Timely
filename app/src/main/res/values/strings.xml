@@ -36,10 +36,10 @@
     <string name="notification_settings">SETTINGS</string>
     <!-- timeBeforeClass-->
     <string-array name="timeBeforeClass">
-        <item>1 hour</item>
-        <item>45 minutes</item>
-        <item>30 minutes</item>
-        <item>15 minutes</item>
+        <item>1 hour before class</item>
+        <item>45 minutes before class</item>
+        <item>30 minutes before class</item>
+        <item>15 minutes before class</item>
     </string-array>
 
     <!-- timeBeforeTest-->
@@ -61,6 +61,8 @@
 
     <!--    TIMETABLE MAKER SCREEN-->
     <string name="maker_header">Courses</string>
+    <string name="generate_button">GENERATE</string>
+    <string name="reset_button">RESET</string>
 
     <!--    ADD COURSE FRAGMENT-->
     <string name="add_course_hear">New Course</string>
@@ -94,7 +96,6 @@
     <string name="item_save_button">Save</string>
     <string name="getDate">Get Date</string>
     <string name="enterDate">Enter Date</string>
-    <string name="noteTitle">Note Title</string>
     <string name="type_note_here">Type Note Here...</string>
     <string name="enterTime">Enter Time</string>
     <string name="bottom_sheet_miscellaneuos">Miscellaneuos</string>
@@ -103,5 +104,17 @@
     <string name="date">Date:</string>
     <string name="time">Time:</string>
     <string name="hasTest">Has Test</string>
+    <string name="sectionHeader">Section: </string>
+    <string name="instructorHeader">Instructor: </string>
+
+    <string-array name="days">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

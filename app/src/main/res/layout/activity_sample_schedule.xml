@@ -4,15 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
+    android:background="@color/white"
     tools:context=".timetablemaker.generator.SampleScheduleActivity">
+
+    <TextView
+        android:id="@+id/bg"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toTopOf="@+id/guideline26"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/bg2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline30"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline26" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.08" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline27"
@@ -33,8 +51,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sample Schedules"
+        android:textColor="@color/colorPrimary"
         android:textSize="24sp"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline26"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +64,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/ic_back"
+        android:backgroundTint="@color/colorPrimary"
         android:onClick="goBack"
         app:layout_constraintBottom_toTopOf="@+id/guideline26"
         app:layout_constraintEnd_toStartOf="@+id/guideline27"
@@ -57,12 +77,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:background="@drawable/blue_button"
+        android:background="@drawable/medium_button"
+        android:onClick="applySchedule"
         android:text="Apply"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:onClick="applySchedule"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,6 +121,7 @@
         android:layout_marginStart="20dp"
         android:gravity="center"
         android:text="Schedule No."
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/guideline30"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline26" />
@@ -121,6 +142,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:text="Total: 5"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@+id/guideline30"
         app:layout_constraintStart_toStartOf="@+id/guideline32"
         app:layout_constraintTop_toTopOf="@+id/guideline26" />
@@ -133,4 +155,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintGuide_percent="0.6"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/line2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/primary2"
+        app:layout_constraintBottom_toTopOf="@+id/guideline30"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

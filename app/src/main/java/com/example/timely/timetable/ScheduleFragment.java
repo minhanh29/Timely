@@ -1,6 +1,9 @@
 package com.example.timely.timetable;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.CancellationSignal;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -10,12 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.example.timely.R;
 import com.example.timely.courses.Course;
 import com.example.timely.courses.StudyTime;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -31,6 +36,7 @@ public class ScheduleFragment extends Fragment {
     private Queue<Integer> courseColors, selectedColors;   // colors background for courses
     private ArrayList<CourseView> courseViews;
     ConstraintLayout[] daysLayout;
+    TextView[] dayHeader;
     ScrollView scrollView;
     private int startPos;
 
@@ -56,6 +62,15 @@ public class ScheduleFragment extends Fragment {
         courseViews = new ArrayList<>();
         startPos = HOUR * 24;
         scrollView = view.findViewById(R.id.parent_scroll_view);
+
+        // initialize day headers
+        dayHeader = new TextView[5];
+        dayHeader[0] = view.findViewById(R.id.monday);
+        dayHeader[1] = view.findViewById(R.id.tuesday);
+        dayHeader[2] = view.findViewById(R.id.wednesday);
+        dayHeader[3] = view.findViewById(R.id.thursday);
+        dayHeader[4] = view.findViewById(R.id.friday);
+        boldHeader();
 
         // initialize day layouts
         daysLayout = new ConstraintLayout[5];
@@ -138,5 +153,23 @@ public class ScheduleFragment extends Fragment {
         {
             courseViews.get(i).unselect();
         }
+    }
+
+
+    // update the day of week to bold a header
+    private void boldHeader()
+    {
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        // unbold all headers
+        for (int i = 0; i < dayHeader.length; i++)
+            dayHeader[i].setTextColor(Color.GRAY);
+
+        // out of range
+        if (day < 2 || day > 6)
+            return;
+
+        dayHeader[day-2].setTextColor(Color.BLACK);
     }
 }

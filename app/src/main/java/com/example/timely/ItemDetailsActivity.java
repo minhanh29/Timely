@@ -22,10 +22,12 @@ import java.io.InputStream;
 import java.util.Calendar;
 import android.text.InputType;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -35,24 +37,28 @@ import com.example.timely.courses.Course;
 import com.example.timely.courses.StudyTime;
 import com.example.timely.timetable.TimetableActivity;
 
+import android.widget.AdapterView;
 
-public class ItemDetailsActivity extends AppCompatActivity {
+
+
+public class ItemDetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     DatePickerDialog pickerDate;
     TimePickerDialog pickerTime;
-    EditText editDate, editTime;
+    EditText editTime, sectionNo, instructorName;
     Switch hasTest;
+    Spinner dateSpinner;
     private Course course;
     private StudyTime studyTime;
     private DatabaseHelper db;
     private String courseId;
     private int studyTimeId;
-    private int hour, minutes;
+    private int hour, minutes, year, day, month;
 
     private ImageView imageNote;
     private String selectedImagePath;
 
     // Views
-    TextView titleView, noteView;
+    TextView noteView, itemHeader;
 
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
     private static final int REQUEST_CODE_SELECT_IMAGE = 2;
@@ -61,10 +67,13 @@ public class ItemDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_details);
-        editDate = findViewById(R.id.editDate);
+        dateSpinner = findViewById(R.id.dateSpinner);
         editTime = findViewById(R.id.editTime);
         imageNote = findViewById(R.id.imageNote);
         hasTest = findViewById(R.id.hasTest);
+        itemHeader = findViewById(R.id.item_header);
+        sectionNo = findViewById(R.id.section_No);
+        instructorName = findViewById(R.id.instructor_Name);
 
         selectedImagePath = "";
 
@@ -72,7 +81,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
 
         // get views
-        titleView = findViewById(R.id.noteTitle);
         noteView = findViewById(R.id.note);
 
         // the id's are sent from TimetableActivity
@@ -83,27 +91,11 @@ public class ItemDetailsActivity extends AppCompatActivity {
         // get information from database
         db = new DatabaseHelper(this);
 
-
 //        Date Picker
-        editDate.setInputType(InputType.TYPE_NULL);
-        editDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar cldr = Calendar.getInstance();
-                int day = cldr.get(Calendar.DAY_OF_MONTH);
-                int month = cldr.get(Calendar.MONTH);
-                int year = cldr.get(Calendar.YEAR);
-                // date picker dialog
-                pickerDate = new DatePickerDialog(ItemDetailsActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        editDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                    }
-                },year, month, day);
-                pickerDate.show();
-            }
-        });
-
+        ArrayAdapter<CharSequence> adapterdate = ArrayAdapter.createFromResource(this,R.array.days, android.R.layout.simple_spinner_item);
+        adapterdate.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        dateSpinner.setAdapter(adapterdate);
+        dateSpinner.setOnItemSelectedListener(this);
 //        Time Picker
         editTime.setInputType(InputType.TYPE_NULL);
         editTime.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +105,8 @@ public class ItemDetailsActivity extends AppCompatActivity {
                 pickerTime = new TimePickerDialog(ItemDetailsActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
+                        hour = sHour;
+                        minutes = sMinute;
                         editTime.setText(String.format("%02d:%02d",sHour,sMinute));
                     }
                 }, hour, minutes,true);
@@ -210,17 +204,42 @@ public class ItemDetailsActivity extends AppCompatActivity {
         course = db.getCourse(courseId);
         studyTime = db.getStudyTime(studyTimeId);
 
+
+        // display name
+        String header = course.getName();
+        itemHeader.setText(header);
+
         // display note
         String note = studyTime.getNote();
         noteView.setText(note);
 
         // display date, study time, test, section, instructor below
+
+        //hasTest check
         Boolean test = studyTime.isHasTest();
         hasTest.setChecked(test);
 
+
+        //get time
         hour = studyTime.getHour();
         minutes = studyTime.getMinute();
         editTime.setText(String.format("%02d:%02d", hour, minutes));
+
+
+        //get section no. and instructor's name
+        String section = course.getSection().toString();
+        sectionNo.setText(section);
+
+        String instructor = course.getInstructor();
+        instructorName.setText(instructor);
+
+        //get image
+
+
+        //get date
+        int day = studyTime.getDay();
+        dateSpinner.setSelection(day);
+
     }
 
 
@@ -234,15 +253,37 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
     public void save(View view)
     {
+        //set note
         String note = noteView.getText().toString();
         studyTime.setNote(note);
 
+        //set has test
         Boolean test = hasTest.isChecked();
         studyTime.setHasTest(test);
 
+        //set time
+        studyTime.setHour(hour);
+        studyTime.setMinute(minutes);
 
+        //set day
+        int position = dateSpinner.getSelectedItemPosition();
+        studyTime.setDay(position);
 
+        //save image
+        
+
+        //modify
         db.modifyStudyTime(studyTime);
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
