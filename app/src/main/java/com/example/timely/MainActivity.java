@@ -22,10 +22,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-<<<<<<< HEAD
-//        Intent intent = new Intent(this, NotificationSettingsActivity.class);
-=======
         timetable = findViewById(R.id.timetable_card);
         generator = findViewById(R.id.generator_card);
         settings = findViewById(R.id.settings_card);
@@ -75,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 //        Intent intent = new Intent(this, TimetableMakerActivity.class);
->>>>>>> 3732fcf5c53b3a431507330c646494782f5633c5
-//        startActivity(intent);
     }
 
     public void goToTimetable() {

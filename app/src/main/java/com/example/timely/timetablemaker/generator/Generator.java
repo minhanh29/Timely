@@ -1,6 +1,7 @@
 package com.example.timely.timetablemaker.generator;
 
 import com.example.timely.courses.Course;
+import com.example.timely.courses.StudyTime;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,25 @@ public class Generator {
 
     public Generator(ArrayList<Course> courses, int numberOfCourse)
     {
-        this.courses = courses;
+        this.courses = new ArrayList<>();
+        for (int i = 0; i < courses.size(); i++)
+        {
+            Course course = courses.get(i);
+            ArrayList<StudyTime> times = course.getTime();
+            boolean isValid = true;
+            for (int k = 0; k < times.size(); k++)
+            {
+                int hour = times.get(k).getHour();
+                if (hour < 6 || hour > 17)
+                {
+                    isValid = false;
+                    break;
+                }
+            }
+
+            if (isValid)
+                this.courses.add(course);
+        }
         number = numberOfCourse;
 
         scheduleList = new ArrayList<>();

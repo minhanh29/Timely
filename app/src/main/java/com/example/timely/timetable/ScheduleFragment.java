@@ -1,5 +1,6 @@
 package com.example.timely.timetable;
 
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -87,6 +88,8 @@ public class ScheduleFragment extends Fragment {
         courseColors.offer(R.drawable.course3_bg);
         courseColors.offer(R.drawable.course4_bg);
         courseColors.offer(R.drawable.course5_bg);
+        courseColors.offer(R.drawable.course6_bg);
+        courseColors.offer(R.drawable.course7_bg);
 
         // selected colors
         selectedColors = new LinkedList<>();
@@ -95,6 +98,8 @@ public class ScheduleFragment extends Fragment {
         selectedColors.offer(R.drawable.course3_select_bg);
         selectedColors.offer(R.drawable.course4_select_bg);
         selectedColors.offer(R.drawable.course5_select_bg);
+        selectedColors.offer(R.drawable.course6_select_bg);
+        selectedColors.offer(R.drawable.course7_select_bg);
 
         return view;
     }
@@ -103,6 +108,7 @@ public class ScheduleFragment extends Fragment {
     // receive courses and draw them to the screen
     public void updateCourses(ArrayList<Course> courses)
     {
+        startPos = HOUR * 24;
         // clear all old courses
         for (int i = 0; i < daysLayout.length; i++)
             daysLayout[i].removeAllViewsInLayout();
@@ -124,7 +130,8 @@ public class ScheduleFragment extends Fragment {
             for (int scan = 0; scan < time.size(); scan++)
             {
                 CourseView.OnCourseSelected selector = (CourseView.OnCourseSelected) getActivity();
-                CourseView courseView = new CourseView(getContext(), name, time.get(scan), bg, selectBg, selector);
+                Typeface tf = getActivity().getResources().getFont(R.font.antic);
+                CourseView courseView = new CourseView(getContext(), name, time.get(scan), bg, selectBg, tf, selector);
                 courseView.drawView(daysLayout);
 
                 // add to the list

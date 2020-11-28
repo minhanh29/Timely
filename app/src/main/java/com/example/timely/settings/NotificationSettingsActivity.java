@@ -41,8 +41,11 @@ public class NotificationSettingsActivity extends AppCompatActivity {
     ArrayList<PendingIntent> intentSWArray, intentSArray, intentTArray;
     ArrayList<StudyTime> studyTimes;
     ArrayList<Calendar> globalStudyTime, globalTestTime;
-    Calendar[] globalSleepWakeCalendar = new Calendar[2];
+    Calendar[] globalSleepWakeCalendar;
 
+    ArrayList<PendingIntent> intentArray;
+    AlarmManager[] alarmManager;
+    Intent[] alarmIntent;
 
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String WAKETIMER = "text";
@@ -70,6 +73,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
         db = new DatabaseHelper(NotificationSettingsActivity.this);
         globalStudyTime= new ArrayList<>();
         globalTestTime= new ArrayList<>();
+        globalSleepWakeCalendar = new Calendar[2];
 
         sleepWakeSwitch = (Switch) findViewById(R.id.sleepWakeSwitch);
         sleepWakeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -372,9 +376,21 @@ public class NotificationSettingsActivity extends AppCompatActivity {
     private void cancelSleepWakeAlarm() {
 //        for(int i=0;i<globalSleepWakeCalendar.length;i++)
 //        {
-//            Intent[] cancelSWAlarm = new Intent[globalSleepWakeCalendar.length];
-//            cancelSWAlarm[i] = new Intent(AlarmClock.ACTION_DISMISS_ALARM);
-//            startActivity(cancelSWAlarm[i]);
+////            Intent[] cancelSWAlarm = new Intent[globalSleepWakeCalendar.length];
+//            ArrayList<Integer> allDays = new ArrayList<>();
+//            allDays.add(2);
+//            allDays.add(3);
+//            allDays.add(4);
+//            allDays.add(5);
+//            allDays.add(6);
+//            int hour =  globalSleepWakeCalendar[i].get(Calendar.HOUR_OF_DAY);
+//            int min =  globalSleepWakeCalendar[i].get(Calendar.MINUTE);
+//            Intent intent = new Intent(AlarmClock.ACTION_DISMISS_ALARM);
+//            intent.putExtra(AlarmClock.EXTRA_HOUR, hour);
+//            intent.putExtra(AlarmClock.EXTRA_MINUTES, min);
+//            intent.putExtra(AlarmClock.EXTRA_DAYS,allDays);
+//            intent.putExtra(AlarmClock.EXTRA_ALARM_SEARCH_MODE, AlarmClock.ALARM_SEARCH_MODE_TIME);
+//            startActivity(intent);
 //        }
         System.out.println("It cancels the alarm");
         AlarmManager[] alarmManager=new AlarmManager[globalSleepWakeCalendar.length];
@@ -390,23 +406,25 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 
 
     private void startSleepWakeAlarm() {
-//        ArrayList<PendingIntent>intentArray = new ArrayList<>();
-//        for(int i=0;i<c.length;i++) {
+        ArrayList<PendingIntent>intentArray = new ArrayList<>();
+        alarmIntent = new Intent[ globalSleepWakeCalendar.length];
+        for(int i=0;i< globalSleepWakeCalendar.length;i++) {
 //            ArrayList<Integer> allDays = new ArrayList<>();
 //            allDays.add(2);
 //            allDays.add(3);
 //            allDays.add(4);
 //            allDays.add(5);
 //            allDays.add(6);
-//            int hour = c[i].get(Calendar.HOUR_OF_DAY);
-//            int min = c[i].get(Calendar.MINUTE);
-//            Intent[] alarmIntent = new Intent[c.length];
+//            int hour =  globalSleepWakeCalendar[i].get(Calendar.HOUR_OF_DAY);
+//            int min =  globalSleepWakeCalendar[i].get(Calendar.MINUTE);
 //            alarmIntent[i] = new Intent(AlarmClock.ACTION_SET_ALARM);
 //            alarmIntent[i].putExtra(AlarmClock.EXTRA_HOUR, hour);
 //            alarmIntent[i].putExtra(AlarmClock.EXTRA_MINUTES, min);
 //            alarmIntent[i].putExtra(AlarmClock.EXTRA_DAYS,allDays);
 //
-//            PendingIntent pendingIntent = PendingIntent.getBroadcast(NotificationSettingsActivity.this,0,alarmIntent[i],PendingIntent.FLAG_UPDATE_CURRENT);
+//            startActivity(alarmIntent[i]);
+
+//            setAlarm(6, hour, min, i);
 //
 //            intentArray.add(pendingIntent);
 //        }
@@ -415,13 +433,81 @@ public class NotificationSettingsActivity extends AppCompatActivity {
         for (int f = 0; f < globalSleepWakeCalendar.length; f++) {
             Intent intent = new Intent(this, AlarmReceiver.class);
             PendingIntent pi = PendingIntent.getBroadcast(this, f, intent, 0);
+            //PendingIntent pendingIntent = PendingIntent.getActivities(NotificationSettingsActivity.this,i, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
-            alarmManager[f] = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager[f].setInexactRepeating(AlarmManager.RTC_WAKEUP, globalSleepWakeCalendar[f].getTimeInMillis(), AlarmManager.INTERVAL_DAY, pi);
+            //intentArray.add(pendingIntent);
+        }
+//        PendingIntent pendingIntent = PendingIntent.getActivities(NotificationSettingsActivity.this,0, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+//        intentArray.add(pendingIntent);
+//        alarmManager=new AlarmManager[24];
+//        intentArray = new ArrayList<PendingIntent>();
+//        for(int i = 0; i < globalSleepWakeCalendar.length; i++){
+//            Intent intent = new Intent(this, AlarmReceiver.class);
+//            PendingIntent pi =PendingIntent.getBroadcast(this, i,intent, 0);
+
+            alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager[i].setExact(AlarmManager.RTC_WAKEUP, globalSleepWakeCalendar[i].getTimeInMillis() ,pi);
 
             intentSWArray.add(pi);
         }
     }
+
+
+    private void setAlarm(int day, int hour, int minute, int id)
+    {
+        Calendar calender= Calendar.getInstance();
+
+        calender.set(Calendar.DAY_OF_WEEK, 6);  //here pass week number
+        calender.set(Calendar.HOUR_OF_DAY, hour);  //pass hour which you have select
+        calender.set(Calendar.MINUTE, minute);  //pass min which you have select
+        calender.set(Calendar.SECOND, 0);
+        calender.set(Calendar.MILLISECOND, 0);
+
+        Calendar now = Calendar.getInstance();
+        now.set(Calendar.SECOND, 0);
+        now.set(Calendar.MILLISECOND, 0);
+
+        if (calender.before(now)) {    //this condition is used for future reminder that means your reminder not fire for past time
+            calender.add(Calendar.DATE, 7);
+        }
+
+//        final int _id = (int) System.currentTimeMillis();  //this id is used to set multiple alarms
+//
+//        Intent intent = new Intent(this, AlarmReceiver.class);
+//
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), 7 * 24 * 60 * 60 * 1000, pendingIntent);
+//
+//            alarmManager[f] = (AlarmManager) getSystemService(ALARM_SERVICE);
+//            alarmManager[f].setInexactRepeating(AlarmManager.RTC_WAKEUP, globalSleepWakeCalendar[f].getTimeInMillis(), AlarmManager.INTERVAL_DAY, pi);
+//
+//            intentSWArray.add(pi);
+
+//     private void startSleepWakeAlarm(Calendar[] c) {
+//         ArrayList<PendingIntent>intentArray = new ArrayList<>();
+//         for(int i=0;i<c.length;i++) {
+//             ArrayList<Integer> allDays = new ArrayList<>();
+//             allDays.add(2);
+//             allDays.add(3);
+//             allDays.add(4);
+//             allDays.add(5);
+//             allDays.add(6);
+//             int hour = c[i].get(Calendar.HOUR_OF_DAY);
+//             int min = c[i].get(Calendar.MINUTE);
+//             Intent[] alarmIntent = new Intent[c.length];
+//             alarmIntent[i] = new Intent(AlarmClock.ACTION_SET_ALARM);
+//             alarmIntent[i].putExtra(AlarmClock.EXTRA_HOUR, hour);
+//             alarmIntent[i].putExtra(AlarmClock.EXTRA_MINUTES, min);
+//             alarmIntent[i].putExtra(AlarmClock.EXTRA_DAYS,allDays);
+
+//             PendingIntent pendingIntent = PendingIntent.getActivities(NotificationSettingsActivity.this,0, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+//             intentArray.add(pendingIntent);
+//         }
+     }
 
     public void goBack(View view) {
         Intent intent = new Intent(this, MainActivity.class);
@@ -464,3 +550,5 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 //        spinnerTwo = sharedPreferences.getInt(SPINNER2, 1);
 //    }
 }
+
+

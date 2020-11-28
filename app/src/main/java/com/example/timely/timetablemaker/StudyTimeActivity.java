@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 
 import com.example.timely.DatabaseHelper;
 import com.example.timely.R;
@@ -18,6 +20,7 @@ public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragm
     ArrayList<TimeRowFragment> fragments;
     DatabaseHelper db;
     String courseId;
+    Animation animation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +41,16 @@ public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragm
 
         if (studyTimes.size() == 0)
             updateStudyTime(null);
+
+        // animations
+        animation = new AlphaAnimation(1F, 0.5F);
+        animation.setDuration(100L);
     }
 
 
     public void addStudyTime(View view) {
+        view.startAnimation(animation);
+
         TimeRowFragment timeRowFragment = new TimeRowFragment();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.timeLayout, timeRowFragment).commit();
@@ -71,6 +80,8 @@ public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragm
     // save all study times to the database
     public void saveStudyTime(View view)
     {
+        view.startAnimation(animation);
+
         // reset data for this course id;
         db.deleteAllStudyTime(courseId);
 
@@ -88,6 +99,7 @@ public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragm
     // go back to previous activity
     public void goBack(View view)
     {
+        view.startAnimation(animation);
         finish();
     }
 }

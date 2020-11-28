@@ -11,7 +11,7 @@
         android:id="@+id/bg"
         android:layout_width="0dp"
         android:layout_height="2dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/guideline26"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.08" />
+        app:layout_constraintGuide_percent="0.1" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline27"
@@ -50,9 +50,10 @@
         android:id="@+id/sample_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/antic"
         android:text="Sample Schedules"
         android:textColor="@color/colorPrimary"
-        android:textSize="24sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline26"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,10 +79,11 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/medium_button"
+        android:fontFamily="@font/antic"
         android:onClick="applySchedule"
         android:text="Apply"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,6 +111,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline30"
         app:layout_constraintEnd_toStartOf="@+id/guideline32"
         app:layout_constraintStart_toEndOf="@+id/schedule_version"
@@ -119,9 +122,11 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
+        android:fontFamily="@font/antic"
         android:gravity="center"
         android:text="Schedule No."
         android:textColor="@color/colorPrimaryDark"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/guideline30"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline26" />
@@ -141,8 +146,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:fontFamily="@font/antic"
         android:text="Total: 5"
         android:textColor="@color/colorPrimaryDark"
+        android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/guideline30"
         app:layout_constraintStart_toStartOf="@+id/guideline32"
         app:layout_constraintTop_toTopOf="@+id/guideline26" />
@@ -162,7 +169,7 @@
         android:layout_height="1dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@color/primary2"
+        android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/guideline30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

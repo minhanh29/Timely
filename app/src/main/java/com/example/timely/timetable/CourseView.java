@@ -1,13 +1,16 @@
 package com.example.timely.timetable;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.Gravity;
 import android.view.View;
 
+import com.example.timely.R;
 import com.example.timely.courses.StudyTime;
 
 public class CourseView  extends AppCompatTextView implements View.OnClickListener {
@@ -19,7 +22,7 @@ public class CourseView  extends AppCompatTextView implements View.OnClickListen
     private int color, selectedColor;
     private boolean isSelected;
 
-    public CourseView(Context context, String name, StudyTime time, int color, int selectedColor, OnCourseSelected selector) {
+    public CourseView(Context context, String name, StudyTime time, int color, int selectedColor, Typeface typeface, OnCourseSelected selector) {
         super(context);
         this.time = time;
         this.selector = selector;
@@ -31,12 +34,16 @@ public class CourseView  extends AppCompatTextView implements View.OnClickListen
         setId(View.generateViewId());
         setGravity(Gravity.CENTER_HORIZONTAL);
         setTextColor(Color.WHITE);
+        setTypeface(typeface, Typeface.BOLD);
         setBackgroundResource(color);
         setOnClickListener(this);
     }
 
     public void drawView(ConstraintLayout[] daysLayout)
     {
+        if (time.getHour() < 6 || time.getHour() > 17)
+            return;
+
         // compute the height based on the course's duration
         int height = (int) (time.getDuration() / 60.0 * HOUR);
         setHeight(height);
