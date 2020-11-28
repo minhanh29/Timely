@@ -3,14 +3,17 @@ package com.example.timely.settings;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.util.TimeZone;
 import android.net.Uri;
 import android.provider.AlarmClock;
 import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,6 +31,8 @@ import com.example.timely.courses.StudyTime;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 
 import static android.provider.Telephony.Mms.Part.TEXT;
 
@@ -61,7 +66,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
     private int spinnerOne,spinnerTwo;
 
 
-
+    public static final String UPDATE_ALARM = "UPDATE_ALARM";
 
     @Override
 
@@ -74,6 +79,11 @@ public class NotificationSettingsActivity extends AppCompatActivity {
         globalStudyTime= new ArrayList<>();
         globalTestTime= new ArrayList<>();
         globalSleepWakeCalendar = new Calendar[2];
+
+        Intent intent = getIntent();
+        boolean update = intent.getBooleanExtra(UPDATE_ALARM, false);
+        if (update)
+            startNextAlarm();
 
         sleepWakeSwitch = (Switch) findViewById(R.id.sleepWakeSwitch);
         sleepWakeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -98,7 +108,8 @@ public class NotificationSettingsActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked == true){
                     Toast.makeText(getBaseContext(),"Study Alarm: ON", Toast.LENGTH_SHORT).show();
-                    startStudyAlarm();
+                    //startStudyAlarm();
+                    startNextAlarm();
                 }
                 else
                 {
@@ -392,15 +403,22 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 //            intent.putExtra(AlarmClock.EXTRA_ALARM_SEARCH_MODE, AlarmClock.ALARM_SEARCH_MODE_TIME);
 //            startActivity(intent);
 //        }
-        System.out.println("It cancels the alarm");
-        AlarmManager[] alarmManager=new AlarmManager[globalSleepWakeCalendar.length];
-        if(intentSWArray.size()>0){
-            for(int i=0; i<intentSWArray.size(); i++){
-                alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
-                alarmManager[i].cancel(intentSWArray.get(i));
-            }
-            intentSWArray.clear();
+//        System.out.println("It cancels the alarm");
+//        AlarmManager[] alarmManager=new AlarmManager[globalSleepWakeCalendar.length];
+//        if(intentSWArray.size()>0){
+//            for(int i=0; i<intentSWArray.size(); i++){
+//                alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
+//                alarmManager[i].cancel(intentSWArray.get(i));
+//            }
+//            intentSWArray.clear();
+//        }
+        for (int i = 0; i < globalSleepWakeCalendar.length; i++)
+        {
+            Intent intent = new Intent(this, AlarmReceiver.class);
+            PendingIntent pi = PendingIntent.getBroadcast(this, i, intent, 0);
+            alarmManager[i].cancel(pi);
         }
+
     }
 
 
@@ -438,109 +456,114 @@ public class NotificationSettingsActivity extends AppCompatActivity {
             PendingIntent pi =PendingIntent.getBroadcast(this, i,intent, 0);
 
             alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager[i].setExact(AlarmManager.RTC_WAKEUP, globalSleepWakeCalendar[i].getTimeInMillis() ,pi);
+            alarmManager[i].setExact(AlarmManager.RTC_WAKEUP, globalSleepWakeCalendar[i].getTimeInMillis(), pi);
 
             intentArray.add(pi);
         }
     }
 
 
-    private void setAlarm(int day, int hour, int minute, int id)
+    private void setAlarm(int day, int hour, int minute, int id) {
+    }
+
+    public void startNextAlarm()
     {
-        Calendar calender= Calendar.getInstance();
+        int[] time = getNextTime();
+        Log.i("time", "Day:" + time[0] + "hour: " + time[1] + "minute: " + time[2]);
 
-        calender.set(Calendar.DAY_OF_WEEK, 6);  //here pass week number
-        calender.set(Calendar.HOUR_OF_DAY, hour);  //pass hour which you have select
-        calender.set(Calendar.MINUTE, minute);  //pass min which you have select
-        calender.set(Calendar.SECOND, 0);
-        calender.set(Calendar.MILLISECOND, 0);
+        Intent intent2 = new Intent(this, AlarmReceiver.class);
+        PendingIntent pi =PendingIntent.getBroadcast(this, 1,intent2, 0);
 
-        Calendar now = Calendar.getInstance();
-        now.set(Calendar.SECOND, 0);
-        now.set(Calendar.MILLISECOND, 0);
+        Calendar c = Calendar.getInstance();
+        //c.set(Calendar.DAY_OF_WEEK, time[0]);
+        c.set(Calendar.HOUR_OF_DAY, time[1]);
+        c.set(Calendar.MINUTE, time[2]);
 
-        if (calender.before(now)) {    //this condition is used for future reminder that means your reminder not fire for past time
-            calender.add(Calendar.DATE, 7);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
+
+        Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM);
+        ArrayList<Integer> days = new ArrayList<>();
+        days.add(time[0]);
+        intent.putExtra(AlarmClock.EXTRA_DAYS, days);
+        intent.putExtra(AlarmClock.EXTRA_HOUR, time[1]);
+        intent.putExtra(AlarmClock.EXTRA_MINUTES, time[2]);
+        //intent.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
+
+        startActivity(intent);
+
+    }
+
+
+    public int[] getNextTime()
+    {
+        int[] time = new int[3];
+        DatabaseHelper db = new DatabaseHelper(this);
+        ArrayList<StudyTime> studyTimes = db.getAllStudyTime();
+        Collections.sort(studyTimes);
+
+        Calendar calendar = Calendar.getInstance();
+        StudyTime minTime = new StudyTime(calendar.get(Calendar.DAY_OF_WEEK)-2,
+                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), 0, "");
+        boolean change = false;
+        for (int i = 0; i < studyTimes.size(); i++)
+        {
+            if (minTime.compareTo(studyTimes.get(i)) < 0)
+            {
+                minTime = studyTimes.get(i);
+                change = true;
+                break;
+            }
         }
 
-//        final int _id = (int) System.currentTimeMillis();  //this id is used to set multiple alarms
-//
-//        Intent intent = new Intent(this, AlarmReceiver.class);
-//
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//
-//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-//
-//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), 7 * 24 * 60 * 60 * 1000, pendingIntent);
-//
-//            alarmManager[f] = (AlarmManager) getSystemService(ALARM_SERVICE);
-//            alarmManager[f].setInexactRepeating(AlarmManager.RTC_WAKEUP, globalSleepWakeCalendar[f].getTimeInMillis(), AlarmManager.INTERVAL_DAY, pi);
-//
-//            intentSWArray.add(pi);
+        // this is the end of the week
+        // find the min time of next week
+        if (!change)
+        {
+            minTime = studyTimes.get(0);
+        }
 
-//     private void startSleepWakeAlarm(Calendar[] c) {
-//         ArrayList<PendingIntent>intentArray = new ArrayList<>();
-//         for(int i=0;i<c.length;i++) {
-//             ArrayList<Integer> allDays = new ArrayList<>();
-//             allDays.add(2);
-//             allDays.add(3);
-//             allDays.add(4);
-//             allDays.add(5);
-//             allDays.add(6);
-//             int hour = c[i].get(Calendar.HOUR_OF_DAY);
-//             int min = c[i].get(Calendar.MINUTE);
-//             Intent[] alarmIntent = new Intent[c.length];
-//             alarmIntent[i] = new Intent(AlarmClock.ACTION_SET_ALARM);
-//             alarmIntent[i].putExtra(AlarmClock.EXTRA_HOUR, hour);
-//             alarmIntent[i].putExtra(AlarmClock.EXTRA_MINUTES, min);
-//             alarmIntent[i].putExtra(AlarmClock.EXTRA_DAYS,allDays);
+        time[0] = minTime.getDay()+2;
+        time[1] = minTime.getHour();
+        time[2] = minTime.getMinute();
 
-//             PendingIntent pendingIntent = PendingIntent.getActivities(NotificationSettingsActivity.this,0, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        return time;
+    }
 
-//             intentArray.add(pendingIntent);
-//         }
-     }
+    /** Adds Events and Reminders in Calendar. */
+    private void addReminderInCalendar() {
+        Calendar cal = Calendar.getInstance();
+        Intent intent = new Intent(Intent.ACTION_EDIT);
+        intent.setType("vnd.android.cursor.item/event");
+        intent.putExtra("beginTime", cal.getTimeInMillis());
+        intent.putExtra("allDay", false);
+        intent.putExtra("rule", "FREQ=DAILY");
+        intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
+        intent.putExtra("title", "A Test Event from android app");
+        startActivity(intent);
+    }
+
+    /** Returns Calendar Base URI, supports both new and old OS. */
+    private String getCalendarUriBase(boolean eventUri) {
+        Uri calendarURI = null;
+        try {
+            if (android.os.Build.VERSION.SDK_INT <= 7) {
+                calendarURI = (eventUri) ? Uri.parse("content://calendar/") : Uri.parse("content://calendar/calendars");
+            } else {
+                calendarURI = (eventUri) ? Uri.parse("content://com.android.calendar/") : Uri
+                        .parse("content://com.android.calendar/calendars");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return calendarURI.toString();
+    }
 
     public void goBack(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
-//
-//    public void saveData() {
-//        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putString(WAKETIMER, wakeTimer.getText().toString());
-//        editor.putString(SLEEPTIMER, sleepTimer.getText().toString());
-//        editor.putInt(SPINNER1, spinner1.getSelectedItemPosition());
-//        editor.putInt(SPINNER2, spinner2.getSelectedItemPosition());
-//        editor.putBoolean(SLEEPWAKESWITCH, sleepWakeSwitch.isChecked());
-//        editor.putBoolean(STUDYSWITCH, studyTimSwitch.isChecked());
-//        editor.putBoolean(TESTSWITCH, testTimeSwitch.isChecked());
-//        editor.apply();
-//        Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
-//    }
-//
-//    private void updateViews() {
-//        wakeTimer.setText(wakeTime);
-//        sleepTimer.setText(sleepTime);
-//        sleepWakeSwitch.setChecked(sleepWakeSwitchOnOff);
-//        studyTimSwitch.setChecked(studyTimSwitchOnOFf);
-//        testTimeSwitch.setChecked(testTimeSwitchOnOff);
-//        spinner1.setSelection(spinnerOne);
-//        spinner2.setSelection(spinnerTwo);
-//    }
-//
-//    private void loadData() {
-//        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-//        wakeTime = sharedPreferences.getString(WAKETIMER, "00:00 AM");
-//        sleepTime = sharedPreferences.getString(SLEEPTIMER, "00:00 AM");
-//        sleepWakeSwitchOnOff = sharedPreferences.getBoolean(SLEEPWAKESWITCH, false);
-//        studyTimSwitchOnOFf = sharedPreferences.getBoolean(STUDYSWITCH, false);
-//        testTimeSwitchOnOff = sharedPreferences.getBoolean(TESTSWITCH, false);
-//        spinnerOne = sharedPreferences.getInt(SPINNER1, 1);
-//        spinnerTwo = sharedPreferences.getInt(SPINNER2, 1);
-//    }
 }
 
 
