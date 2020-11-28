@@ -51,8 +51,8 @@
     <color name="black">#000000</color>
 
     <!--    Settings Screen colors-->
-    <color name="superDarkBrown">#2f2519</color>
-    <color name="darkBrown">#4a3f35</color>
-    <color name="orangeSettings">#fa7d09</color>
-    <color name="redOrange">#ff4301</color>
+    <color name="soffWhite">#f6f5f5</color>
+    <color name="darkBlue">#145374</color>
+    <color name="darkerBlue">#00334e</color>
+    <color name="redOrange">#ee6f57</color>
 </resources>
