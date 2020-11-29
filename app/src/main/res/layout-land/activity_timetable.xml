@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".timetable.TimetableActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/header"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/timetable_back_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="6"
+            android:background="@drawable/ic_back"
+            android:onClick="goBack"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/timetable_date"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/antic"
+            android:gravity="center_vertical"
+            android:text="9 Nov 2020"
+            android:textColor="@color/header"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/timetable_back_button"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.2" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <fragment
+        android:id="@+id/schedule_fragment"
+        android:name="com.example.timely.timetable.ScheduleFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/dark_button"
+        android:fontFamily="@font/antic"
+        android:onClick="deleteCourse"
+        android:text="@string/timetable_delete_button"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <Button
+        android:id="@+id/add_course_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/dark_button"
+        android:fontFamily="@font/antic"
+        android:onClick="addCourse"
+        android:text="@string/timetable_add_button"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/delete_button" />
+
+    <Button
+        android:id="@+id/details_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/dark_button"
+        android:fontFamily="@font/antic"
+        android:onClick="showCourseDetail"
+        android:text="@string/timetable_details_button"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_course_button" />
+
+</android.support.constraint.ConstraintLayout>

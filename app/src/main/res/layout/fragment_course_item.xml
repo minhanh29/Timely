@@ -63,7 +63,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"
-            android:background="@drawable/ic_course_delete" />
+            android:background="@drawable/ic_clear" />
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

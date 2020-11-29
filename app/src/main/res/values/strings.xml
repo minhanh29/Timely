@@ -63,6 +63,7 @@
     <string name="maker_header">Courses</string>
     <string name="generate_button">GENERATE</string>
     <string name="reset_button">RESET</string>
+    <string name="no_course_mess">Tap on the pencil to add course</string>
 
     <!--    ADD COURSE FRAGMENT-->
     <string name="add_course_hear">New Course</string>
