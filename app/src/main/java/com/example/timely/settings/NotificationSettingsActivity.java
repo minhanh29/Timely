@@ -3,14 +3,17 @@ package com.example.timely.settings;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.util.TimeZone;
 import android.net.Uri;
 import android.provider.AlarmClock;
 import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +24,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+
 import com.example.timely.DatabaseHelper;
 import com.example.timely.MainActivity;
 import com.example.timely.R;
@@ -28,6 +32,9 @@ import com.example.timely.courses.StudyTime;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 import static android.provider.Telephony.Mms.Part.TEXT;
 
@@ -37,7 +44,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
     int wakeHour, wakeMinute, sleepHour, sleepMinute;
     Switch sleepWakeSwitch, studyTimSwitch, testTimeSwitch;
     DatabaseHelper db;
-    Spinner spinner1,spinner2;
+    Spinner spinner1, spinner2;
     ArrayList<PendingIntent> intentSWArray, intentSArray, intentTArray;
     ArrayList<StudyTime> studyTimes;
     ArrayList<Calendar> globalStudyTime, globalTestTime;
@@ -56,12 +63,17 @@ public class NotificationSettingsActivity extends AppCompatActivity {
     public static final String SPINNER1 = "spinner1";
     public static final String SPINNER2 = "spinner2";
 
+    public static final String STUDY_BEFORE = "STUDY_BEFORE";
+    public static final String TEST_BEFORE = "TEST_BEFORE";
+    private int studyBefore = 0;
+    private int testBefore = 0;
+
     private String wakeTime, sleepTime;
     private boolean sleepWakeSwitchOnOff, studyTimSwitchOnOFf, testTimeSwitchOnOff;
-    private int spinnerOne,spinnerTwo;
+    private int spinnerOne, spinnerTwo;
 
 
-
+    public static final String UPDATE_ALARM = "UPDATE_ALARM";
 
     @Override
 
@@ -71,23 +83,16 @@ public class NotificationSettingsActivity extends AppCompatActivity {
         wakeTimer = (TextView) findViewById(R.id.wakeTime);
         sleepTimer = (TextView) findViewById(R.id.sleepTime);
         db = new DatabaseHelper(NotificationSettingsActivity.this);
-        globalStudyTime= new ArrayList<>();
-        globalTestTime= new ArrayList<>();
+        globalStudyTime = new ArrayList<>();
+        globalTestTime = new ArrayList<>();
         globalSleepWakeCalendar = new Calendar[2];
+
 
         sleepWakeSwitch = (Switch) findViewById(R.id.sleepWakeSwitch);
         sleepWakeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked == true){
-                    Toast.makeText(getBaseContext(),"Sleep/Wake Alarm: ON", Toast.LENGTH_SHORT).show();
-                    startSleepWakeAlarm();
-                }
-                else
-                {
-                    Toast.makeText(getBaseContext(),"Sleep/Wake Alarm: OFF", Toast.LENGTH_SHORT).show();
-                    cancelSleepWakeAlarm();
-                }
+                updateAlarm();
 //                saveData();
             }
         });
@@ -96,15 +101,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
         studyTimSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked == true){
-                    Toast.makeText(getBaseContext(),"Study Alarm: ON", Toast.LENGTH_SHORT).show();
-                    startStudyAlarm();
-                }
-                else
-                {
-                    Toast.makeText(getBaseContext(),"Study Alarm: OFF", Toast.LENGTH_SHORT).show();
-                    cancelStudyAlarm();
-                }
+                updateAlarm();
 //                saveData();
             }
         });
@@ -114,15 +111,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
         testTimeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked == true){
-                    Toast.makeText(getBaseContext(),"Study Alarm: ON", Toast.LENGTH_SHORT).show();
-                    startTestAlarm();
-                }
-                else
-                {
-                    Toast.makeText(getBaseContext(),"Study Alarm: OFF", Toast.LENGTH_SHORT).show();
-                    cancelTestAlarm();
-                }
+                updateAlarm();
 //                saveData();
             }
         });
@@ -146,32 +135,36 @@ public class NotificationSettingsActivity extends AppCompatActivity {
                     System.out.println(position);
                     switch (position) {
                         case 0:
-                            calendar.set(Calendar.DAY_OF_WEEK, day+2);
+                            calendar.set(Calendar.DAY_OF_WEEK, day + 2);
                             calendar.set(Calendar.HOUR_OF_DAY, hour);
-                            calendar.set(Calendar.MINUTE,min);
-                            calendar.add(Calendar.HOUR_OF_DAY,-1);
+                            calendar.set(Calendar.MINUTE, min);
+                            calendar.add(Calendar.HOUR_OF_DAY, -1);
+                            studyBefore = 60;
                             break;
                         case 1:
-                            calendar.set(Calendar.DAY_OF_WEEK, day+2);
+                            calendar.set(Calendar.DAY_OF_WEEK, day + 2);
                             calendar.set(Calendar.HOUR_OF_DAY, hour);
                             calendar.set(Calendar.MINUTE, min);
-                            calendar.add(Calendar.MINUTE,-45);
+                            calendar.add(Calendar.MINUTE, -45);
+                            studyBefore = 45;
                             break;
                         case 2:
-                            calendar.set(Calendar.DAY_OF_WEEK, day+2);
+                            calendar.set(Calendar.DAY_OF_WEEK, day + 2);
                             calendar.set(Calendar.HOUR_OF_DAY, hour);
                             calendar.set(Calendar.MINUTE, min);
-                            calendar.add(Calendar.MINUTE,-30);
+                            calendar.add(Calendar.MINUTE, -30);
+                            studyBefore = 30;
                             break;
                         case 3:
-                            calendar.set(Calendar.DAY_OF_WEEK, day+2);
+                            calendar.set(Calendar.DAY_OF_WEEK, day + 2);
                             calendar.set(Calendar.HOUR_OF_DAY, hour);
                             calendar.set(Calendar.MINUTE, min);
-                            calendar.add(Calendar.MINUTE,-15);
+                            calendar.add(Calendar.MINUTE, -15);
+                            studyBefore = 15;
                             break;
                     }
                     globalStudyTime.add(calendar);
-                    System.out.println("Study Times: "+globalStudyTime.get(i).getTime());
+                    System.out.println("Study Times: " + globalStudyTime.get(i).getTime());
                     System.out.println();
                 }
 //                saveData();
@@ -195,22 +188,24 @@ public class NotificationSettingsActivity extends AppCompatActivity {
                 studyTimes = db.getAllStudyTime();
                 for (int i = 0; i < studyTimes.size(); i++) {
                     StudyTime studyTime = studyTimes.get(i);
-                    Calendar calendar= Calendar.getInstance();
+                    Calendar calendar = Calendar.getInstance();
                     int day = 0;
                     day = studyTime.getDay();
                     if (studyTime.isHasTest()) {
                         switch (position) {
                             case 0:
-                                calendar.set(Calendar.DAY_OF_WEEK, day+2);
-                                calendar.set(Calendar.HOUR_OF_DAY,studyTime.getHour());
-                                calendar.set(Calendar.MINUTE,studyTime.getMinute());
+                                calendar.set(Calendar.DAY_OF_WEEK, day + 2);
+                                calendar.set(Calendar.HOUR_OF_DAY, studyTime.getHour());
+                                calendar.set(Calendar.MINUTE, studyTime.getMinute());
                                 calendar.add(Calendar.DATE, -3);
+                                testBefore = 3;
                                 break;
                             case 1:
                                 calendar.set(Calendar.DAY_OF_WEEK, day);
-                                calendar.set(Calendar.HOUR_OF_DAY,studyTime.getHour());
-                                calendar.set(Calendar.MINUTE,studyTime.getMinute());
+                                calendar.set(Calendar.HOUR_OF_DAY, studyTime.getHour());
+                                calendar.set(Calendar.MINUTE, studyTime.getMinute());
                                 calendar.add(Calendar.DATE, -1);
+                                testBefore = 1;
                                 break;
                         }
                         globalTestTime.add(calendar);
@@ -243,7 +238,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
                                 wakeHour = hourOfDay;
                                 wakeMinute = minute;
 
-                                globalSleepWakeCalendar[1]=c;
+                                globalSleepWakeCalendar[1] = c;
                                 wakeTimer.setText(android.text.format.DateFormat.format("hh:mm aa", c));
 //                                saveData();
                             }
@@ -286,12 +281,11 @@ public class NotificationSettingsActivity extends AppCompatActivity {
     }
 
 
-
     private void cancelTestAlarm() {
         System.out.println("It cancels the alarm");
-        AlarmManager[] alarmManager=new AlarmManager[globalTestTime.size()];
-        if(globalTestTime.size()>0){
-            for(int i=0; i<intentTArray.size(); i++){
+        AlarmManager[] alarmManager = new AlarmManager[globalTestTime.size()];
+        if (globalTestTime.size() > 0) {
+            for (int i = 0; i < intentTArray.size(); i++) {
                 alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
                 alarmManager[i].cancel(intentTArray.get(i));
             }
@@ -320,15 +314,14 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 //                Toast.makeText(NotificationSettingsActivity.this, "There is no app that support this action", Toast.LENGTH_SHORT).show();
 //            }
 //        }
-        AlarmManager[] alarmManager=new AlarmManager[globalTestTime.size()];
+        AlarmManager[] alarmManager = new AlarmManager[globalTestTime.size()];
         intentTArray = new ArrayList<PendingIntent>();
-        for(int f=0;f<globalTestTime.size();f++){
+        for (int f = 0; f < globalTestTime.size(); f++) {
             Intent intent = new Intent(this, AlarmReceiver.class);
-            PendingIntent pi=PendingIntent.getBroadcast(this, f,intent, 0);
+            PendingIntent pi = PendingIntent.getBroadcast(this, f, intent, 0);
 
-            if(globalTestTime.get(f).before(Calendar.getInstance()))
-            {
-                globalTestTime.get(f).add(Calendar.DAY_OF_MONTH,7);
+            if (globalTestTime.get(f).before(Calendar.getInstance())) {
+                globalTestTime.get(f).add(Calendar.DAY_OF_MONTH, 7);
             }
             System.out.println(globalTestTime.get(f).getTime());
 
@@ -341,9 +334,9 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 
     private void cancelStudyAlarm() {
         System.out.println("It cancels the alarm");
-        AlarmManager[] alarmManager=new AlarmManager[globalStudyTime.size()];
-        if(intentSArray.size()>0){
-            for(int i=0; i<intentSArray.size(); i++){
+        AlarmManager[] alarmManager = new AlarmManager[globalStudyTime.size()];
+        if (intentSArray.size() > 0) {
+            for (int i = 0; i < intentSArray.size(); i++) {
                 alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
                 alarmManager[i].cancel(intentSArray.get(i));
             }
@@ -367,18 +360,17 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 //            startActivity(alarmIntent[i]);
 //        }
 
-        AlarmManager[] alarmManager=new AlarmManager[globalStudyTime.size()];
+        AlarmManager[] alarmManager = new AlarmManager[globalStudyTime.size()];
         intentSWArray = new ArrayList<PendingIntent>();
-        for(int f=0;f<globalStudyTime.size();f++){
+        for (int f = 0; f < globalStudyTime.size(); f++) {
             Intent intent = new Intent(this, AlarmReceiver.class);
-            PendingIntent pi=PendingIntent.getBroadcast(this, f,intent, 0);
+            PendingIntent pi = PendingIntent.getBroadcast(this, f, intent, 0);
 
-            if(globalStudyTime.get(f).before(Calendar.getInstance()))
-            {
-                globalStudyTime.get(f).add(Calendar.DAY_OF_MONTH,7);
+            if (globalStudyTime.get(f).before(Calendar.getInstance())) {
+                globalStudyTime.get(f).add(Calendar.DAY_OF_MONTH, 7);
             }
 
-            System.out.println("New Study Time: "+globalStudyTime.get(f).getTime());
+            System.out.println("New Study Time: " + globalStudyTime.get(f).getTime());
             alarmManager[f] = (AlarmManager) getSystemService(ALARM_SERVICE);
             alarmManager[f].setExact(AlarmManager.RTC_WAKEUP, globalStudyTime.get(f).getTimeInMillis(), pi);
 
@@ -406,16 +398,15 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 //            startActivity(intent);
 //        }
         System.out.println("It cancels the alarm");
-        AlarmManager[] alarmManager=new AlarmManager[globalSleepWakeCalendar.length];
-        if(intentSWArray.size()>0){
-            for(int i=0; i<intentSWArray.size(); i++){
+        AlarmManager[] alarmManager = new AlarmManager[globalSleepWakeCalendar.length];
+        if (intentSWArray.size() > 0) {
+            for (int i = 0; i < intentSWArray.size(); i++) {
                 alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
                 alarmManager[i].cancel(intentSWArray.get(i));
             }
             intentSWArray.clear();
         }
     }
-
 
 
     private void startSleepWakeAlarm() {
@@ -441,26 +432,24 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 //
 //            intentArray.add(pendingIntent);
 //        }
-            AlarmManager[] alarmManager = new AlarmManager[globalSleepWakeCalendar.length];
-            intentSWArray = new ArrayList<>();
-            for (int i = 0; i < globalSleepWakeCalendar.length; i++) {
-                Intent intent = new Intent(this, AlarmReceiver.class);
-                PendingIntent pi = PendingIntent.getBroadcast(this, i, intent, 0);
+        AlarmManager[] alarmManager = new AlarmManager[globalSleepWakeCalendar.length];
+        intentSWArray = new ArrayList<>();
+        for (int i = 0; i < globalSleepWakeCalendar.length; i++) {
+            Intent intent = new Intent(this, AlarmReceiver.class);
+            PendingIntent pi = PendingIntent.getBroadcast(this, i, intent, 0);
 
-                if(globalSleepWakeCalendar[i].before(Calendar.getInstance()))
-                {
-                    globalSleepWakeCalendar[i].add(Calendar.DATE,1);
-                }
-                System.out.println(globalSleepWakeCalendar[i].getTime());
-
-
-                alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
-                alarmManager[i].setInexactRepeating(AlarmManager.RTC_WAKEUP, globalSleepWakeCalendar[i].getTimeInMillis(), AlarmManager.INTERVAL_DAY, pi);
-
-                intentSWArray.add(pi);
+            if (globalSleepWakeCalendar[i].before(Calendar.getInstance())) {
+                globalSleepWakeCalendar[i].add(Calendar.DATE, 1);
             }
-    }
+            System.out.println(globalSleepWakeCalendar[i].getTime());
 
+
+            alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager[i].setInexactRepeating(AlarmManager.RTC_WAKEUP, globalSleepWakeCalendar[i].getTimeInMillis(), AlarmManager.INTERVAL_DAY, pi);
+
+            intentSWArray.add(pi);
+        }
+    }
 
     public void goBack(View view) {
         Intent intent = new Intent(this, MainActivity.class);
@@ -502,6 +491,31 @@ public class NotificationSettingsActivity extends AppCompatActivity {
         spinnerOne = sharedPreferences.getInt(SPINNER1, 1);
         spinnerTwo = sharedPreferences.getInt(SPINNER2, 1);
     }
-}
+
+        private void updateAlarm ()
+        {
+            // turn off the alarm
+            Intent intent1 = new Intent(this, AlarmService.class);
+            stopService(intent1);
+
+            boolean sleepAwake = sleepWakeSwitch.isChecked();
+            boolean study = studyTimSwitch.isChecked();
+            boolean test = testTimeSwitch.isChecked();
+
+            // if one of the switches is on, turn on to update the alarm
+            if (sleepAwake || study || test) {
+                Intent intent = new Intent(this, AlarmService.class);
+                intent.putExtra(SLEEPWAKESWITCH, sleepAwake);
+                intent.putExtra(STUDYSWITCH, study);
+                intent.putExtra(TESTSWITCH, test);
+
+                // time before alarm
+                intent.putExtra(STUDY_BEFORE, studyBefore);
+                intent.putExtra(TEST_BEFORE, testBefore);
+                startService(intent);
+            }
+        }
+    }
+
 
 

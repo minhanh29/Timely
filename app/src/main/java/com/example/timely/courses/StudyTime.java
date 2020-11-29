@@ -1,7 +1,9 @@
 package com.example.timely.courses;
 
 
-public class StudyTime {
+import java.util.Calendar;
+
+public class StudyTime implements Comparable<StudyTime> {
     private int day;  // week day 0 = Monday, 1 = Tuesday, etc.
     private int hour;  //start hour (0 to 24)
     private int minute;  //start minute
@@ -158,4 +160,17 @@ public class StudyTime {
         return false;
     }
 
+    @Override
+    public int compareTo(StudyTime o) {
+        if (day != o.day)
+            return day - o.day;
+
+        if (hour != o.hour)
+            return hour - o.hour;
+
+        if (minute != o.minute)
+            return minute - o.minute;
+
+        return 0;
+    }
 }

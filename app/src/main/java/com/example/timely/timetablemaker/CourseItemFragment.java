@@ -76,7 +76,14 @@ public class CourseItemFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyCourseListItemRecyclerViewAdapter(db.getAllCourses(), listener));
+
+            ArrayList<Course> courses = db.getAllCourses();
+            if (courses.size() == 0)
+                recyclerView.setBackgroundResource(R.color.trans);
+            else
+                recyclerView.setBackgroundResource(R.color.primary3);
+
+            recyclerView.setAdapter(new MyCourseListItemRecyclerViewAdapter(courses, listener));
         }
         return view;
     }
@@ -93,7 +100,13 @@ public class CourseItemFragment extends Fragment {
     // update the list
     public void updateList()
     {
-        recyclerView.setAdapter(new MyCourseListItemRecyclerViewAdapter(db.getAllCourses(), listener));
+        ArrayList<Course> courses = db.getAllCourses();
+        if (courses.size() == 0)
+            recyclerView.setBackgroundResource(R.color.trans);
+        else
+            recyclerView.setBackgroundResource(R.color.primary3);
+
+        recyclerView.setAdapter(new MyCourseListItemRecyclerViewAdapter(courses, listener));
     }
 
 
