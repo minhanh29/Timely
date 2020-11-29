@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToSettings() {
-        Intent intent = new Intent(this, NotificationSettingsActivity.class);
+        Intent intent = new Intent(this, AlarmActivity.class);
         startActivity(intent);
         finish();
     }

@@ -463,10 +463,10 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 //            Intent intent = new Intent(this, AlarmReceiver.class);
 //            PendingIntent pi =PendingIntent.getBroadcast(this, i,intent, 0);
 
-            alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager[i].setExact(AlarmManager.RTC_WAKEUP, globalSleepWakeCalendar[i].getTimeInMillis(), pi);
-
-            intentSWArray.add(pi);
+//            alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
+//            alarmManager[i].setExact(AlarmManager.RTC_WAKEUP, globalSleepWakeCalendar[i].getTimeInMillis(), pi);
+//
+//            intentSWArray.add(pi);
         }
     }
 

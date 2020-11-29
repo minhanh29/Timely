@@ -1,6 +1,7 @@
 package com.example.timely.settings;
 
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.provider.AlarmClock;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.example.timely.DatabaseHelper;
@@ -29,9 +31,13 @@ public class Ringtone extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-//        mediaPlayer = MediaPlayer.create(this, R.raw.alarm_sound);
-//        mediaPlayer.start();
-//        Log.e("Hi this music is running", "Lalala");
+        mediaPlayer = MediaPlayer.create(this, R.raw.alarm_sound);
+        mediaPlayer.start();
+        Log.e("Hi this music is running", "Lalala");
+        Intent mIntent = new Intent(this, AlarmService.class);
+        startService(mIntent);
+
+        stopSelf();
 
         return START_NOT_STICKY;
     }
