@@ -93,29 +93,37 @@ public class AlarmService extends Service {
 
         // SET ALARM
         Calendar time = getNextTime();
+        if (time ==  null)
+        {
+            stopSelf();
+            return START_NOT_STICKY;
+        }
+
+        Log.i("time", "Setting new alarm");
+
         int day = time.get(Calendar.DAY_OF_MONTH);
         int hour = time.get(Calendar.HOUR_OF_DAY);
         int min = time.get(Calendar.MINUTE);
-        Log.i("time", "Alarm day:" + day + " hour: " + hour + " minute: " + min);
+        Log.i("time", "Alarm day: " + day + " hour: " + hour + " minute: " + min);
 
         long countTime = time.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
         day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         min = Calendar.getInstance().get(Calendar.MINUTE);
-        Log.i("time", "Today:" + day + " hour: " + hour + " minute: " + min);
+        Log.i("time", "Today: " + day + " hour: " + hour + " minute: " + min);
 
         // count down the time
         // This is a separate thread, so the codes after this timer will still run
         timer = new CountDownTimer(countTime, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                Log.i("alarm", "count down (milliseconds): " + millisUntilFinished);
+                Log.i("time", "(milliseconds) count down: " + millisUntilFinished);
             }
 
             public void onFinish() {
                 Intent intent2 = new Intent(getApplicationContext(), Ringtone.class);
                 startService(intent2);
-                Log.i("alarm", "Alarm finish");
+                Log.i("time", "Alarm finish");
             }
         };
         timer.start();
@@ -137,7 +145,8 @@ public class AlarmService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        timer.cancel();
+        if (timer != null)
+            timer.cancel();
     }
 
     @Nullable
@@ -148,6 +157,10 @@ public class AlarmService extends Service {
 
     public Calendar getNextTime()
     {
+        // no time available
+        if (calendar.size() == 0)
+            return null;
+
         Calendar minCal = Calendar.getInstance();
         boolean change = false;
         for (int i = 0; i < calendar.size(); i++)
