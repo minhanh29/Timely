@@ -5,6 +5,11 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
+/*
+ * This class is used to register the alarm channel
+ * to run in foreground
+ */
+
 public class App extends Application {
     public static String CHANNEL_ID = "alarmService";
 

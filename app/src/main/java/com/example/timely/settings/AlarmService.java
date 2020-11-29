@@ -1,6 +1,5 @@
 package com.example.timely.settings;
 
-import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -9,10 +8,8 @@ import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.example.timely.AlarmActivity;
 import com.example.timely.DatabaseHelper;
 import com.example.timely.MainActivity;
 import com.example.timely.R;
@@ -21,7 +18,6 @@ import com.example.timely.courses.StudyTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.concurrent.TimeUnit;
 
 import static com.example.timely.settings.App.CHANNEL_ID;
 
@@ -29,40 +25,100 @@ public class AlarmService extends Service {
 
     public static String TIME_INFO = "time_infor";
 
-    private CounterClass timer;
+    private CountDownTimer timer;
+    private ArrayList<StudyTime> studyTimes;
+    private ArrayList<Calendar> calendar;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+        studyTimes = db.getAllStudyTime();
+        Collections.sort(studyTimes);
+        calendar = new ArrayList<>();
+        for (int i = 0; i < studyTimes.size(); i++)
+        {
+            Calendar cal = Calendar.getInstance();
+            int offset = studyTimes.get(i).getDay() + 2 - cal.get(Calendar.DAY_OF_WEEK);
+            cal.add(Calendar.DAY_OF_MONTH, offset);
+            calendar.add(cal);
+        }
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // set alarm
-        int[] time = getNextTime();
-        Log.i("time", "Day:" + time[0] + "hour: " + time[1] + "minute: " + time[2]);
+        // get information from activity
+        boolean isStudy = intent.getBooleanExtra(NotificationSettingsActivity.STUDYSWITCH, false);
+        boolean isTest = intent.getBooleanExtra(NotificationSettingsActivity.TESTSWITCH, false);
+        boolean isSleepAwake = intent.getBooleanExtra(NotificationSettingsActivity.SLEEPWAKESWITCH, false);
 
-        // convert to millis
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.DAY_OF_WEEK, time[0]);
-        c.set(Calendar.HOUR, time[1]);
-        c.set(Calendar.MINUTE, time[2]);
+        int studyBefore = intent.getIntExtra(NotificationSettingsActivity.STUDY_BEFORE, 0);
+        int testBefore = intent.getIntExtra(NotificationSettingsActivity.TEST_BEFORE, 0);
 
-        long countTime = c.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+        // create a list for test time
+        ArrayList<Calendar> testCal = new ArrayList<>();
+        if (isTest)
+        {
+            for (int i = 0 ; i < studyTimes.size(); i++)
+            {
+                if (studyTimes.get(i).isHasTest())
+                {
+                    Calendar cal = Calendar.getInstance();
+                    int offset = studyTimes.get(i).getDay() + 2 - cal.get(Calendar.DAY_OF_WEEK);
+                    cal.add(Calendar.DAY_OF_MONTH, offset);
+                    cal.add(Calendar.DAY_OF_MONTH, -testBefore);
+                    testCal.add(cal);
+                }
+            }
 
-        timer = new CounterClass(countTime, 1000);
+        }
+
+        if (!isStudy)
+            calendar.clear();
+        else
+        {
+            for (int i = 0; i < calendar.size(); i++)
+                calendar.get(i).add(Calendar.MINUTE, -studyBefore);
+        }
+
+        // add test to calendar
+        for (int i= 0; i < testCal.size(); i++)
+            calendar.add(testCal.get(i));
+
+        // sort the date
+        Collections.sort(calendar);
+
+
+        // SET ALARM
+        Calendar time = getNextTime();
+        int day = time.get(Calendar.DAY_OF_MONTH);
+        int hour = time.get(Calendar.HOUR_OF_DAY);
+        int min = time.get(Calendar.MINUTE);
+        Log.i("time", "Alarm day:" + day + " hour: " + hour + " minute: " + min);
+
+        long countTime = time.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+        day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        min = Calendar.getInstance().get(Calendar.MINUTE);
+        Log.i("time", "Today:" + day + " hour: " + hour + " minute: " + min);
+
+        // count down the time
+        // This is a separate thread, so the codes after this timer will still run
+        timer = new CountDownTimer(countTime, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                Log.i("alarm", "count down (milliseconds): " + millisUntilFinished);
+            }
+
+            public void onFinish() {
+                Intent intent2 = new Intent(getApplicationContext(), Ringtone.class);
+                startService(intent2);
+                Log.i("alarm", "Alarm finish");
+            }
+        };
         timer.start();
-        Log.i("alarm", "Minh Anh here");
-        Intent intent2 = new Intent(this, Ringtone.class);
-        startService(intent2);
-//
-//        Intent intent2 = new Intent(getApplicationContext(), AlarmReceiver.class);
-//        intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        PendingIntent pi =PendingIntent.getBroadcast(getApplicationContext(), 1,intent2, PendingIntent.FLAG_CANCEL_CURRENT);
-//
-//
-//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-//        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
 
         Intent mIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, mIntent, 0);
@@ -81,6 +137,7 @@ public class AlarmService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        timer.cancel();
     }
 
     @Nullable
@@ -89,64 +146,32 @@ public class AlarmService extends Service {
         return null;
     }
 
-    public int[] getNextTime()
+    public Calendar getNextTime()
     {
-        int[] time = new int[3];
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-        ArrayList<StudyTime> studyTimes = db.getAllStudyTime();
-        Collections.sort(studyTimes);
-
-        Calendar calendar = Calendar.getInstance();
-        StudyTime minTime = new StudyTime(calendar.get(Calendar.DAY_OF_WEEK)-2,
-                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)+1, 0, "");
+        Calendar minCal = Calendar.getInstance();
         boolean change = false;
-        for (int i = 0; i < studyTimes.size(); i++)
+        for (int i = 0; i < calendar.size(); i++)
         {
-            if (minTime.compareTo(studyTimes.get(i)) < 0)
+            if (minCal.compareTo(calendar.get(i)) < 0)
             {
-                minTime = studyTimes.get(i);
+                minCal = calendar.get(i);
                 change = true;
                 break;
             }
         }
 
+
         // this is the end of the week
         // find the min time of next week
         if (!change)
         {
-            minTime = studyTimes.get(0);
+            minCal = calendar.get(0);
+            minCal.add(Calendar.DAY_OF_MONTH, 7);
         }
 
-        time[0] = minTime.getDay()+2;
-        time[1] = minTime.getHour();
-        time[2] = minTime.getMinute();
+        Log.i("time", "Day: " + minCal.get(Calendar.DAY_OF_MONTH));
 
-        return time;
+        return minCal;
     }
 
-    public class CounterClass extends CountDownTimer {
-
-        public CounterClass(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
-        }
-
-        @Override
-        public void onTick(long millisUntilFinished) {
-            long millis = millisUntilFinished;
-            String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
-                    TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
-                    TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
-            System.out.println(hms);
-            Intent timerInfoIntent = new Intent(TIME_INFO);
-            timerInfoIntent.putExtra("VALUE", hms);
-            LocalBroadcastManager.getInstance(AlarmService.this).sendBroadcast(timerInfoIntent);
-        }
-
-        @Override
-        public void onFinish() {
-            Intent timerInfoIntent = new Intent(TIME_INFO);
-            timerInfoIntent.putExtra("VALUE", "Completed");
-            LocalBroadcastManager.getInstance(AlarmService.this).sendBroadcast(timerInfoIntent);
-        }
-    }
 }

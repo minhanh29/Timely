@@ -19,7 +19,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="q">
-        <activity android:name=".AlarmActivity"></activity>
         <activity android:name=".timetablemaker.generator.SampleScheduleActivity" />
         <activity android:name=".settings.NotificationSettingsActivity" />
         <activity android:name=".ItemDetailsActivity" />

@@ -34,78 +34,14 @@ public class Ringtone extends Service {
         mediaPlayer = MediaPlayer.create(this, R.raw.alarm_sound);
         mediaPlayer.start();
         Log.e("Hi this music is running", "Lalala");
+
+        // set the next alarm
         Intent mIntent = new Intent(this, AlarmService.class);
         startService(mIntent);
 
+        // stop this ringing service
         stopSelf();
 
         return START_NOT_STICKY;
     }
-
-
-    public void startNextAlarm()
-    {
-        int[] time = getNextTime();
-        Log.i("time", "Day:" + time[0] + "hour: " + time[1] + "minute: " + time[2]);
-
-        Intent intent2 = new Intent(getApplicationContext(), AlarmReceiver.class);
-        intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        PendingIntent pi =PendingIntent.getBroadcast(getApplicationContext(), 1,intent2, PendingIntent.FLAG_CANCEL_CURRENT);
-
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.DAY_OF_WEEK, time[0]);
-        c.set(Calendar.HOUR, time[1]);
-        c.set(Calendar.MINUTE, time[2]);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
-
-        Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        ArrayList<Integer> days = new ArrayList<>();
-        days.add(time[0]);
-        intent.putExtra(AlarmClock.EXTRA_DAYS, days);
-        intent.putExtra(AlarmClock.EXTRA_HOUR, time[1]);
-        intent.putExtra(AlarmClock.EXTRA_MINUTES, time[2]);
-
-        startActivity(intent);
-
-    }
-
-
-    public int[] getNextTime()
-    {
-        int[] time = new int[3];
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-        ArrayList<StudyTime> studyTimes = db.getAllStudyTime();
-        Collections.sort(studyTimes);
-
-        Calendar calendar = Calendar.getInstance();
-        StudyTime minTime = new StudyTime(calendar.get(Calendar.DAY_OF_WEEK)-2,
-                calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)+1, 0, "");
-        boolean change = false;
-        for (int i = 0; i < studyTimes.size(); i++)
-        {
-            if (minTime.compareTo(studyTimes.get(i)) < 0)
-            {
-                minTime = studyTimes.get(i);
-                change = true;
-                break;
-            }
-        }
-
-        // this is the end of the week
-        // find the min time of next week
-        if (!change)
-        {
-            minTime = studyTimes.get(0);
-        }
-
-        time[0] = minTime.getDay()+2;
-        time[1] = minTime.getHour();
-        time[2] = minTime.getMinute();
-
-        return time;
-    }
-
 }
