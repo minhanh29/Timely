@@ -47,7 +47,6 @@
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:text="@string/notification_settings"
-            android:textAlignment="center"
             android:textColor="@color/soffWhite"
             android:textSize="30sp"
             android:textStyle="bold|italic"
@@ -193,7 +192,7 @@
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="26dp"
-                android:src="@drawable/sleepWake"
+                android:src="@drawable/sleep_wake"/>
 
             <TextView
                 android:id="@+id/sleepAwakeAText"
