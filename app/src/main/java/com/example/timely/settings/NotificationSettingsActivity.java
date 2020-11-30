@@ -153,7 +153,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
                     }
                 }
                 saveData();
-                updateAlarm();
+                //updateAlarm();
             }
 
             @Override
@@ -225,12 +225,12 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 
                                 wakeTimer.setText(android.text.format.DateFormat.format("hh:mm aa", c));
                                 saveData();
+                                updateAlarm();
                             }
                         }, 12, 0, false
                 );
                 timePickerDialog.updateTime(wakeHour, wakeMinute);
                 timePickerDialog.show();
-                updateAlarm();
             }
         });
 
@@ -253,12 +253,12 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 
                                 sleepTimer.setText(android.text.format.DateFormat.format("hh:mm aa", c));
                                 saveData();
+                                updateAlarm();
                             }
                         }, 12, 0, false
                 );
                 timePickerDialog.updateTime(sleepHour, sleepMinute);
                 timePickerDialog.show();
-                updateAlarm();
             }
         });
         loadData();
@@ -294,19 +294,21 @@ public class NotificationSettingsActivity extends AppCompatActivity {
     }
 
     private void updateViews() {
-        wakeTimer.setText(wakeTime);
-        sleepTimer.setText(sleepTime);
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, wakeHour);
+        cal.set(Calendar.MINUTE, wakeMinute);
+        wakeTimer.setText(android.text.format.DateFormat.format("hh:mm aa", cal));
+
+        cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, sleepHour);
+        cal.set(Calendar.MINUTE, sleepMinute);
+        sleepTimer.setText(android.text.format.DateFormat.format("hh:mm aa", cal));
+
         sleepWakeSwitch.setChecked(sleepWakeSwitchOnOff);
         studyTimSwitch.setChecked(studyTimSwitchOnOFf);
         testTimeSwitch.setChecked(testTimeSwitchOnOff);
         spinner1.setSelection(spinnerOne);
         spinner2.setSelection(spinnerTwo);
-        studyBefore=newStudyBefore;
-        testBefore=newTestBefore;
-        wakeHour=newWakeHour;
-        wakeMinute=newWakeMinute;
-        sleepHour=newSleepHour;
-        sleepMinute=newWakeMinute;
     }
 
     private void loadData() {
@@ -319,44 +321,44 @@ public class NotificationSettingsActivity extends AppCompatActivity {
         testTimeSwitchOnOff = sharedPreferences.getBoolean(TESTSWITCH, false);
         spinnerOne = sharedPreferences.getInt(SPINNER1, 1);
         spinnerTwo = sharedPreferences.getInt(SPINNER2, 1);
-        newStudyBefore = sharedPreferences.getInt(TIMEBEFORESTUDY, 60);
-        newTestBefore = sharedPreferences.getInt(TIMEBEFORETEST, 3);
-        newWakeHour = sharedPreferences.getInt(WAKEHOUR, 0);
-        newWakeMinute = sharedPreferences.getInt(WAKEMIN, 0);
-        newSleepHour = sharedPreferences.getInt(SLEEPHOUR, 0);
-        newSleepMinute = sharedPreferences.getInt(SLEEPMIN, 0);
+        studyBefore = sharedPreferences.getInt(TIMEBEFORESTUDY, 60);
+        testBefore = sharedPreferences.getInt(TIMEBEFORETEST, 3);
+        wakeHour = sharedPreferences.getInt(WAKEHOUR, 0);
+        wakeMinute = sharedPreferences.getInt(WAKEMIN, 0);
+        sleepHour = sharedPreferences.getInt(SLEEPHOUR, 0);
+        sleepMinute = sharedPreferences.getInt(SLEEPMIN, 0);
     }
 
-        private void updateAlarm ()
-        {
-            // turn off the alarm
-            Intent intent1 = new Intent(this, AlarmService.class);
-            stopService(intent1);
+    private void updateAlarm ()
+    {
+        // turn off the alarm
+        Intent intent1 = new Intent(this, AlarmService.class);
+        stopService(intent1);
 
-            boolean sleepAwake = sleepWakeSwitch.isChecked();
-            boolean study = studyTimSwitch.isChecked();
-            boolean test = testTimeSwitch.isChecked();
+        boolean sleepAwake = sleepWakeSwitch.isChecked();
+        boolean study = studyTimSwitch.isChecked();
+        boolean test = testTimeSwitch.isChecked();
 
-            // if one of the switches is on, turn on to update the alarm
-            if (sleepAwake || study || test) {
-                Intent intent = new Intent(this, AlarmService.class);
-                intent.putExtra(SLEEPWAKESWITCH, sleepAwake);
-                intent.putExtra(STUDYSWITCH, study);
-                intent.putExtra(TESTSWITCH, test);
+        // if one of the switches is on, turn on to update the alarm
+        if (sleepAwake || study || test) {
+            Intent intent = new Intent(this, AlarmService.class);
+            intent.putExtra(SLEEPWAKESWITCH, sleepAwake);
+            intent.putExtra(STUDYSWITCH, study);
+            intent.putExtra(TESTSWITCH, test);
 
-                // time for sleep and wake alarm
-                intent.putExtra(SLEEPHOUR, sleepHour);
-                intent.putExtra(SLEEPMIN, sleepMinute);
-                intent.putExtra(WAKEHOUR, wakeHour);
-                intent.putExtra(WAKEMIN, wakeMinute);
+            // time for sleep and wake alarm
+            intent.putExtra(SLEEPHOUR, sleepHour);
+            intent.putExtra(SLEEPMIN, sleepMinute);
+            intent.putExtra(WAKEHOUR, wakeHour);
+            intent.putExtra(WAKEMIN, wakeMinute);
 
-                // time before alarm
-                intent.putExtra(STUDY_BEFORE, studyBefore);
-                intent.putExtra(TEST_BEFORE, testBefore);
-                startService(intent);
-            }
+            // time before alarm
+            intent.putExtra(STUDY_BEFORE, studyBefore);
+            intent.putExtra(TEST_BEFORE, testBefore);
+            startService(intent);
         }
     }
+}
 
 
 

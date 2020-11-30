@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.example.timely.courses.Course;
 import com.example.timely.courses.StudyTime;
+import com.example.timely.settings.AlarmService;
 import com.example.timely.timetable.TimetableActivity;
 
 import android.widget.AdapterView;
@@ -275,6 +276,10 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
         //modify
         db.modifyStudyTime(studyTime);
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+
+        // update the alarm
+        Intent mIntent = new Intent(this, AlarmService.class);
+        startService(mIntent);
     }
 
     @Override

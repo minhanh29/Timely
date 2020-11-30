@@ -21,20 +21,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.2" />
+            app:layout_constraintGuide_percent="0.2"
+            android:background="@color/redOrange"/>
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/redOrange" />
+            android:background="@color/redOrange"
+            app:layout_constraintBottom_toBottomOf="@+id/settings_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/settings_text" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/ic_back"
-            android:textColor="@color/redOrange"
             android:onClick="goBack"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline14"
@@ -46,14 +50,15 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:background="@color/redOrange"
             android:gravity="center_vertical"
             android:text="@string/notification_settings"
             android:textColor="@color/softWhite"
             android:textSize="30sp"
-            android:textStyle="bold|italic"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
@@ -61,6 +66,7 @@
         android:id="@+id/study_alarm_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="10dp"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
@@ -73,7 +79,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
 
             <ImageView
                 android:layout_width="33dp"
@@ -91,7 +98,7 @@
                 android:text="@string/studyText"
                 android:textAlignment="viewStart"
                 android:textColor="@color/darkBlue"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <Switch
@@ -102,7 +109,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <Spinner
@@ -110,6 +117,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginStart="50dp"
                 android:entries="@array/timeBeforeClass"></Spinner>
 
         </LinearLayout>
@@ -119,7 +127,7 @@
         android:id="@+id/test_alarm_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="10dp"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
@@ -131,7 +139,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5pt">
+            android:layout_marginBottom="5dp">
 
             <ImageView
                 android:layout_width="37dp"
@@ -148,7 +156,7 @@
                 android:text="@string/testText"
                 android:textAlignment="viewStart"
                 android:textColor="@color/darkBlue"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <Switch
@@ -166,8 +174,7 @@
                 android:id="@+id/testSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="225sp"
+                android:layout_marginStart="50dp"
                 android:entries="@array/timeBeforeTest"></Spinner>
         </LinearLayout>
     </LinearLayout>
@@ -176,6 +183,7 @@
         android:id="@+id/sleep_awake_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="10dp"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical"
@@ -193,7 +201,7 @@
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="26dp"
-                android:src="@drawable/sleep_wake"/>
+                android:src="@drawable/sleep_wake" />
 
             <TextView
                 android:id="@+id/sleepAwakeAText"
@@ -205,30 +213,30 @@
                 android:text="@string/wake_sleepTex"
                 android:textAlignment="viewStart"
                 android:textColor="@color/darkBlue"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <Switch
+                android:id="@+id/sleepWakeSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:id="@+id/sleepWakeSwitch"/>
+                android:layout_gravity="center" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="5dp">
 
             <TextView
                 android:id="@+id/sleepTimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="60sp"
-                android:paddingEnd="20sp"
+                android:layout_marginStart="57dp"
+                android:paddingEnd="20dp"
                 android:text="@string/sleepTText"
                 android:textColor="@color/darkerBlue"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold"></TextView>
 
             <TextView
@@ -237,10 +245,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:hint="@string/sleepSelectText"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textColor="@color/redOrange"
                 android:textColorHint="@color/redOrange"
-                android:paddingStart="20sp"
-                android:paddingEnd="20sp"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold"></TextView>
         </LinearLayout>
 
@@ -252,12 +261,12 @@
                 android:id="@+id/wakeimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="60sp"
-                android:paddingEnd="20sp"
+                android:layout_marginStart="57dp"
+                android:paddingEnd="20dp"
                 android:text="@string/wakeTText"
-                android:textColor="@color/darkerBlue"
                 android:textAlignment="viewStart"
-                android:textSize="12sp"
+                android:textColor="@color/darkerBlue"
+                android:textSize="14sp"
                 android:textStyle="bold"></TextView>
 
             <TextView
@@ -266,10 +275,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:hint="@string/wakeSelectText"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textColor="@color/redOrange"
                 android:textColorHint="@color/redOrange"
-                android:paddingStart="20sp"
-                android:paddingEnd="20sp"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:textStyle="bold"></TextView>
         </LinearLayout>
     </LinearLayout>
@@ -279,27 +289,54 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.15" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.34" />
+        app:layout_constraintGuide_percent="0.4" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.61" />
+        app:layout_constraintGuide_percent="0.65" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.92" />
+        app:layout_constraintGuide_percent="0.95" />
+
+    <TextView
+        android:id="@+id/line_h"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#D3D3D3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline7" />
+
+    <TextView
+        android:id="@+id/line_h2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#D3D3D3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline9" />
+
+    <TextView
+        android:id="@+id/line_h3"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#D3D3D3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
 </android.support.constraint.ConstraintLayout>
