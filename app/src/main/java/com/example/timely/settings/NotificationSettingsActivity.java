@@ -153,6 +153,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
                     }
                 }
                 saveData();
+                updateAlarm();
             }
 
             @Override
@@ -196,6 +197,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
                     }
                 }
                 saveData();
+                updateAlarm();
             }
 
             @Override
@@ -228,6 +230,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
                 );
                 timePickerDialog.updateTime(wakeHour, wakeMinute);
                 timePickerDialog.show();
+                updateAlarm();
             }
         });
 
@@ -255,6 +258,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
                 );
                 timePickerDialog.updateTime(sleepHour, sleepMinute);
                 timePickerDialog.show();
+                updateAlarm();
             }
         });
         loadData();
@@ -307,7 +311,6 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-
 
         wakeTime = sharedPreferences.getString(WAKETIMER, "00:00 AM");
         sleepTime = sharedPreferences.getString(SLEEPTIMER, "00:00 AM");
