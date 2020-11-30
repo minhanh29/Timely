@@ -104,9 +104,10 @@
     <string name="description">description</string>
     <string name="date">Date:</string>
     <string name="time">Time:</string>
-    <string name="hasTest">Has Test</string>
-    <string name="sectionHeader">Section: </string>
-    <string name="instructorHeader">Instructor: </string>
+    <string name="hasTest">Quiz/Test</string>
+    <string name="sectionHeader">Section:</string>
+    <string name="instructorHeader">Instructor:</string>
+    <string name="durationHeader">Duration(mins):</string>
 
     <string-array name="days">
         <item>Monday</item>

@@ -314,8 +314,6 @@ public class NotificationSettingsActivity extends AppCompatActivity {
     private void loadData() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
 
-        wakeTime = sharedPreferences.getString(WAKETIMER, "00:00 AM");
-        sleepTime = sharedPreferences.getString(SLEEPTIMER, "00:00 AM");
         sleepWakeSwitchOnOff = sharedPreferences.getBoolean(SLEEPWAKESWITCH, false);
         studyTimSwitchOnOFf = sharedPreferences.getBoolean(STUDYSWITCH, false);
         testTimeSwitchOnOff = sharedPreferences.getBoolean(TESTSWITCH, false);
