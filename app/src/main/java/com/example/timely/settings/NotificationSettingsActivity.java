@@ -357,6 +357,3 @@ public class NotificationSettingsActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
