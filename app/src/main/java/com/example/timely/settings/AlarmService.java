@@ -37,6 +37,10 @@ public class AlarmService extends Service {
     public void onCreate() {
         super.onCreate();
 
+        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+        studyTimes = db.getAllStudyTime();
+        Collections.sort(studyTimes);
+
         useOldData = false;
         isTest = isStudy = isSleepAwake = false;
         studyBefore = testBefore = 0;
@@ -199,9 +203,6 @@ public class AlarmService extends Service {
 
     private void initializeValues()
     {
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-        studyTimes = db.getAllStudyTime();
-        Collections.sort(studyTimes);
         calendar = new ArrayList<>();
         for (int i = 0; i < studyTimes.size(); i++)
         {
