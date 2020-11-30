@@ -54,7 +54,7 @@
     <color name="black">#000000</color>
 
     <!--    Settings Screen colors-->
-    <color name="soffWhite">#f6f5f5</color>
+    <color name="softWhite">#f6f5f5</color>
     <color name="darkBlue">#145374</color>
     <color name="darkerBlue">#00334e</color>
     <color name="redOrange">#ee6f57</color>

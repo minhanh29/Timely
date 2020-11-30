@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/soffWhite">
+    android:background="@color/softWhite">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/header1"
@@ -35,7 +35,6 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/ic_back"
-            android:button="@color/redOrange"
             android:onClick="goBack"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline14"
@@ -50,7 +49,7 @@
             android:background="@color/redOrange"
             android:gravity="center_vertical"
             android:text="@string/notification_settings"
-            android:textColor="@color/soffWhite"
+            android:textColor="@color/softWhite"
             android:textSize="30sp"
             android:textStyle="bold|italic"
             app:layout_constraintBottom_toBottomOf="parent"
