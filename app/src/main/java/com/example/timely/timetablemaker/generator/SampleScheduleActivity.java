@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.timely.DatabaseHelper;
 import com.example.timely.R;
 import com.example.timely.courses.Course;
+import com.example.timely.settings.AlarmService;
 import com.example.timely.timetable.CourseView;
 import com.example.timely.timetable.ScheduleFragment;
 import com.example.timely.timetable.TimetableActivity;
@@ -130,6 +131,11 @@ public class SampleScheduleActivity extends AppCompatActivity implements Adapter
             officialDb.addCourse(courses.get(i));
         }
 
+        // update alarm
+        Intent mIntent = new Intent(this, AlarmService.class);
+        startService(mIntent);
+
+        // go to Timetable Activity
         Intent intent = new Intent(this, TimetableActivity.class);
         startActivity(intent);
         finish();

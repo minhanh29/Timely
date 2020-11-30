@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.example.timely.courses.Course;
 import com.example.timely.courses.StudyTime;
+import com.example.timely.settings.AlarmService;
 import com.example.timely.timetable.TimetableActivity;
 
 import android.widget.AdapterView;
@@ -44,7 +45,8 @@ import android.widget.AdapterView;
 public class ItemDetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     DatePickerDialog pickerDate;
     TimePickerDialog pickerTime;
-    EditText editTime, sectionNo, instructorName;
+    EditText sectionNo, instructorName, editDuration;
+    TextView editTime;
     Switch hasTest;
     Spinner dateSpinner;
     private Course course;
@@ -74,6 +76,7 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
         itemHeader = findViewById(R.id.item_header);
         sectionNo = findViewById(R.id.section_No);
         instructorName = findViewById(R.id.instructor_Name);
+        editDuration = findViewById(R.id.editDuration);
 
         selectedImagePath = "";
 
@@ -107,9 +110,12 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
                     public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
                         hour = sHour;
                         minutes = sMinute;
-                        editTime.setText(String.format("%02d:%02d",sHour,sMinute));
+                        Calendar cal = Calendar.getInstance();
+                        cal.set(Calendar.HOUR_OF_DAY, hour);
+                        cal.set(Calendar.MINUTE, minutes);
+                        editTime.setText(android.text.format.DateFormat.format("hh:mm aa", cal));
                     }
-                }, hour, minutes,true);
+                }, hour, minutes,false);
                 pickerTime.show();
             }
         });
@@ -213,8 +219,6 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
         String note = studyTime.getNote();
         noteView.setText(note);
 
-        // display date, study time, test, section, instructor below
-
         //hasTest check
         Boolean test = studyTime.isHasTest();
         hasTest.setChecked(test);
@@ -223,8 +227,14 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
         //get time
         hour = studyTime.getHour();
         minutes = studyTime.getMinute();
-        editTime.setText(String.format("%02d:%02d", hour, minutes));
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, minutes);
+        editTime.setText(android.text.format.DateFormat.format("hh:mm aa", cal));
 
+        //get duration
+        int duration = studyTime.getDuration();
+        editDuration.setText("" + duration);
 
         //get section no. and instructor's name
         String section = course.getSection().toString();
@@ -234,7 +244,13 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
         instructorName.setText(instructor);
 
         //get image
-
+        String path = studyTime.getImagePath();
+        selectedImagePath = path;
+        if (path != null && !path.equals(""))
+        {
+            imageNote.setImageBitmap(BitmapFactory.decodeFile(selectedImagePath));
+            imageNote.setVisibility(View.VISIBLE);
+        }
 
         //get date
         int day = studyTime.getDay();
@@ -265,16 +281,24 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
         studyTime.setHour(hour);
         studyTime.setMinute(minutes);
 
+        //set duration
+        String duration = editDuration.getText().toString();
+        int dur = Integer.parseInt(duration);
+        studyTime.setDuration(dur);
+
         //set day
         int position = dateSpinner.getSelectedItemPosition();
         studyTime.setDay(position);
 
         //save image
-        
-
+        studyTime.setImagePath(selectedImagePath);
         //modify
         db.modifyStudyTime(studyTime);
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
+
+        // update the alarm
+        Intent mIntent = new Intent(this, AlarmService.class);
+        startService(mIntent);
     }
 
     @Override

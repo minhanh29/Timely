@@ -37,10 +37,6 @@ public class AlarmService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-        studyTimes = db.getAllStudyTime();
-        Collections.sort(studyTimes);
-
         useOldData = false;
         isTest = isStudy = isSleepAwake = false;
         studyBefore = testBefore = 0;
@@ -65,6 +61,8 @@ public class AlarmService extends Service {
                     int offset = studyTimes.get(i).getDay() + 2 - cal.get(Calendar.DAY_OF_WEEK);
                     cal.add(Calendar.DAY_OF_MONTH, offset);
                     cal.add(Calendar.DAY_OF_MONTH, -testBefore);
+                    cal.set(Calendar.HOUR_OF_DAY, studyTimes.get(i).getHour());
+                    cal.set(Calendar.MINUTE, studyTimes.get(i).getMinute());
                     testCal.add(cal);
                 }
             }
@@ -113,11 +111,10 @@ public class AlarmService extends Service {
 
         // SET ALARM
         final Calendar time = getNextTime();
+
+        // no available time
         if (time ==  null)
-        {
-            stopSelf();
             return START_NOT_STICKY;
-        }
 
         Log.i("time", "Setting new alarm");
 
@@ -145,9 +142,9 @@ public class AlarmService extends Service {
         Intent mIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, mIntent, 0);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Alarm study")
-                .setContentText("Time to study")
-                .setSmallIcon(R.drawable.ic_course)
+                .setContentTitle("Timely")
+                .setContentText("Alarm is set successfully")
+                .setSmallIcon(R.drawable.ic_foreground)
                 .setContentIntent(pendingIntent)
                 .build();
 
@@ -203,6 +200,11 @@ public class AlarmService extends Service {
 
     private void initializeValues()
     {
+        // get information from database
+        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+        studyTimes = db.getAllStudyTime();
+        Collections.sort(studyTimes);
+
         calendar = new ArrayList<>();
         for (int i = 0; i < studyTimes.size(); i++)
         {
