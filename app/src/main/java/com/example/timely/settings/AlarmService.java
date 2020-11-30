@@ -18,37 +18,24 @@ import com.example.timely.courses.StudyTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static com.example.timely.settings.App.CHANNEL_ID;
 
 public class AlarmService extends Service {
 
-    public static String TIME_INFO = "time_infor";
-
-    private CountDownTimer timer;
+    //    Test Timer
+    private Timer timerTest;
     private ArrayList<StudyTime> studyTimes;
     private ArrayList<Calendar> calendar;
 
     private static boolean isStudy, isTest, isSleepAwake, useOldData;
-    private static int studyBefore, testBefore;
+    private static int studyBefore, testBefore, sleepHour, sleepMinute, wakeHour, wakeMinute;
 
     @Override
     public void onCreate() {
         super.onCreate();
-
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-        studyTimes = db.getAllStudyTime();
-        Collections.sort(studyTimes);
-        calendar = new ArrayList<>();
-        for (int i = 0; i < studyTimes.size(); i++)
-        {
-            Calendar cal = Calendar.getInstance();
-            int offset = studyTimes.get(i).getDay() + 2 - cal.get(Calendar.DAY_OF_WEEK);
-            cal.add(Calendar.DAY_OF_MONTH, offset);
-            cal.set(Calendar.HOUR_OF_DAY, studyTimes.get(i).getHour());
-            cal.set(Calendar.MINUTE, studyTimes.get(i).getMinute());
-            calendar.add(cal);
-        }
 
         useOldData = false;
         isTest = isStudy = isSleepAwake = false;
@@ -59,6 +46,8 @@ public class AlarmService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (!useOldData)
             updateIntent(intent);
+
+        initializeValues();
 
         // create a list for test time
         ArrayList<Calendar> testCal = new ArrayList<>();
@@ -78,12 +67,36 @@ public class AlarmService extends Service {
 
         }
 
+
         if (!isStudy)
             calendar.clear();
         else
         {
             for (int i = 0; i < calendar.size(); i++)
                 calendar.get(i).add(Calendar.MINUTE, -studyBefore);
+        }
+
+        //create a list for sleep wake alarm
+        if(isSleepAwake)
+        {
+            Calendar wakeCal= Calendar.getInstance();
+            Calendar sleepCal=Calendar.getInstance();
+
+            wakeCal.set(Calendar.HOUR_OF_DAY,wakeHour);
+            wakeCal.set(Calendar.MINUTE,wakeMinute);
+            if(wakeCal.getTime().before(Calendar.getInstance().getTime()))
+            {
+                wakeCal.add(Calendar.DAY_OF_MONTH,1);
+            }
+            calendar.add(wakeCal);
+
+            sleepCal.set(Calendar.HOUR_OF_DAY,sleepHour);
+            sleepCal.set(Calendar.MINUTE,sleepMinute);
+            if(sleepCal.getTime().before(Calendar.getInstance().getTime()))
+            {
+                sleepCal.add(Calendar.DAY_OF_MONTH,1);
+            }
+            calendar.add(sleepCal);
         }
 
         // add test to calendar
@@ -95,7 +108,7 @@ public class AlarmService extends Service {
 
 
         // SET ALARM
-        Calendar time = getNextTime();
+        final Calendar time = getNextTime();
         if (time ==  null)
         {
             stopSelf();
@@ -104,32 +117,26 @@ public class AlarmService extends Service {
 
         Log.i("time", "Setting new alarm");
 
-        int day = time.get(Calendar.DAY_OF_MONTH);
-        int hour = time.get(Calendar.HOUR_OF_DAY);
-        int min = time.get(Calendar.MINUTE);
-        Log.i("time", "Alarm day: " + day + " hour: " + hour + " minute: " + min);
+        Log.i("Timely: "," Alarm time:"+ time.getTime());
 
         long countTime = time.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
-        day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        min = Calendar.getInstance().get(Calendar.MINUTE);
-        Log.i("time", "Today: " + day + " hour: " + hour + " minute: " + min);
 
-        // count down the time
+        // count the time
         // This is a separate thread, so the codes after this timer will still run
-        timer = new CountDownTimer(countTime, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                Log.i("time", "(milliseconds) count down: " + millisUntilFinished);
+        timerTest = new Timer();
+        timerTest.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Log.i("Countdown", " "+Calendar.getInstance().getTime());
+                if(time.getTimeInMillis()/(1000 * 60) == Calendar.getInstance().getTimeInMillis()/(1000 * 60))
+                {
+                    Intent intent2 = new Intent(getApplicationContext(), Ringtone.class);
+                    Log.i("time", "Alarm finish");
+                    cancel();
+                    startService(intent2);
+                }
             }
-
-            public void onFinish() {
-                Intent intent2 = new Intent(getApplicationContext(), Ringtone.class);
-                startService(intent2);
-                Log.i("time", "Alarm finish");
-            }
-        };
-        timer.start();
+        },10,1000);
 
         Intent mIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, mIntent, 0);
@@ -148,8 +155,8 @@ public class AlarmService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (timer != null)
-            timer.cancel();
+        if (timerTest != null)
+            timerTest.cancel();
     }
 
     @Nullable
@@ -190,6 +197,24 @@ public class AlarmService extends Service {
         return minCal;
     }
 
+    private void initializeValues()
+    {
+        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+        studyTimes = db.getAllStudyTime();
+        Collections.sort(studyTimes);
+        calendar = new ArrayList<>();
+        for (int i = 0; i < studyTimes.size(); i++)
+        {
+            Calendar cal = Calendar.getInstance();
+            int offset = studyTimes.get(i).getDay() + 2 - cal.get(Calendar.DAY_OF_WEEK);
+            cal.add(Calendar.DAY_OF_MONTH, offset);
+            cal.set(Calendar.HOUR_OF_DAY, studyTimes.get(i).getHour());
+            cal.set(Calendar.MINUTE, studyTimes.get(i).getMinute());
+            calendar.add(cal);
+        }
+
+    }
+
     private void updateIntent(Intent intent)
     {
         // get information from activity
@@ -199,6 +224,12 @@ public class AlarmService extends Service {
 
         studyBefore = intent.getIntExtra(NotificationSettingsActivity.STUDY_BEFORE, 0);
         testBefore = intent.getIntExtra(NotificationSettingsActivity.TEST_BEFORE, 0);
+
+        sleepHour = intent.getIntExtra(NotificationSettingsActivity.SLEEPHOUR, 0);
+        sleepMinute = intent.getIntExtra(NotificationSettingsActivity.SLEEPMIN, 0);
+        wakeHour = intent.getIntExtra(NotificationSettingsActivity.WAKEHOUR, 0);
+        wakeMinute = intent.getIntExtra(NotificationSettingsActivity.WAKEMIN, 0);
+
 
         useOldData = true;
     }
