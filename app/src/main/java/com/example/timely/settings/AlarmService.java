@@ -29,6 +29,9 @@ public class AlarmService extends Service {
     private ArrayList<StudyTime> studyTimes;
     private ArrayList<Calendar> calendar;
 
+    private static boolean isStudy, isTest, isSleepAwake, useOldData;
+    private static int studyBefore, testBefore;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -42,20 +45,20 @@ public class AlarmService extends Service {
             Calendar cal = Calendar.getInstance();
             int offset = studyTimes.get(i).getDay() + 2 - cal.get(Calendar.DAY_OF_WEEK);
             cal.add(Calendar.DAY_OF_MONTH, offset);
+            cal.set(Calendar.HOUR_OF_DAY, studyTimes.get(i).getHour());
+            cal.set(Calendar.MINUTE, studyTimes.get(i).getMinute());
             calendar.add(cal);
         }
 
+        useOldData = false;
+        isTest = isStudy = isSleepAwake = false;
+        studyBefore = testBefore = 0;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // get information from activity
-        boolean isStudy = intent.getBooleanExtra(NotificationSettingsActivity.STUDYSWITCH, false);
-        boolean isTest = intent.getBooleanExtra(NotificationSettingsActivity.TESTSWITCH, false);
-        boolean isSleepAwake = intent.getBooleanExtra(NotificationSettingsActivity.SLEEPWAKESWITCH, false);
-
-        int studyBefore = intent.getIntExtra(NotificationSettingsActivity.STUDY_BEFORE, 0);
-        int testBefore = intent.getIntExtra(NotificationSettingsActivity.TEST_BEFORE, 0);
+        if (!useOldData)
+            updateIntent(intent);
 
         // create a list for test time
         ArrayList<Calendar> testCal = new ArrayList<>();
@@ -187,4 +190,16 @@ public class AlarmService extends Service {
         return minCal;
     }
 
+    private void updateIntent(Intent intent)
+    {
+        // get information from activity
+        isStudy = intent.getBooleanExtra(NotificationSettingsActivity.STUDYSWITCH, false);
+        isTest = intent.getBooleanExtra(NotificationSettingsActivity.TESTSWITCH, false);
+        isSleepAwake = intent.getBooleanExtra(NotificationSettingsActivity.SLEEPWAKESWITCH, false);
+
+        studyBefore = intent.getIntExtra(NotificationSettingsActivity.STUDY_BEFORE, 0);
+        testBefore = intent.getIntExtra(NotificationSettingsActivity.TEST_BEFORE, 0);
+
+        useOldData = true;
+    }
 }
