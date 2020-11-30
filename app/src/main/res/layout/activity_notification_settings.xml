@@ -34,7 +34,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/ic_back"
-            android:buttonB="@color/redOrange"
+            android:button="@color/redOrange"
             android:onClick="goBack"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline14"
@@ -195,7 +195,7 @@
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="26dp"
-                android:src="@drawable/sleepWake"
+                android:src="@drawable/sleep_wake"/>
 
             <TextView
                 android:id="@+id/sleepAwakeAText"

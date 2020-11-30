@@ -37,7 +37,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
     int wakeHour, wakeMinute, sleepHour, sleepMinute;
     Switch sleepWakeSwitch, studyTimSwitch, testTimeSwitch;
     DatabaseHelper db;
-    Spinner spinner1,spinner2;
+    Spinner spinner1, spinner2;
     ArrayList<PendingIntent> intentSWArray, intentSArray, intentTArray;
     ArrayList<StudyTime> studyTimes;
     ArrayList<Calendar> globalStudyTime, globalTestTime;
@@ -58,9 +58,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 
     private String wakeTime, sleepTime;
     private boolean sleepWakeSwitchOnOff, studyTimSwitchOnOFf, testTimeSwitchOnOff;
-    private int spinnerOne,spinnerTwo;
-
-
+    private int spinnerOne, spinnerTwo;
 
 
     @Override
@@ -71,21 +69,19 @@ public class NotificationSettingsActivity extends AppCompatActivity {
         wakeTimer = (TextView) findViewById(R.id.wakeTime);
         sleepTimer = (TextView) findViewById(R.id.sleepTime);
         db = new DatabaseHelper(NotificationSettingsActivity.this);
-        globalStudyTime= new ArrayList<>();
-        globalTestTime= new ArrayList<>();
+        globalStudyTime = new ArrayList<>();
+        globalTestTime = new ArrayList<>();
         globalSleepWakeCalendar = new Calendar[2];
 
         sleepWakeSwitch = (Switch) findViewById(R.id.sleepWakeSwitch);
         sleepWakeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked == true){
-                    Toast.makeText(getBaseContext(),"Sleep/Wake Alarm: ON", Toast.LENGTH_SHORT).show();
+                if (isChecked == true) {
+                    Toast.makeText(getBaseContext(), "Sleep/Wake Alarm: ON", Toast.LENGTH_SHORT).show();
                     startSleepWakeAlarm();
-                }
-                else
-                {
-                    Toast.makeText(getBaseContext(),"Sleep/Wake Alarm: OFF", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getBaseContext(), "Sleep/Wake Alarm: OFF", Toast.LENGTH_SHORT).show();
                     cancelSleepWakeAlarm();
                 }
 //                saveData();
@@ -96,13 +92,11 @@ public class NotificationSettingsActivity extends AppCompatActivity {
         studyTimSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked == true){
-                    Toast.makeText(getBaseContext(),"Study Alarm: ON", Toast.LENGTH_SHORT).show();
+                if (isChecked == true) {
+                    Toast.makeText(getBaseContext(), "Study Alarm: ON", Toast.LENGTH_SHORT).show();
                     startStudyAlarm();
-                }
-                else
-                {
-                    Toast.makeText(getBaseContext(),"Study Alarm: OFF", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getBaseContext(), "Study Alarm: OFF", Toast.LENGTH_SHORT).show();
                     cancelStudyAlarm();
                 }
 //                saveData();
@@ -114,13 +108,11 @@ public class NotificationSettingsActivity extends AppCompatActivity {
         testTimeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked == true){
-                    Toast.makeText(getBaseContext(),"Study Alarm: ON", Toast.LENGTH_SHORT).show();
+                if (isChecked == true) {
+                    Toast.makeText(getBaseContext(), "Study Alarm: ON", Toast.LENGTH_SHORT).show();
                     startTestAlarm();
-                }
-                else
-                {
-                    Toast.makeText(getBaseContext(),"Study Alarm: OFF", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getBaseContext(), "Study Alarm: OFF", Toast.LENGTH_SHORT).show();
                     cancelTestAlarm();
                 }
 //                saveData();
@@ -147,26 +139,26 @@ public class NotificationSettingsActivity extends AppCompatActivity {
                         case 1:
                             calendar.set(Calendar.DAY_OF_WEEK, day);
                             calendar.set(Calendar.HOUR_OF_DAY, hour);
-                            calendar.set(Calendar.MINUTE,min);
-                            calendar.add(Calendar.HOUR_OF_DAY,-1);
+                            calendar.set(Calendar.MINUTE, min);
+                            calendar.add(Calendar.HOUR_OF_DAY, -1);
                             break;
                         case 2:
                             calendar.set(Calendar.DAY_OF_WEEK, day);
                             calendar.set(Calendar.HOUR_OF_DAY, hour);
                             calendar.set(Calendar.MINUTE, min);
-                            calendar.add(Calendar.MINUTE,-45);
+                            calendar.add(Calendar.MINUTE, -45);
                             break;
                         case 3:
                             calendar.set(Calendar.DAY_OF_WEEK, day);
                             calendar.set(Calendar.HOUR_OF_DAY, hour);
                             calendar.set(Calendar.MINUTE, min);
-                            calendar.add(Calendar.MINUTE,-30);
+                            calendar.add(Calendar.MINUTE, -30);
                             break;
                         case 4:
                             calendar.set(Calendar.DAY_OF_WEEK, day);
                             calendar.set(Calendar.HOUR_OF_DAY, hour);
                             calendar.set(Calendar.MINUTE, min);
-                            calendar.add(Calendar.MINUTE,-15);
+                            calendar.add(Calendar.MINUTE, -15);
                             break;
                     }
                     globalStudyTime.add(calendar);
@@ -235,7 +227,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
                                 wakeHour = hourOfDay;
                                 wakeMinute = minute;
 
-                                globalSleepWakeCalendar[1]=c;
+                                globalSleepWakeCalendar[1] = c;
                                 wakeTimer.setText(android.text.format.DateFormat.format("hh:mm aa", c));
 //                                saveData();
                             }
@@ -278,12 +270,11 @@ public class NotificationSettingsActivity extends AppCompatActivity {
     }
 
 
-
     private void cancelTestAlarm() {
         System.out.println("It cancels the alarm");
-        AlarmManager[] alarmManager=new AlarmManager[globalTestTime.size()];
-        if(intentTArray.size()>0){
-            for(int i=0; i<intentTArray.size(); i++){
+        AlarmManager[] alarmManager = new AlarmManager[globalTestTime.size()];
+        if (intentTArray.size() > 0) {
+            for (int i = 0; i < intentTArray.size(); i++) {
                 alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
                 alarmManager[i].cancel(intentTArray.get(i));
             }
@@ -312,11 +303,11 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 //                Toast.makeText(NotificationSettingsActivity.this, "There is no app that support this action", Toast.LENGTH_SHORT).show();
 //            }
 //        }
-        AlarmManager[] alarmManager=new AlarmManager[globalTestTime.size()];
+        AlarmManager[] alarmManager = new AlarmManager[globalTestTime.size()];
         intentTArray = new ArrayList<PendingIntent>();
-        for(int f=0;f<globalTestTime.size();f++){
+        for (int f = 0; f < globalTestTime.size(); f++) {
             Intent intent = new Intent(this, AlarmReceiver.class);
-            PendingIntent pi=PendingIntent.getBroadcast(this, f,intent, 0);
+            PendingIntent pi = PendingIntent.getBroadcast(this, f, intent, 0);
 
             alarmManager[f] = (AlarmManager) getSystemService(ALARM_SERVICE);
             alarmManager[f].setExact(AlarmManager.RTC_WAKEUP, globalTestTime.get(f).getTimeInMillis(), pi);
@@ -334,9 +325,9 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 //            startActivity(cancelSWAlarm[i]);
 //        }
         System.out.println("It cancels the alarm");
-        AlarmManager[] alarmManager=new AlarmManager[globalStudyTime.size()];
-        if(intentSArray.size()>0){
-            for(int i=0; i<intentSArray.size(); i++){
+        AlarmManager[] alarmManager = new AlarmManager[globalStudyTime.size()];
+        if (intentSArray.size() > 0) {
+            for (int i = 0; i < intentSArray.size(); i++) {
                 alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
                 alarmManager[i].cancel(intentSArray.get(i));
             }
@@ -360,11 +351,11 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 //            startActivity(alarmIntent[i]);
 //        }
 
-        AlarmManager[] alarmManager=new AlarmManager[globalStudyTime.size()];
+        AlarmManager[] alarmManager = new AlarmManager[globalStudyTime.size()];
         intentSArray = new ArrayList<PendingIntent>();
-        for(int f=0;f<globalStudyTime.size();f++){
+        for (int f = 0; f < globalStudyTime.size(); f++) {
             Intent intent = new Intent(this, AlarmReceiver.class);
-            PendingIntent pi=PendingIntent.getBroadcast(this, f,intent, 0);
+            PendingIntent pi = PendingIntent.getBroadcast(this, f, intent, 0);
 
             alarmManager[f] = (AlarmManager) getSystemService(ALARM_SERVICE);
             alarmManager[f].setExact(AlarmManager.RTC_WAKEUP, globalStudyTime.get(f).getTimeInMillis(), pi);
@@ -393,9 +384,9 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 //            startActivity(intent);
 //        }
         System.out.println("It cancels the alarm");
-        AlarmManager[] alarmManager=new AlarmManager[globalSleepWakeCalendar.length];
-        if(intentSWArray.size()>0){
-            for(int i=0; i<intentSWArray.size(); i++){
+        AlarmManager[] alarmManager = new AlarmManager[globalSleepWakeCalendar.length];
+        if (intentSWArray.size() > 0) {
+            for (int i = 0; i < intentSWArray.size(); i++) {
                 alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
                 alarmManager[i].cancel(intentSWArray.get(i));
             }
@@ -404,11 +395,10 @@ public class NotificationSettingsActivity extends AppCompatActivity {
     }
 
 
-
     private void startSleepWakeAlarm() {
-        ArrayList<PendingIntent>intentArray = new ArrayList<>();
-        alarmIntent = new Intent[ globalSleepWakeCalendar.length];
-        for(int i=0;i< globalSleepWakeCalendar.length;i++) {
+        ArrayList<PendingIntent> intentArray = new ArrayList<>();
+        alarmIntent = new Intent[globalSleepWakeCalendar.length];
+        for (int i = 0; i < globalSleepWakeCalendar.length; i++) {
 //            ArrayList<Integer> allDays = new ArrayList<>();
 //            allDays.add(2);
 //            allDays.add(3);
@@ -428,15 +418,15 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 //
 //            intentArray.add(pendingIntent);
 //        }
-        AlarmManager[] alarmManager = new AlarmManager[globalSleepWakeCalendar.length];
-        intentSWArray = new ArrayList<PendingIntent>();
-        for (int f = 0; f < globalSleepWakeCalendar.length; f++) {
-            Intent intent = new Intent(this, AlarmReceiver.class);
-            PendingIntent pi = PendingIntent.getBroadcast(this, f, intent, 0);
-            //PendingIntent pendingIntent = PendingIntent.getActivities(NotificationSettingsActivity.this,i, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+            AlarmManager[] alarmManager = new AlarmManager[globalSleepWakeCalendar.length];
+            intentSWArray = new ArrayList<PendingIntent>();
+            for (int f = 0; f < globalSleepWakeCalendar.length; f++) {
+                Intent intent = new Intent(this, AlarmReceiver.class);
+                PendingIntent pi = PendingIntent.getBroadcast(this, f, intent, 0);
+                //PendingIntent pendingIntent = PendingIntent.getActivities(NotificationSettingsActivity.this,i, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 
-            //intentArray.add(pendingIntent);
-        }
+                //intentArray.add(pendingIntent);
+            }
 //        PendingIntent pendingIntent = PendingIntent.getActivities(NotificationSettingsActivity.this,0, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
 //        intentArray.add(pendingIntent);
 //        alarmManager=new AlarmManager[24];
@@ -445,110 +435,14 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 //            Intent intent = new Intent(this, AlarmReceiver.class);
 //            PendingIntent pi =PendingIntent.getBroadcast(this, i,intent, 0);
 
-            alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager[i].setExact(AlarmManager.RTC_WAKEUP, globalSleepWakeCalendar[i].getTimeInMillis() ,pi);
+//            alarmManager[i] = (AlarmManager) getSystemService(ALARM_SERVICE);
+//            alarmManager[i].setExact(AlarmManager.RTC_WAKEUP, globalSleepWakeCalendar[i].getTimeInMillis() ,pi);
 
-            intentSWArray.add(pi);
-        }
-    }
-
-
-    private void setAlarm(int day, int hour, int minute, int id)
-    {
-        Calendar calender= Calendar.getInstance();
-
-        calender.set(Calendar.DAY_OF_WEEK, 6);  //here pass week number
-        calender.set(Calendar.HOUR_OF_DAY, hour);  //pass hour which you have select
-        calender.set(Calendar.MINUTE, minute);  //pass min which you have select
-        calender.set(Calendar.SECOND, 0);
-        calender.set(Calendar.MILLISECOND, 0);
-
-        Calendar now = Calendar.getInstance();
-        now.set(Calendar.SECOND, 0);
-        now.set(Calendar.MILLISECOND, 0);
-
-        if (calender.before(now)) {    //this condition is used for future reminder that means your reminder not fire for past time
-            calender.add(Calendar.DATE, 7);
-        }
-
-//        final int _id = (int) System.currentTimeMillis();  //this id is used to set multiple alarms
-//
-//        Intent intent = new Intent(this, AlarmReceiver.class);
-//
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//
-//        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-//
-//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calender.getTimeInMillis(), 7 * 24 * 60 * 60 * 1000, pendingIntent);
-//
-//            alarmManager[f] = (AlarmManager) getSystemService(ALARM_SERVICE);
-//            alarmManager[f].setInexactRepeating(AlarmManager.RTC_WAKEUP, globalSleepWakeCalendar[f].getTimeInMillis(), AlarmManager.INTERVAL_DAY, pi);
-//
 //            intentSWArray.add(pi);
+//        }
+//    }
 
-//     private void startSleepWakeAlarm(Calendar[] c) {
-//         ArrayList<PendingIntent>intentArray = new ArrayList<>();
-//         for(int i=0;i<c.length;i++) {
-//             ArrayList<Integer> allDays = new ArrayList<>();
-//             allDays.add(2);
-//             allDays.add(3);
-//             allDays.add(4);
-//             allDays.add(5);
-//             allDays.add(6);
-//             int hour = c[i].get(Calendar.HOUR_OF_DAY);
-//             int min = c[i].get(Calendar.MINUTE);
-//             Intent[] alarmIntent = new Intent[c.length];
-//             alarmIntent[i] = new Intent(AlarmClock.ACTION_SET_ALARM);
-//             alarmIntent[i].putExtra(AlarmClock.EXTRA_HOUR, hour);
-//             alarmIntent[i].putExtra(AlarmClock.EXTRA_MINUTES, min);
-//             alarmIntent[i].putExtra(AlarmClock.EXTRA_DAYS,allDays);
 
-//             PendingIntent pendingIntent = PendingIntent.getActivities(NotificationSettingsActivity.this,0, alarmIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-//             intentArray.add(pendingIntent);
-//         }
-     }
-
-    public void goBack(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        }
     }
-//
-//    public void saveData() {
-//        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putString(WAKETIMER, wakeTimer.getText().toString());
-//        editor.putString(SLEEPTIMER, sleepTimer.getText().toString());
-//        editor.putInt(SPINNER1, spinner1.getSelectedItemPosition());
-//        editor.putInt(SPINNER2, spinner2.getSelectedItemPosition());
-//        editor.putBoolean(SLEEPWAKESWITCH, sleepWakeSwitch.isChecked());
-//        editor.putBoolean(STUDYSWITCH, studyTimSwitch.isChecked());
-//        editor.putBoolean(TESTSWITCH, testTimeSwitch.isChecked());
-//        editor.apply();
-//        Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
-//    }
-//
-//    private void updateViews() {
-//        wakeTimer.setText(wakeTime);
-//        sleepTimer.setText(sleepTime);
-//        sleepWakeSwitch.setChecked(sleepWakeSwitchOnOff);
-//        studyTimSwitch.setChecked(studyTimSwitchOnOFf);
-//        testTimeSwitch.setChecked(testTimeSwitchOnOff);
-//        spinner1.setSelection(spinnerOne);
-//        spinner2.setSelection(spinnerTwo);
-//    }
-//
-//    private void loadData() {
-//        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-//        wakeTime = sharedPreferences.getString(WAKETIMER, "00:00 AM");
-//        sleepTime = sharedPreferences.getString(SLEEPTIMER, "00:00 AM");
-//        sleepWakeSwitchOnOff = sharedPreferences.getBoolean(SLEEPWAKESWITCH, false);
-//        studyTimSwitchOnOFf = sharedPreferences.getBoolean(STUDYSWITCH, false);
-//        testTimeSwitchOnOff = sharedPreferences.getBoolean(TESTSWITCH, false);
-//        spinnerOne = sharedPreferences.getInt(SPINNER1, 1);
-//        spinnerTwo = sharedPreferences.getInt(SPINNER2, 1);
-//    }
 }
-
-
