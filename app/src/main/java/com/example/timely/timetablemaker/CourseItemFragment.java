@@ -63,7 +63,7 @@ public class CourseItemFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_course_item_list, container, false);
 
         db = new DatabaseHelper(getContext(), DatabaseHelper.TEMP_DATABASE);
-        initializeCourse();
+        //initializeCourse();
 
         listener = (MyCourseListItemRecyclerViewAdapter.OnCourseLickListener) getActivity();
 
