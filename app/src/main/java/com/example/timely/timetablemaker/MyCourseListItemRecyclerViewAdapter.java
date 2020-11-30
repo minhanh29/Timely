@@ -66,14 +66,14 @@ public class MyCourseListItemRecyclerViewAdapter extends RecyclerView.Adapter<My
             mInstructorView = (TextView) view.findViewById(R.id.instructor_view);
             deleteButton = view.findViewById(R.id.course_delete_button);
 
-            animation = new ScaleAnimation(1f, 1.2f, 1f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-            animation.setDuration(100L);
+            animation = new ScaleAnimation(1f, 1.1f, 1f, 1.1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            animation.setDuration(90L);
 
             mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mView.startAnimation(animation);
-                    new CountDownTimer(100, 10) {
+                    new CountDownTimer(91, 10) {
                         public void onFinish() {
                             listener.onCourseLick(mItem.getId());
                         }

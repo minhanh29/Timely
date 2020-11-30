@@ -26,14 +26,14 @@ public class MainActivity extends AppCompatActivity {
         generator = findViewById(R.id.generator_card);
         settings = findViewById(R.id.settings_card);
 
-        animation = new ScaleAnimation(1f, 1.3f, 1f, 1.3f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animation.setDuration(105L);
+        animation = new ScaleAnimation(1f, 1.1f, 1f, 1.1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animation.setDuration(90L);
 
         timetable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 v.startAnimation(animation);
-                new CountDownTimer(110, 10) {
+                new CountDownTimer(95, 10) {
                     public void onFinish() {
                         goToTimetable();
                     }
