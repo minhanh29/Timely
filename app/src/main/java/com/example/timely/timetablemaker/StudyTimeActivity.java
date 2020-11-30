@@ -1,13 +1,17 @@
 package com.example.timely.timetablemaker;
 
 import android.content.Intent;
+import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.LinearLayout;
 
 import com.example.timely.DatabaseHelper;
 import com.example.timely.R;
@@ -16,6 +20,8 @@ import com.example.timely.courses.StudyTime;
 import java.util.ArrayList;
 
 public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragment.OnDeleteStudyTimeFragmentListener {
+
+    private static final String UPDATED = "UPDATED";
 
     ArrayList<TimeRowFragment> fragments;
     DatabaseHelper db;
@@ -33,6 +39,12 @@ public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragm
         // get the course id
         Intent intent = getIntent();
         courseId = intent.getStringExtra(TimetableMakerActivity.COURSE_ID);
+
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            if (fragment instanceof TimeRowFragment) {
+                getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            }
+        }
 
         // initial study time
         ArrayList<StudyTime> studyTimes = db.getAllStudyTime(courseId);
@@ -60,9 +72,11 @@ public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragm
 
     // display study time
     private void updateStudyTime(StudyTime studyTime) {
+        if (studyTime == null)
+            return;
+
         TimeRowFragment timeRowFragment = new TimeRowFragment();
-        if (studyTime != null)
-            timeRowFragment.setStudyTime(studyTime);
+        timeRowFragment.setStudyTime(studyTime);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.timeLayout, timeRowFragment).commit();

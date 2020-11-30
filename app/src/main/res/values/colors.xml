@@ -3,8 +3,11 @@
     <color name="colorPrimary">#ee6f57</color>
     <color name="colorPrimaryDark">#00334e</color>
     <color name="primary2">#ff4301</color>
+    <color name="primary3">#f6f5f5</color>
     <color name="colorAccent">#f25130</color>
     <color name="blue_theme">#2196F3</color>
+
+    <color name="trans">#00000000</color>
 
     <!-- header colors -->
     <color name="header">#ffffff</color>
@@ -51,7 +54,7 @@
     <color name="black">#000000</color>
 
     <!--    Settings Screen colors-->
-    <color name="soffWhite">#f6f5f5</color>
+    <color name="softWhite">#f6f5f5</color>
     <color name="darkBlue">#145374</color>
     <color name="darkerBlue">#00334e</color>
     <color name="redOrange">#ee6f57</color>
