@@ -7,7 +7,7 @@
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".settings.App"
@@ -34,11 +34,12 @@
         </activity>
 
         <receiver android:name=".settings.AlarmReceiver" />
+        <receiver android:name=".settings.ButtonReceiver"/>
 
         <service
             android:name=".settings.Ringtone"
             android:enabled="true" />
-        <service android:name=".settings.AlarmService"/>
+        <service android:name=".settings.AlarmService" />
     </application>
 
 </manifest>
