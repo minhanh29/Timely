@@ -8,7 +8,7 @@ import android.media.MediaPlayer;
 import android.util.Log;
 
 import com.example.timely.R;
-
+import com.example.timely.settings.Ringtone;
 import java.io.IOException;
 
 public class ButtonReceiver extends BroadcastReceiver {
@@ -19,7 +19,9 @@ public class ButtonReceiver extends BroadcastReceiver {
 
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         manager.cancel(notificationId);
-        int mp3 = intent.getIntExtra("selectedMp3",R.raw.alarm_sound);
+        Intent intent1 = new Intent(context, Ringtone.class);
+        context.stopService(intent1);
+
         Log.e("timely alarm","this cancel the notification");
     }
 }
