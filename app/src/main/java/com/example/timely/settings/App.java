@@ -12,6 +12,7 @@ import android.os.Build;
 
 public class App extends Application {
     public static String CHANNEL_ID = "alarmService";
+    public static String CHANNEL_TIMELY_ID="channelTimely";
 
     @Override
     public void onCreate() {
@@ -29,8 +30,15 @@ public class App extends Application {
                     NotificationManager.IMPORTANCE_DEFAULT
             );
 
+            NotificationChannel timelyChannel = new NotificationChannel(
+                    CHANNEL_TIMELY_ID,
+                    "Alarm Service Channel",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(serviceChannel);
+            manager.createNotificationChannel(timelyChannel);
         }
     }
 }
