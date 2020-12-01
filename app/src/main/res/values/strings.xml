@@ -108,6 +108,7 @@
     <string name="sectionHeader">Section:</string>
     <string name="instructorHeader">Instructor:</string>
     <string name="durationHeader">Duration(mins):</string>
+    <string name="hint">Enter</string>
 
     <string-array name="days">
         <item>Monday</item>
