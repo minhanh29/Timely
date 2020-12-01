@@ -22,6 +22,5 @@ public class ButtonReceiver extends BroadcastReceiver {
         Intent intent1 = new Intent(context, Ringtone.class);
         context.stopService(intent1);
 
-        Log.e("timely alarm","this cancel the notification");
     }
 }

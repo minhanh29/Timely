@@ -116,10 +116,6 @@ public class AlarmService extends Service {
         if (time ==  null)
             return START_NOT_STICKY;
 
-        Log.i("time", "Setting new alarm");
-
-        Log.i("Timely: "," Alarm time:"+ time.getTime());
-
         long countTime = time.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
 
         // count the time
@@ -128,11 +124,9 @@ public class AlarmService extends Service {
         timerTest.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Log.i("Countdown", " "+Calendar.getInstance().getTime());
                 if(time.getTimeInMillis()/(1000 * 60) == Calendar.getInstance().getTimeInMillis()/(1000 * 60))
                 {
                     Intent intent2 = new Intent(getApplicationContext(), Ringtone.class);
-                    Log.i("time", "Alarm finish");
                     cancel();
                     startService(intent2);
                 }
@@ -192,9 +186,6 @@ public class AlarmService extends Service {
             minCal = calendar.get(0);
             minCal.add(Calendar.DAY_OF_MONTH, 7);
         }
-
-        Log.i("time", "Day: " + minCal.get(Calendar.DAY_OF_MONTH));
-
         return minCal;
     }
 

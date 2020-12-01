@@ -31,7 +31,6 @@ public class Ringtone extends Service {
 
         mediaPlayer = MediaPlayer.create(this, R.raw.alarm_sound);
         mediaPlayer.start();
-        Log.e("Hi this music is running", "Lalala");
 
         //Create an Intent for the BroadcastReceiver
         Intent buttonIntent = new Intent(this, ButtonReceiver.class);
@@ -51,7 +50,6 @@ public class Ringtone extends Service {
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .addAction(R.drawable.ic_baseline_alarm_off_24,"Dismiss Alarm", btPendingIntent)
                 .build();
-        Log.e("Timely", "This starts the nortifications");
         startForeground(2,notification);
 
 

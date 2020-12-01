@@ -33,7 +33,6 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".settings.AlarmReceiver" />
         <receiver android:name=".settings.ButtonReceiver"/>
 
         <service
