@@ -154,7 +154,7 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
         time.add(new StudyTime(3, 10, 30, 60, course5.getId()));
         course5.setTime(time);
 
-        Course course6 = new Course("MINH 2211", null, 1, "Erik");
+        Course course6 = new Course("PSYC 2211", null, 1, "Mike");
         time = new ArrayList<>();
         time.add(new StudyTime(0, 15, 0, 60, course6.getId()));
         time.add(new StudyTime(1, 10, 50, 60, course6.getId()));
