@@ -1,8 +1,6 @@
 package com.example.timely.courses;
 
-import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
-import android.util.JsonWriter;
 
 import java.util.ArrayList;
 

@@ -3,7 +3,6 @@ package com.example.timely.timetablemaker;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -25,7 +24,6 @@ public class TimetableMakerActivity extends AppCompatActivity implements MyCours
     public static final String MY_CONFIRM_FRAGMENT = "MY_CONFIRM_FRAGMENT";
     public static final String COURSE_ID = "TIMETABLE_MAKER_COURSE_ID";
     public static final String NUMBER_COURSE = "NUMBER_COURSE";
-    public static final int STUDY_TIME_CODE = 505045;
 
     private DatabaseHelper db;
     private CourseItemFragment courseItemFragment;

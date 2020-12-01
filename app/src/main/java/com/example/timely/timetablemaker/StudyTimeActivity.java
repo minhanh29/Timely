@@ -21,8 +21,6 @@ import java.util.ArrayList;
 
 public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragment.OnDeleteStudyTimeFragmentListener {
 
-    private static final String UPDATED = "UPDATED";
-
     ArrayList<TimeRowFragment> fragments;
     DatabaseHelper db;
     String courseId;

@@ -26,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
         generator = findViewById(R.id.generator_card);
         settings = findViewById(R.id.settings_card);
 
-        animation = new ScaleAnimation(1f, 1.1f, 1f, 1.1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animation = new ScaleAnimation(1f, 1.1f, 1f, 1.1f,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
         animation.setDuration(90L);
 
         timetable.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
                 }.start();
             }
         });
-//        Intent intent = new Intent(this, TimetableMakerActivity.class);
     }
 
     public void goToTimetable() {

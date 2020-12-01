@@ -1,18 +1,13 @@
 package com.example.timely.timetable;
 
-import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.CancellationSignal;
-import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -25,11 +20,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ScheduleFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class ScheduleFragment extends Fragment {
 
     private final int HOUR = 180;   // height of a course view for 1 hour in dp

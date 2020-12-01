@@ -1,6 +1,5 @@
 package com.example.timely.timetable;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -10,7 +9,6 @@ import android.support.v7.widget.AppCompatTextView;
 import android.view.Gravity;
 import android.view.View;
 
-import com.example.timely.R;
 import com.example.timely.courses.StudyTime;
 
 public class CourseView  extends AppCompatTextView implements View.OnClickListener {

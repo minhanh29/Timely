@@ -20,6 +20,7 @@ import static com.example.timely.settings.App.CHANNEL_TIMELY_ID;
 public class Ringtone extends Service {
     MediaPlayer mediaPlayer;
     private NotificationManager notificationManager;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
