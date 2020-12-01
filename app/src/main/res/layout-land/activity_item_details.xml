@@ -65,7 +65,7 @@
             android:id="@+id/item_save_button"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/redOrange"
+            android:background="@android:color/transparent"
             android:fontFamily="@font/antic"
             android:onClick="save"
             android:text="@string/item_save_button"
