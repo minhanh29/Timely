@@ -191,13 +191,15 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 //                                calendar.set(Calendar.HOUR_OF_DAY, studyTime.getHour());
 //                                calendar.set(Calendar.MINUTE, studyTime.getMinute());
 //                                calendar.add(Calendar.DATE, -1);
+                                testBefore = 2;
+                                break;
+                            case 2:
                                 testBefore = 1;
                                 break;
                         }
                     }
                 }
                 saveData();
-                updateAlarm();
             }
 
             @Override
