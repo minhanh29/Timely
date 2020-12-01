@@ -54,6 +54,7 @@ public class AlarmService extends Service {
 
         initializeValues();
 
+        // create a list for study time
         if (isStudy)
         {
             for (int i = 0; i < studyTimes.size(); i++)
@@ -73,8 +74,8 @@ public class AlarmService extends Service {
                 messageMap.put(hashCode, "Time to study " + course);
             }
         }
+
         // create a list for test time
-        ArrayList<Calendar> testCal = new ArrayList<>();
         if (isTest)
         {
             for (int i = 0 ; i < studyTimes.size(); i++)
@@ -89,7 +90,7 @@ public class AlarmService extends Service {
                     cal.add(Calendar.DAY_OF_MONTH, -testBefore);
                     cal.set(Calendar.HOUR_OF_DAY, time.getHour());
                     cal.set(Calendar.MINUTE, time.getMinute());
-                    testCal.add(cal);
+                    calendar.add(cal);
 
                     // add message
                     String hashCode = cal.getTime().toString();
@@ -126,10 +127,6 @@ public class AlarmService extends Service {
             hashCode = sleepCal.getTime().toString();
             messageMap.put(hashCode, "Time to sleep");
         }
-
-        // add test to calendar
-        for (int i= 0; i < testCal.size(); i++)
-            calendar.add(testCal.get(i));
 
         // sort the date
         Collections.sort(calendar);
