@@ -43,7 +43,6 @@ import android.widget.AdapterView;
 
 
 public class ItemDetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    DatePickerDialog pickerDate;
     TimePickerDialog pickerTime;
     EditText sectionNo, instructorName, editDuration;
     TextView editTime;
@@ -54,7 +53,7 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
     private DatabaseHelper db;
     private String courseId;
     private int studyTimeId;
-    private int hour, minutes, year, day, month;
+    private int hour, minutes;
 
     private ImageView imageNote;
     private String selectedImagePath;
@@ -123,8 +122,8 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
         updateScreen();
     }
 
-//    Add Images
 
+//    Add Images
     private void initMiscellaneuos() {
         final LinearLayout layoutMiscellaneuos = findViewById(R.id.layoutMiscellaneous);
 
@@ -255,7 +254,6 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
         //get date
         int day = studyTime.getDay();
         dateSpinner.setSelection(day);
-
     }
 
 
@@ -302,12 +300,8 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-    }
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) { }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
+    public void onNothingSelected(AdapterView<?> parent) { }
 }

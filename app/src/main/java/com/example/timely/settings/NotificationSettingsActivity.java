@@ -151,11 +151,13 @@ public class NotificationSettingsActivity extends AppCompatActivity {
                                 testBefore = 3;
                                 break;
                             case 1:
+                                testBefore = 2;
+                                break;
+                            case 2:
                                 testBefore = 1;
                                 break;
                         }
                 saveData();
-                updateAlarm();
             }
 
             @Override

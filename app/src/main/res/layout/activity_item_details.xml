@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,12 +9,23 @@
     android:orientation="vertical"
     tools:context=".ItemDetailsActivity">
 
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="4"
-        android:background="@color/redOrange">
+        android:background="@color/redOrange"
+        app:layout_constraintBottom_toTopOf="@+id/guideline35"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline11"
@@ -68,7 +79,7 @@
             android:id="@+id/item_save_button"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/redOrange"
+            android:background="@android:color/transparent"
             android:fontFamily="@font/antic"
             android:onClick="save"
             android:text="@string/item_save_button"
@@ -78,14 +89,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline12"
             app:layout_constraintTop_toTopOf="parent"></Button>
+
     </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
         android:id="@+id/datePicker"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="52dp"
         android:layout_weight="4"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintBottom_toTopOf="@id/timePicker">
 
         <TextView
             android:id="@+id/date_header"
@@ -110,15 +126,19 @@
     <LinearLayout
         android:id="@+id/timePicker"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="42dp"
         android:layout_weight="4"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/datePicker"
+        app:layout_constraintBottom_toTopOf="@id/editTitle">
 
-<!--        <ImageView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_weight="2.7"-->
-<!--            android:src="@drawable/clock"></ImageView>-->
+        <!--        <ImageView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_weight="2.7"-->
+        <!--            android:src="@drawable/clock"></ImageView>-->
         <TextView
             android:id="@+id/time_header"
             android:layout_width="match_parent"
@@ -162,15 +182,19 @@
             android:layout_weight="2.5"
             android:fontFamily="@font/antic"
             android:paddingHorizontal="10dp"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:hint="@string/hint"/>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/editTitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="45dp"
         android:layout_weight="4"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timePicker">
 
         <TextView
             android:id="@+id/section_header"
@@ -211,15 +235,21 @@
             android:layout_weight="2"
             android:fontFamily="@font/antic"
             android:paddingHorizontal="10dp"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:hint="@string/hint"/>
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="40dp"
         android:layout_weight="4"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTitle"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2">
 
         <TextView
             android:id="@+id/hasTest_header"
@@ -241,14 +271,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="5"
-            android:checked="false"/>
+            android:checked="false" />
 
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="2">
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        app:layout_constraintBottom_toTopOf="@id/layoutMiscellaneous"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/noteSpace"
@@ -284,6 +319,13 @@
 
     </ScrollView>
 
-    <include layout="@layout/layout_miscellaneous" />
-</LinearLayout>
+    <include
+        android:id="@+id/layoutMiscellaneous"
+        layout="@layout/layout_miscellaneous"
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</android.support.constraint.ConstraintLayout>
 

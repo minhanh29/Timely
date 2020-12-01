@@ -20,6 +20,7 @@ import static com.example.timely.settings.App.CHANNEL_TIMELY_ID;
 public class Ringtone extends Service {
     MediaPlayer mediaPlayer;
     private NotificationManager notificationManager;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -41,11 +42,12 @@ public class Ringtone extends Service {
         PendingIntent btPendingIntent = PendingIntent.getBroadcast(this, 0, buttonIntent,0);
 
         // start a notification
+        String message = intent.getStringExtra(AlarmService.ALARM_MESSAGE);
         notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_TIMELY_ID)
                 .setSmallIcon(R.drawable.ic_baseline_alarm_24)
                 .setContentTitle("Timely Alarm")
-                .setContentText("You've got an alarm")
+                .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .addAction(R.drawable.ic_baseline_alarm_off_24,"Dismiss Alarm", btPendingIntent)
