@@ -112,48 +112,22 @@ public class NotificationSettingsActivity extends AppCompatActivity {
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                studyTimes = db.getAllStudyTime();
-                Calendar calendar = Calendar.getInstance();
-                for (int i = 0; i < studyTimes.size(); i++) {
-                    StudyTime studyTime = studyTimes.get(i);
-                    int hour = 0, min = 0, day = 0;
-                    hour = studyTime.getHour();
-                    min = studyTime.getMinute();
-                    day = studyTime.getDay();
-                    System.out.println(position);
                     switch (position) {
                         case 0:
-                            calendar.set(Calendar.DAY_OF_WEEK, day + 2);
-                            calendar.set(Calendar.HOUR_OF_DAY, hour);
-                            calendar.set(Calendar.MINUTE, min);
-                            calendar.add(Calendar.HOUR_OF_DAY, -1);
                             studyBefore = 60;
                             break;
                         case 1:
-                            calendar.set(Calendar.DAY_OF_WEEK, day + 2);
-                            calendar.set(Calendar.HOUR_OF_DAY, hour);
-                            calendar.set(Calendar.MINUTE, min);
-                            calendar.add(Calendar.MINUTE, -45);
                             studyBefore = 45;
                             break;
                         case 2:
-                            calendar.set(Calendar.DAY_OF_WEEK, day + 2);
-                            calendar.set(Calendar.HOUR_OF_DAY, hour);
-                            calendar.set(Calendar.MINUTE, min);
-                            calendar.add(Calendar.MINUTE, -30);
                             studyBefore = 30;
                             break;
                         case 3:
-//                            calendar.set(Calendar.DAY_OF_WEEK, day + 2);
-//                            calendar.set(Calendar.HOUR_OF_DAY, hour);
-//                            calendar.set(Calendar.MINUTE, min);
-//                            calendar.add(Calendar.MINUTE, -15);
                             studyBefore = 15;
                             break;
                     }
-                }
                 saveData();
-                //updateAlarm();
+                updateAlarm();
             }
 
             @Override
@@ -171,31 +145,15 @@ public class NotificationSettingsActivity extends AppCompatActivity {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                studyTimes = db.getAllStudyTime();
-                for (int i = 0; i < studyTimes.size(); i++) {
-                    StudyTime studyTime = studyTimes.get(i);
-                    Calendar calendar = Calendar.getInstance();
-                    int day = 0;
-                    day = studyTime.getDay();
-                    if (studyTime.isHasTest()) {
+
                         switch (position) {
                             case 0:
-//                                calendar.set(Calendar.DAY_OF_WEEK, day + 2);
-//                                calendar.set(Calendar.HOUR_OF_DAY, studyTime.getHour());
-//                                calendar.set(Calendar.MINUTE, studyTime.getMinute());
-//                                calendar.add(Calendar.DATE, -3);
                                 testBefore = 3;
                                 break;
                             case 1:
-//                                calendar.set(Calendar.DAY_OF_WEEK, day);
-//                                calendar.set(Calendar.HOUR_OF_DAY, studyTime.getHour());
-//                                calendar.set(Calendar.MINUTE, studyTime.getMinute());
-//                                calendar.add(Calendar.DATE, -1);
                                 testBefore = 1;
                                 break;
                         }
-                    }
-                }
                 saveData();
                 updateAlarm();
             }
