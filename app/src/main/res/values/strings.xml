@@ -1,0 +1,138 @@
+<resources>
+    <string name="app_name">Timely</string>
+
+    <!--   TIMETABLE SCREEN-->
+
+    <!--    Buttons-->
+    <string name="timetable_delete_button">Delete</string>
+    <string name="timetable_add_button">Add</string>
+    <string name="timetable_details_button">Details</string>
+
+    <!--    headers-->
+    <string name="time_header">Time</string>
+    <string name="monday">MON</string>
+    <string name="tuesday">TUE</string>
+    <string name="wednesday">WED</string>
+    <string name="thursday">THU</string>
+    <string name="friday">FRI</string>
+
+    <!--    timeline-->
+    <string name="zero_am">0 AM</string>
+    <string name="one_am">1 AM</string>
+    <string name="two_am">2 AM</string>
+    <string name="three_am">3 AM</string>
+    <string name="four_am">4 AM</string>
+    <string name="five_am">5 AM</string>
+    <string name="six_am">6 AM</string>
+    <string name="seven_am">7 AM</string>
+    <string name="eight_am">8 AM</string>
+    <string name="nine_am">9 AM</string>
+    <string name="ten_am">10 AM</string>
+    <string name="eleven_am">11 AM</string>
+    <string name="twelve_pm">12 PM</string>
+    <string name="one_pm">1 PM</string>
+    <string name="two_pm">2 PM</string>
+    <string name="three_pm">3 PM</string>
+    <string name="four_pm">4 PM</string>
+    <string name="five_pm">5 PM</string>
+    <string name="six_pm">6 PM</string>
+    <string name="seven_pm">7 PM</string>
+    <string name="eight_pm">8 PM</string>
+    <string name="nine_pm">9 PM</string>
+    <string name="ten_pm">10 PM</string>
+    <string name="eleven_pm">11 PM</string>
+    <string name="twelve_am">12 AM</string>
+
+    <!--    NOTIFICATION SETTINGS SCREEN-->
+    <!--    header-->
+    <string name="notification_settings">SETTINGS</string>
+    <!-- timeBeforeClass-->
+    <string-array name="timeBeforeClass">
+        <item>1 hour before class</item>
+        <item>45 minutes before class</item>
+        <item>30 minutes before class</item>
+        <item>15 minutes before class</item>
+        <item>5 minutes before class</item>
+    </string-array>
+
+    <!-- timeBeforeTest-->
+    <string-array name="timeBeforeTest">
+        <item>1 week</item>
+        <item>3 days prior</item>
+        <item>2 days prior</item>
+        <item>1 day prior</item>
+    </string-array>
+
+    <!-- settings-->
+    <string name="testText">Test Alarm</string>
+    <string name="studyText">Study Alarm</string>
+    <string name="wake_sleepTex">Sleep/Wake Alarm</string>
+    <string name="text">before class</string>
+    <string name="wakeTText">Wake Time</string>
+    <string name="sleepTText">Sleep Time</string>
+    <string name="sleepSelectText">00:00 AM</string>
+    <string name="wakeSelectText">00:00 AM</string>
+
+
+    <!--    TIMETABLE MAKER SCREEN-->
+    <string name="maker_header">Courses</string>
+    <string name="generate_button">GENERATE</string>
+    <string name="reset_button">RESET</string>
+    <string name="no_course_mess">Tap on the pencil to add course</string>
+
+    <!--    ADD COURSE FRAGMENT-->
+    <string name="add_course_hear">New Course</string>
+    <string name="course_name_hint">Course Name</string>
+    <string name="section_hint">Section Number</string>
+    <string name="instructor_hint">Instructor</string>
+    <string name="add_button">ADD</string>
+    <string name="cancel_button">CANCEL</string>
+
+    <!--    TIME ROW FRAGMENT-->
+    <string name="initial_time">00:00</string>
+    <string name="duration_hint">minutes</string>
+    <string-array name="week_days">
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+    </string-array>
+
+    <!--    CONFIRM COURSE-->
+    <string name="confirm_question">How many courses for 1 schedule?</string>
+    <string name="number_hint">number</string>
+    <string name="create_button">CREATE</string>
+
+    <!--    SAMPLE SCHEDULE-->
+    <string name="schedule_message">Cannot create conflict-free schedule from your courses!</string>
+
+    <!-- itemDetails-->
+    <string name="itemHeader">Add Note</string>
+    <string name="item_save_button">Save</string>
+    <string name="getDate">Get Date</string>
+    <string name="enterDate">Enter Date</string>
+    <string name="type_note_here">Type Note Here...</string>
+    <string name="enterTime">Enter Time</string>
+    <string name="bottom_sheet_miscellaneuos">Miscellaneuos</string>
+    <string name="add_image">Add Image</string>
+    <string name="description">description</string>
+    <string name="date">Date:</string>
+    <string name="time">Time:</string>
+    <string name="hasTest">Quiz/Test</string>
+    <string name="sectionHeader">Section:</string>
+    <string name="instructorHeader">Instructor:</string>
+    <string name="durationHeader">Duration(mins):</string>
+    <string name="hint">Enter</string>
+
+    <string-array name="days">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
