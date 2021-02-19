@@ -25,13 +25,13 @@
     <string name="tutButton">Watch Tutorials</string>
 
     <string name="header1">Welcome to Timely</string>
-    <string name="content1">Let\'s me show you how to use it real quick</string>
+    <string name="content1">Let me show you how to use it real quick</string>
     <string name="header2">Add new courses</string>
     <string name="content2">Tap on the pencil icon to add new courses</string>
     <string name="header3">Add study time</string>
-    <string name="content3">Fill in all the times of your courses by\n tapping on the plus sign and \nremember to hit the Save button</string>
-    <string name="header4">Generate your timetables</string>
-    <string name="content4">Hit the Generate button and specify the number \nof courses for each timetable to create \nall possible schedules from your courses</string>
+    <string name="content3">Fill in all the durations of your courses by\n tapping on the plus sign and \nremember to hit the Save button</string>
+    <string name="header4">Generate your schedules</string>
+    <string name="content4">Hit the Generate button and specify the \nnumber of courses for each timetable</string>
     <string name="header5">Choose a Timetable</string>
     <string name="content5">Pick your desired timetable and hit Apply</string>
 

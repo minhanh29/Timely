@@ -339,6 +339,7 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
 
     public void save()
     {
+        changed = false;
         //set note
         String note = noteView.getText().toString();
         studyTime.setNote(note);
