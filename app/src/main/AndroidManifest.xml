@@ -19,21 +19,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="q">
-        <activity android:name=".timetablemaker.generator.SampleScheduleActivity" />
-        <activity android:name=".settings.NotificationSettingsActivity" />
-        <activity android:name=".ItemDetailsActivity" />
-        <activity android:name=".timetable.TimetableActivity" />
-        <activity android:name=".timetablemaker.TimetableMakerActivity" />
-        <activity android:name=".timetablemaker.StudyTimeActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".intro.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".timetablemaker.generator.SampleScheduleActivity" />
+        <activity android:name=".settings.NotificationSettingsActivity" />
+        <activity android:name=".ItemDetailsActivity" />
+        <activity android:name=".timetable.TimetableActivity" />
+        <activity android:name=".timetablemaker.TimetableMakerActivity" />
+        <activity android:name=".timetablemaker.StudyTimeActivity" />
+        <activity android:name=".MainActivity" />
 
-        <receiver android:name=".settings.ButtonReceiver"/>
+        <receiver android:name=".settings.ButtonReceiver" />
 
         <service
             android:name=".settings.Ringtone"

@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 
+import com.example.timely.intro.IntroActivity;
+import com.example.timely.intro.PreferenceManager;
 import com.example.timely.settings.NotificationSettingsActivity;
 import com.example.timely.timetable.TimetableActivity;
 import com.example.timely.timetablemaker.TimetableMakerActivity;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         timetable = findViewById(R.id.timetable_card);
         generator = findViewById(R.id.generator_card);
@@ -72,6 +75,14 @@ public class MainActivity extends AppCompatActivity {
                 }.start();
             }
         });
+    }
+
+    public void watchTut (View view) {
+        PreferenceManager preferenceManager = new PreferenceManager(this);
+        preferenceManager.setFirstTimeLaunch(true);
+        Intent intent = new Intent(this, IntroActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void goToTimetable() {

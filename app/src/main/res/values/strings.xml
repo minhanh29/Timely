@@ -1,6 +1,40 @@
 <resources>
     <string name="app_name">Timely</string>
 
+    <!--    Intro Screen-->
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Hello Food!</string>
+    <string name="slide_1_desc">The easiest way to order food from your favourite restaurant!</string>
+
+    <string name="slide_2_title">Movie Tickets</string>
+    <string name="slide_2_desc">Book movie tickets for your family and friends!</string>
+
+    <string name="slide_3_title">Great Discounts</string>
+    <string name="slide_3_desc">Best discounts on every single service we offer!</string>
+
+    <string name="slide_4_title">World Travel</string>
+    <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+
+    <string name="tutButton">Watch Tutorials</string>
+
+    <string name="header1">Welcome to Timely</string>
+    <string name="content1">Let\'s me show you how to use it real quick</string>
+    <string name="header2">Add new courses</string>
+    <string name="content2">Tap on the pencil icon to add new courses</string>
+    <string name="header3">Add study time</string>
+    <string name="content3">Fill in all the times of your courses by\n tapping on the plus sign and \nremember to hit the Save button</string>
+    <string name="header4">Generate your timetables</string>
+    <string name="content4">Hit the Generate button and specify the number \nof courses for each timetable to create \nall possible schedules from your courses</string>
+    <string name="header5">Choose a Timetable</string>
+    <string name="content5">Pick your desired timetable and hit Apply</string>
+
     <!--   TIMETABLE SCREEN-->
 
     <!--    Buttons-->

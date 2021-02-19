@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.text.format.DateFormat;
 import android.util.Log;
 
 import com.example.timely.DatabaseHelper;
@@ -139,6 +140,7 @@ public class AlarmService extends Service {
         if (time ==  null)
             return START_NOT_STICKY;
 
+        Log.i("Timer", "" + DateFormat.format("hh:mm aa MMM, dd", time));
 
         // count the time
         // This is a separate thread, so the codes after this timer will still run
@@ -160,7 +162,7 @@ public class AlarmService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, mIntent, 0);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Timely")
-                .setContentText("Alarm is set successfully")
+                .setContentText("Next Alarm at " + DateFormat.format("hh:mm aa MMM, dd", time))
                 .setSmallIcon(R.drawable.ic_foreground)
                 .setContentIntent(pendingIntent)
                 .build();

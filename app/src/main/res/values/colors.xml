@@ -9,8 +9,27 @@
 
     <color name="trans">#00000000</color>
 
+    <!--    ripple effect -->
+    <color name="ripple">#782c00</color>
+
     <!-- header colors -->
     <color name="header">#ffffff</color>
+    <array name="dot_on_page_active">
+        <item>#B71C1C</item>
+        <item>#00439d</item>
+        <item>#c8700d</item>
+        <item>#0c8059</item>
+        <item>#B71C1C</item>
+    </array>
+
+    <array name="dot_on_page_not_active">
+        <item>#ff9065</item>
+        <item>#3ca7f4</item>
+        <item>#f7c287</item>
+        <item>#7ad9b9</item>
+        <item>#ff9065</item>
+    </array>
+
 
     <!--    DASHBOARD-->
     <color name="start_color">#ff4301</color>

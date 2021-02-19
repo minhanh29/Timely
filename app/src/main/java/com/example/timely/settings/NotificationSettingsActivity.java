@@ -254,7 +254,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
         editor.putInt(SLEEPHOUR, sleepHour);
         editor.putInt(SLEEPMIN, sleepMinute);
         editor.apply();
-        Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
     }
 
     private void updateViews() {
