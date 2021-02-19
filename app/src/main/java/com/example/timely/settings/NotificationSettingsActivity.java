@@ -317,6 +317,7 @@ public class NotificationSettingsActivity extends AppCompatActivity {
             // time before alarm
             intent.putExtra(STUDY_BEFORE, studyBefore);
             intent.putExtra(TEST_BEFORE, testBefore);
+
             startService(intent);
         }
     }

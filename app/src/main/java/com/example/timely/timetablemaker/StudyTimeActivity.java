@@ -1,10 +1,12 @@
 package com.example.timely.timetablemaker;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,16 +18,18 @@ import android.widget.LinearLayout;
 import com.example.timely.DatabaseHelper;
 import com.example.timely.R;
 import com.example.timely.courses.StudyTime;
+import com.example.timely.timetablemaker.generator.SampleScheduleActivity;
 
 import java.util.ArrayList;
 
-public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragment.OnDeleteStudyTimeFragmentListener {
+public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragment.OnTimeRowListener {
 
     private static final String IS_FIRST_LOAD = "IS_FIRST_LOAD";
 
     DatabaseHelper db;
     String courseId;
     Animation animation;
+    boolean changed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,9 @@ public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragm
         setContentView(R.layout.activity_study_time);
 
         db = new DatabaseHelper(this, DatabaseHelper.TEMP_DATABASE);
+
+        // check modification
+        changed = false;
 
         // get the course id
         Intent intent = getIntent();
@@ -71,6 +78,12 @@ public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragm
 
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        changed = false;
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(TimetableMakerActivity.IS_NEW_COURSE, false);
@@ -78,6 +91,7 @@ public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragm
     }
 
     public void addStudyTime(View view) {
+        changed = true;
         view.startAnimation(animation);
 
         TimeRowFragment timeRowFragment = new TimeRowFragment();
@@ -101,6 +115,13 @@ public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragm
     public void onDeleteStudyTimeFragment(Fragment fragment) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.remove(fragment).commit();
+        changed = true;
+    }
+
+    public void onItemChange(boolean change)
+    {
+        changed = change;
+
     }
 
     // save all study times to the database
@@ -108,6 +129,12 @@ public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragm
     {
         view.startAnimation(animation);
 
+        save();
+    }
+
+
+    public void save()
+    {
         // reset data for this course id;
         db.deleteAllStudyTime(courseId);
 
@@ -118,14 +145,37 @@ public class StudyTimeActivity extends AppCompatActivity implements TimeRowFragm
                 db.addStudyTime(time);
             }
         }
-    }
 
+        changed = false;
+    }
 
     // go back to previous activity
     public void goBack(View view)
     {
-        view.startAnimation(animation);
-        finish();
+        if (changed)
+        {
+            changed = false;
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Do you want to save changes?");
+            builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    StudyTimeActivity.this.save();
+                    StudyTimeActivity.this.finish();
+                }
+            });
+            builder.setNegativeButton("Discard", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    StudyTimeActivity.this.finish();
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        } else {
+            view.startAnimation(animation);
+            finish();
+        }
     }
 }
 

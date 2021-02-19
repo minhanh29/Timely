@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +41,8 @@ public class TimeRowFragment extends Fragment implements AdapterView.OnItemSelec
 
     private int day = 0, hour = 0, minutes = 0, duration = 0;
     private String courseId;
+    private boolean firstTime = true;
+    private OnTimeRowListener listener;
 
     public TimeRowFragment() {
         // Required empty public constructor
@@ -60,6 +64,8 @@ public class TimeRowFragment extends Fragment implements AdapterView.OnItemSelec
             duration = savedInstanceState.getInt(DURATION);
             day = savedInstanceState.getInt(DAY);
         }
+
+        firstTime = true;
     }
 
 
@@ -68,6 +74,7 @@ public class TimeRowFragment extends Fragment implements AdapterView.OnItemSelec
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_time_row, container, false);
+        listener = (OnTimeRowListener) getActivity();
 
         daySpinner = view.findViewById(R.id.daySpinner);
         timeView = view.findViewById(R.id.timeView);
@@ -78,6 +85,23 @@ public class TimeRowFragment extends Fragment implements AdapterView.OnItemSelec
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         daySpinner.setAdapter(adapter);
         daySpinner.setOnItemSelectedListener(this);
+
+        durationInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                listener.onItemChange(true);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         // time picker
         timeView.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +118,7 @@ public class TimeRowFragment extends Fragment implements AdapterView.OnItemSelec
                         calendar.set(0, 0, 0, hour, minutes);
 
                         timeView.setText(DateFormat.format("hh:mm aa", calendar));
+                        listener.onItemChange(true);
                     }
                 }, hour, minutes, false);  // initial values
 
@@ -104,7 +129,6 @@ public class TimeRowFragment extends Fragment implements AdapterView.OnItemSelec
 
 
         // delete the fragment
-        final OnDeleteStudyTimeFragmentListener listener = (OnDeleteStudyTimeFragmentListener) getActivity();
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +145,7 @@ public class TimeRowFragment extends Fragment implements AdapterView.OnItemSelec
 
         return view;
     }
+
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
@@ -139,6 +164,11 @@ public class TimeRowFragment extends Fragment implements AdapterView.OnItemSelec
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         day = position;
+
+        if (firstTime)
+            firstTime = false;
+        else
+            listener.onItemChange(true);
     }
 
     @Override
@@ -171,8 +201,9 @@ public class TimeRowFragment extends Fragment implements AdapterView.OnItemSelec
 
 
     // delete fragment
-    public interface OnDeleteStudyTimeFragmentListener
+    public interface OnTimeRowListener
     {
         void onDeleteStudyTimeFragment(Fragment fragment);
+        void onItemChange(boolean change);
     }
 }

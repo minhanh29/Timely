@@ -51,7 +51,9 @@ public class AlarmService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (!useOldData)
+        {
             updateIntent(intent);
+        }
 
         initializeValues();
 
@@ -162,7 +164,7 @@ public class AlarmService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, mIntent, 0);
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Timely")
-                .setContentText("Next Alarm at " + DateFormat.format("hh:mm aa MMM, dd", time))
+                .setContentText("Next alarm at " + DateFormat.format("hh:mm aa MMM, dd", time))
                 .setSmallIcon(R.drawable.ic_foreground)
                 .setContentIntent(pendingIntent)
                 .build();

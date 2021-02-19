@@ -13,6 +13,9 @@ import com.example.timely.DatabaseHelper;
 import com.example.timely.ItemDetailsActivity;
 import com.example.timely.MainActivity;
 import com.example.timely.R;
+import com.example.timely.settings.AlarmManager;
+import com.example.timely.settings.AlarmService;
+import com.example.timely.settings.NotificationSettingsActivity;
 import com.example.timely.timetablemaker.TimetableMakerActivity;
 
 import java.util.Calendar;
@@ -79,6 +82,9 @@ public class TimetableActivity extends AppCompatActivity implements CourseView.O
 
         // update the screen
         schedule.updateCourses(db.getAllCourses());
+
+        // update the alarm
+        AlarmManager.updateAlarm(this);
     }
 
     public void showCourseDetail(View view)

@@ -1,7 +1,7 @@
 package com.example.timely;
 
 import android.Manifest;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -13,42 +13,46 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 
 import java.io.InputStream;
 import java.util.Calendar;
+
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.timely.courses.Course;
 import com.example.timely.courses.StudyTime;
+import com.example.timely.settings.AlarmManager;
 import com.example.timely.settings.AlarmService;
+import com.example.timely.settings.NotificationSettingsActivity;
 import com.example.timely.timetable.TimetableActivity;
 
 import android.widget.AdapterView;
 
 
 
-public class ItemDetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class ItemDetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, TextWatcher {
     TimePickerDialog pickerTime;
-    EditText sectionNo, instructorName, editDuration;
+    EditText sectionNo, instructorName, editDuration, note;
     TextView editTime;
     CheckBox hasTest;
     Spinner dateSpinner;
@@ -70,6 +74,9 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
     private static final int REQUEST_CODE_SELECT_IMAGE = 2;
 
+    private boolean changed = false;
+    private boolean first = true;
+
     Animation animation;
 
     @Override
@@ -86,8 +93,23 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
         editDuration = findViewById(R.id.editDuration);
         deleteImageBtn = findViewById(R.id.deleteImageBtn);
         layoutImage = findViewById(R.id.layoutAddImage);
+        note = findViewById(R.id.note);
 
         selectedImagePath = "";
+
+        changed = false;
+        first = true;
+        // text changes
+        sectionNo.addTextChangedListener(this);
+        instructorName.addTextChangedListener(this);
+        editDuration.addTextChangedListener(this);
+        note.addTextChangedListener(this);
+        hasTest.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                changed = true;
+            }
+        });
 
         initMiscellaneuos();
 
@@ -126,6 +148,7 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
                         cal.set(Calendar.HOUR_OF_DAY, hour);
                         cal.set(Calendar.MINUTE, minutes);
                         editTime.setText(android.text.format.DateFormat.format("hh:mm aa", cal));
+                        changed = true;
                     }
                 }, hour, minutes,false);
                 pickerTime.show();
@@ -136,7 +159,13 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
     }
 
 
-//    Add Images
+    @Override
+    protected void onResume() {
+        super.onResume();
+        changed = false;
+    }
+
+    //    Add Images
     private void initMiscellaneuos() {
         layoutImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,6 +187,7 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
     }
 
     private void selectImage() {
+        changed = true;
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         if (intent.resolveActivity(getPackageManager()) != null){
             startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE);
@@ -274,16 +304,41 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
 
     public void goBack(View view)
     {
-        // go back
+        if (changed)
+        {
+            changed = false;
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Do you want to save changes?");
+            builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ItemDetailsActivity.this.save();
+                    ItemDetailsActivity.this.goBack();
+                }
+            });
+            builder.setNegativeButton("Discard", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ItemDetailsActivity.this.goBack();
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        } else {
+            // go back
+            goBack();
+        }
+    }
+
+    public void goBack()
+    {
         Intent intent = new Intent(this, TimetableActivity.class);
         startActivity(intent);
         finish();
     }
 
-    public void save(View view)
+    public void save()
     {
-        view.startAnimation(animation);
-
         //set note
         String note = noteView.getText().toString();
         studyTime.setNote(note);
@@ -312,12 +367,22 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
 
         // update the alarm
-        Intent mIntent = new Intent(this, AlarmService.class);
-        startService(mIntent);
+        AlarmManager.updateAlarm(this);
+    }
+
+    public void save(View view)
+    {
+        view.startAnimation(animation);
+        save();
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) { }
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (first)
+            first = false;
+        else
+            changed = true;
+    }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) { }
@@ -328,5 +393,20 @@ public class ItemDetailsActivity extends AppCompatActivity implements AdapterVie
 
         layoutImage.setVisibility(View.VISIBLE);
         deleteImageBtn.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        changed = true;
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
     }
 }
